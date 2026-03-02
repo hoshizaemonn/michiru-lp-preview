@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ミチルシリカ 総合分析レポート</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif;background:#f0f2f5;color:#1a1a2e;font-size:13px;line-height:1.6}
+.wrap{max-width:1200px;margin:0 auto;padding:20px 16px}
+.header{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;padding:28px 24px;border-radius:12px;margin-bottom:20px}
+.header h1{font-size:22px;font-weight:700}.header .sub{color:#a0b0cc;font-size:12px;margin-top:4px}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:18px}
+.kpi{background:#fff;border-radius:10px;padding:14px 16px;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.kpi .lb{font-size:10px;color:#888;letter-spacing:.5px}.kpi .val{font-size:28px;font-weight:800;margin-top:2px}.kpi .note{font-size:10px;color:#aaa}
+.kpi.green .val{color:#27ae60}.kpi.blue .val{color:#2980b9}.kpi.orange .val{color:#e67e22}.kpi.red .val{color:#e74c3c}.kpi.purple .val{color:#8e44ad}
+.section{background:#fff;border-radius:10px;padding:20px;margin-bottom:16px;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.section h2{font-size:16px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.section h2 .ico{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0}
+.section .desc{font-size:11.5px;color:#888;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{background:#2c3e50;color:#fff;padding:7px 5px;text-align:center;font-weight:500;font-size:10px;white-space:nowrap;position:sticky;top:0}
+td{padding:5px 4px;border-bottom:1px solid #f0f0f0;text-align:center;white-space:nowrap}
+tr:hover{background:#f8f9fa}
+tr.gap{background:#fff5f5}tr.gap:hover{background:#ffe8e8}
+tr.has-sale{background:#f0f8ff}tr.has-sale:hover{background:#e3f0fb}
+tr.mh td{background:#34495e;color:#fff;font-weight:700;text-align:left;padding:8px 6px;font-size:12px}
+.tag{display:inline-block;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:600}
+.tag-sale{background:#d5f5e3;color:#1e8449}.tag-gap{background:#fadbd8;color:#c0392b}.tag-zero{color:#ddd}
+.compare-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.compare-card{border:1px solid #e8e8e8;border-radius:8px;padding:14px}
+.compare-card.good{border-left:4px solid #27ae60}.compare-card.bad{border-left:4px solid #e74c3c}
+.compare-card h3{font-size:13px;margin-bottom:8px}
+.metric{display:flex;justify-content:space-between;padding:3px 0;font-size:11.5px;border-bottom:1px solid #f5f5f5}
+.metric .label{color:#666}.metric .value{font-weight:700}
+.insight{border-left:4px solid #ffc107;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:12px;background:#fff8e1}
+.insight.danger{background:#ffebee;border-left-color:#e74c3c}
+.insight.info{background:#e3f2fd;border-left-color:#2196f3}
+.insight.success{background:#e8f5e9;border-left-color:#4caf50}
+.insight b{font-weight:700}
+.bar-row{display:flex;align-items:center;margin:4px 0;font-size:11px}
+.bar-row .bar-label{width:120px;flex-shrink:0;color:#555}
+.bar-row .bar-container{flex:1;background:#f0f0f0;border-radius:4px;height:18px}
+.bar-row .bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:6px;color:#fff;font-size:10px;font-weight:600;min-width:30px}
+.scroll-row{display:flex;align-items:center;font-size:10.5px;margin:2px 0}
+.scroll-row .depth{width:40px;text-align:right;color:#888;flex-shrink:0}
+.scroll-row .bars{flex:1;display:flex;gap:2px;margin-left:8px}
+.scroll-row .sbar{height:14px;border-radius:2px}
+.action-list{counter-reset:action}
+.action-item{padding:12px 16px 12px 50px;border-bottom:1px solid #f0f0f0;position:relative}
+.action-item::before{counter-increment:action;content:counter(action);position:absolute;left:16px;top:12px;width:24px;height:24px;background:#2980b9;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.action-item h4{font-size:13px;margin-bottom:3px}.action-item p{font-size:11.5px;color:#555}
+.footer-note{text-align:center;color:#aaa;font-size:10px;padding:16px}
+</style></head><body><div class="wrap">
+<div class="header"><h1>ミチルシリカ 総合分析レポート</h1>
+<div class="sub">集計期間: 2026/01/01 - 02/28 | Meta広告 / Yahoo広告 / GA4 / Search Console / Clarity | 更新: 2026/03/03</div></div>
+<div class="kpi-row">
+<div class="kpi green"><div class="lb">新規購入</div><div class="val">32</div><div class="note">1/1-2/28 クレジット+代引き</div></div>
+<div class="kpi blue"><div class="lb">総広告費</div><div class="val">&yen;118,914</div><div class="note">Meta &yen;66,592 + Yahoo &yen;52,322</div></div>
+<div class="kpi purple"><div class="lb">平均CPA</div><div class="val">&yen;3,716</div><div class="note">広告費 / 新規購入数</div></div>
+<div class="kpi orange"><div class="lb">全体CVR</div><div class="val">1.7%</div><div class="note">購入数 / 広告クリック数</div></div>
+<div class="kpi red"><div class="lb">ギャップ日数</div><div class="val">17日</div><div class="note">1/21-29(9日) + 2/17-19(3日) + 2/22-26(5日)</div></div>
+</div><div class="section">
+<h2><span class="ico" style="background:#e74c3c">!</span> ギャップ期間 vs 好調期間 比較</h2>
+<div class="desc">売上ゼロが続いた3つのギャップ期間と好調期間を比較。<b>重要: すべてのギャップ期間で広告は通常通り配信されていました。</b></div>
+<div class="compare-grid"><div class="compare-card good"><h3>好調期 (1/1-20)</h3>
+<div style="font-size:10px;color:#999;margin-bottom:6px">20日間・17件成約</div>
+<div class="metric"><span class="label">広告費合計</span><span class="value">&yen;39,792</span></div>
+<div class="metric"><span class="label">日平均広告費</span><span class="value">&yen;1,990</span></div>
+<div class="metric"><span class="label">総クリック数</span><span class="value">611</span></div>
+<div class="metric"><span class="label">日平均クリック</span><span class="value">30.6</span></div>
+<div class="metric"><span class="label">Meta CTR</span><span class="value">1.72%</span></div>
+<div class="metric"><span class="label">Yahoo CTR</span><span class="value">3.83%</span></div>
+<div class="metric"><span class="label">IG CPM</span><span class="value" style="color:#27ae60">&yen;2045</span></div>
+<div class="metric"><span class="label">IG Frequency</span><span class="value" style="color:#27ae60">1.13</span></div>
+<div class="metric" style="border-top:1px solid #ddd;margin-top:4px;padding-top:4px"><span class="label">LP タップ率</span><span class="value">50.0%</span></div>
+<div class="metric"><span class="label">LP PV</span><span class="value">4 <span style="font-size:9px;color:#e74c3c">※少</span></span></div>
+<div class="metric"><span class="label">新規購入</span><span class="value" style="color:#27ae60">17件</span></div>
+<div class="metric"><span class="label">CVR</span><span class="value" style="color:#27ae60">2.78%</span></div>
+</div><div class="compare-card bad"><h3>ギャップ1 (1/21-29)</h3>
+<div style="font-size:10px;color:#999;margin-bottom:6px">9日間・0件</div>
+<div class="metric"><span class="label">広告費合計</span><span class="value">&yen;18,975</span></div>
+<div class="metric"><span class="label">日平均広告費</span><span class="value">&yen;2,108</span></div>
+<div class="metric"><span class="label">総クリック数</span><span class="value">272</span></div>
+<div class="metric"><span class="label">日平均クリック</span><span class="value">30.2</span></div>
+<div class="metric"><span class="label">Meta CTR</span><span class="value">1.15%</span></div>
+<div class="metric"><span class="label">Yahoo CTR</span><span class="value">3.31%</span></div>
+<div class="metric"><span class="label">IG CPM</span><span class="value" style="color:#e74c3c">&yen;1496</span></div>
+<div class="metric"><span class="label">IG Frequency</span><span class="value" style="color:#e74c3c">1.14</span></div>
+<div class="metric" style="border-top:1px solid #ddd;margin-top:4px;padding-top:4px"><span class="label">LP タップ率</span><span class="value" style="color:#e74c3c">15.6%</span></div>
+<div class="metric"><span class="label">LP PV</span><span class="value">32</span></div>
+<div class="metric"><span class="label">フォーム入力</span><span class="value" style="color:#e74c3c">0回</span></div>
+<div class="metric"><span class="label">新規購入</span><span class="value" style="color:#e74c3c">0件</span></div>
+<div class="metric"><span class="label">CVR</span><span class="value" style="color:#e74c3c">0%</span></div>
+</div><div class="compare-card good"><h3>好調期 (2/1-16)</h3>
+<div style="font-size:10px;color:#999;margin-bottom:6px">16日間・12件成約</div>
+<div class="metric"><span class="label">広告費合計</span><span class="value">&yen;33,855</span></div>
+<div class="metric"><span class="label">日平均広告費</span><span class="value">&yen;2,116</span></div>
+<div class="metric"><span class="label">総クリック数</span><span class="value">628</span></div>
+<div class="metric"><span class="label">日平均クリック</span><span class="value">39.2</span></div>
+<div class="metric"><span class="label">Meta CTR</span><span class="value">1.44%</span></div>
+<div class="metric"><span class="label">Yahoo CTR</span><span class="value">3.61%</span></div>
+<div class="metric"><span class="label">IG CPM</span><span class="value" style="color:#2980b9">&yen;1084</span></div>
+<div class="metric"><span class="label">IG Frequency</span><span class="value" style="color:#27ae60">1.08</span></div>
+<div class="metric" style="border-top:1px solid #ddd;margin-top:4px;padding-top:4px"><span class="label">LP タップ率</span><span class="value" style="color:#27ae60">30.8%</span></div>
+<div class="metric"><span class="label">LP PV</span><span class="value" style="color:#27ae60">504</span></div>
+<div class="metric"><span class="label">フォーム入力</span><span class="value" style="color:#27ae60">7回</span></div>
+<div class="metric"><span class="label">新規購入</span><span class="value" style="color:#27ae60">12件</span></div>
+<div class="metric"><span class="label">CVR</span><span class="value" style="color:#27ae60">1.91%</span></div>
+</div><div class="compare-card bad"><h3>ギャップ2 (2/17-19)</h3>
+<div style="font-size:10px;color:#999;margin-bottom:6px">3日間・0件</div>
+<div class="metric"><span class="label">広告費合計</span><span class="value">&yen;5,669</span></div>
+<div class="metric"><span class="label">日平均広告費</span><span class="value">&yen;1,890</span></div>
+<div class="metric"><span class="label">総クリック数</span><span class="value">115</span></div>
+<div class="metric"><span class="label">日平均クリック</span><span class="value">38.3</span></div>
+<div class="metric"><span class="label">Meta CTR</span><span class="value">1.31%</span></div>
+<div class="metric"><span class="label">Yahoo CTR</span><span class="value">3.88%</span></div>
+<div class="metric"><span class="label">IG CPM</span><span class="value" style="color:#e74c3c">&yen;847</span></div>
+<div class="metric"><span class="label">IG Frequency</span><span class="value" style="color:#27ae60">1.09</span></div>
+<div class="metric" style="border-top:1px solid #ddd;margin-top:4px;padding-top:4px"><span class="label">LP タップ率</span><span class="value" style="color:#e74c3c">9.3%</span></div>
+<div class="metric"><span class="label">LP PV</span><span class="value">86</span></div>
+<div class="metric"><span class="label">フォーム入力</span><span class="value" style="color:#e74c3c">0回</span></div>
+<div class="metric"><span class="label">新規購入</span><span class="value" style="color:#e74c3c">0件</span></div>
+<div class="metric"><span class="label">CVR</span><span class="value" style="color:#e74c3c">0%</span></div>
+</div><div class="compare-card bad"><h3>2/22-28期間（低迷）</h3>
+<div style="font-size:10px;color:#999;margin-bottom:6px">7日間・1件のみ（Yahoo CV 2/27）</div>
+<div class="metric"><span class="label">広告費合計</span><span class="value">&yen;12,443</span></div>
+<div class="metric"><span class="label">日平均広告費</span><span class="value">&yen;1,778</span></div>
+<div class="metric"><span class="label">総クリック数</span><span class="value">204</span></div>
+<div class="metric"><span class="label">日平均クリック</span><span class="value">29.1</span></div>
+<div class="metric"><span class="label">Meta CTR</span><span class="value">1.9%</span></div>
+<div class="metric"><span class="label">Yahoo CTR</span><span class="value">3.2%</span></div>
+<div class="metric"><span class="label">IG CPM</span><span class="value" style="color:#27ae60">&yen;1,886</span></div>
+<div class="metric"><span class="label">IG Frequency</span><span class="value" style="color:#e74c3c">1.11</span></div>
+<div class="metric" style="border-top:1px solid #ddd;margin-top:4px;padding-top:4px"><span class="label">Meta購入</span><span class="value" style="color:#e74c3c">0件</span></div>
+<div class="metric"><span class="label">Yahoo購入</span><span class="value" style="color:#27ae60">1件</span></div>
+<div class="metric"><span class="label">CVR</span><span class="value" style="color:#e74c3c">0.49%</span></div>
+<div style="font-size:10px;color:#e67e22;margin-top:6px">※2/24 Meta広告データ欠損、2/25〜A/Bテスト開始</div>
+</div></div>
+<div class="insight danger"><b>発見1 — 広告は通常配信だった:</b> 両ギャップ期間とも広告は配信中。ギャップ1: 日平均&yen;2,108/30C、ギャップ2: 日平均&yen;1,890/38C。「広告を止めたから」ではない。</div>
+<div class="insight"><b>発見2 — CTRでは説明不可:</b> ギャップ2のYahoo CTRは3.88%で好調期3.61%を<b>上回っている</b>。CTRが高くても売れない日がある。</div>
+<div class="insight info"><b>発見3 — CPM（広告の質）が核心:</b> 好調1月のIG CPM <b>&yen;2,045</b> → ギャップ1では<b>&yen;1,496</b>（-27%）。さらに2月は&yen;1,084まで低下。CPMの低下は「安い枠＝買わない層」への配信を意味し、これが売上低下の最大要因。</div>
+<div class="insight" style="background:#f3e5f5;border-left-color:#9c27b0"><b>発見4 — Frequency（広告疲弊）:</b> Frequency 1.18以上で売上率が<b>29%に急落</b>。ギャップ1期間はFrequencyが高止まり（最大1.21）し、同じ人に繰り返し広告が表示されていた。</div>
+</div><div class="section" style="overflow-x:auto">
+<h2><span class="ico" style="background:#2980b9">T</span> 日別タイムライン（広告 x 購入クロス分析）</h2>
+<div class="desc">広告配信データと新規購入を日別に並べ、ギャップ期間（赤背景）を可視化。</div>
+<table><thead><tr>
+<th style="width:70px">日付</th><th style="width:22px">曜</th>
+<th style="width:55px">Meta費用</th><th style="width:32px">MC</th><th style="width:38px">MCTR</th>
+<th style="width:42px;background:#1a5276">CPM</th><th style="width:32px;background:#1a5276">Freq</th><th style="width:35px;background:#1a5276">Vid3s</th>
+<th style="width:55px">Yahoo費用</th><th style="width:32px">YC</th><th style="width:38px">YCTR</th>
+<th style="width:28px">GSC</th>
+<th style="width:58px">広告費計</th><th style="width:35px">総C</th>
+<th style="width:35px">購入</th>
+<th style="text-align:left">詳細</th>
+</tr></thead><tbody><tr class="mh"><td colspan="16">1月</td></tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">01-01</td><td style="">木</td>
+<td>&yen;943</td><td>7</td><td style="font-size:10px">2.0</td>
+<td style="font-size:10px;color:#27ae60;font-weight:700">2617</td><td style="font-size:10px;color:#e67e22">1.16</td><td style="font-size:10px;color:#e74c3c;font-weight:700">9%</td>
+<td>&yen;1,036</td><td>20</td><td style="font-size:10px">3.6</td>
+<td>6</td>
+<td style="font-weight:600">&yen;1,979</td><td style="font-weight:600">27</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">森あこ(IG)※解約</td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">01-02</td><td style="">金</td>
+<td>&yen;1,282</td><td>15</td><td style="font-size:10px">4.4</td>
+<td style="font-size:10px;color:#27ae60;font-weight:700">3089</td><td style="font-size:10px;color:#e67e22">1.16</td><td style="font-size:10px;color:#e67e22">22%</td>
+<td>&yen;939</td><td>21</td><td style="font-size:10px">3.8</td>
+<td>1</td>
+<td style="font-weight:600">&yen;2,221</td><td style="font-weight:600">36</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">結城彰子(検索)※解約</td>
+</tr><tr class="">
+<td style="text-align:left;font-weight:500">01-03</td><td style="color:#2980b9;font-weight:600">土</td>
+<td>&yen;538</td><td>9</td><td style="font-size:10px">4.0</td>
+<td style="font-size:10px;color:#2980b9">2131</td><td style="font-size:10px;color:#e74c3c;font-weight:700">1.20</td><td style="font-size:10px;color:#2980b9">32%</td>
+<td>&yen;884</td><td>20</td><td style="font-size:10px">3.3</td>
+<td>1</td>
+<td style="font-weight:600">&yen;1,422</td><td style="font-weight:600">29</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"></td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">01-04</td><td style="color:#e74c3c;font-weight:600">日</td>
+<td>&yen;1,233</td><td>11</td><td style="font-size:10px">2.0</td>
+<td style="font-size:10px;color:#2980b9">2055</td><td style="font-size:10px;color:#e74c3c;font-weight:700">1.23</td><td style="font-size:10px;color:#27ae60;font-weight:700">44%</td>
+<td>&yen;853</td><td>21</td><td style="font-size:10px">2.8</td>
+<td>1</td>
+<td style="font-weight:600">&yen;2,086</td><td style="font-weight:600">32</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">森永恒已(Yahoo)</td>
+</tr><tr class="">
+<td style="text-align:left;font-weight:500">01-05</td><td style="">月</td>
+<td>&yen;1,113</td><td>6</td><td style="font-size:10px">1.8</td>
+<td style="font-size:10px;color:#27ae60;font-weight:700">2993</td><td style="font-size:10px;color:#e74c3c;font-weight:700">1.19</td><td style="font-size:10px;color:#27ae60;font-weight:700">40%</td>
+<td>&yen;1,180</td><td>25</td><td style="font-size:10px">3.1</td>
+<td>7</td>
+<td style="font-weight:600">&yen;2,293</td><td style="font-weight:600">31</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"></td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">01-06</td><td style="">火</td>
+<td>&yen;1,124</td><td>8</td><td style="font-size:10px">3.1</td>
+<td style="font-size:10px;color:#27ae60;font-weight:700">3755</td><td style="font-size:10px;color:#e74c3c;font-weight:700">1.27</td><td style="font-size:10px;color:#e67e22">19%</td>
+<td>&yen;1,210</td><td>26</td><td style="font-size:10px">3.7</td>
+<td>8</td>
+<td style="font-weight:600">&yen;2,334</td><td style="font-weight:600">34</td>
+<td><span class="tag tag-sale">2</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">長谷川薫(検索), 戸田智恵子(IG)※拒否</td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">01-07</td><td style="">水</td>
+<td>&yen;972</td><td>12</td><td style="font-size:10px">2.9</td>
+<td style="font-size:10px;color:#2980b9">1861</td><td style="font-size:10px;color:#e67e22">1.13</td><td style="font-size:10px;color:#27ae60;font-weight:700">39%</td>
+<td>&yen;900</td><td>23</td><td style="font-size:10px">5.2</td>
+<td>6</td>
+<td style="font-weight:600">&yen;1,872</td><td style="font-weight:600">35</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">井桁多永子(IG)</td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">01-08</td><td style="">木</td>
+<td>&yen;942</td><td>11</td><td style="font-size:10px">3.0</td>
+<td style="font-size:10px;color:#2980b9">2327</td><td style="font-size:10px;color:#e67e22">1.14</td><td style="font-size:10px;color:#27ae60;font-weight:700">45%</td>
+<td>&yen;905</td><td>22</td><td style="font-size:10px">3.3</td>
+<td>2</td>
+<td style="font-weight:600">&yen;1,847</td><td style="font-weight:600">33</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">大内貴世子(IG)</td>
+</tr><tr class="">
+<td style="text-align:left;font-weight:500">01-09</td><td style="">金</td>
+<td>&yen;825</td><td>10</td><td style="font-size:10px">2.9</td>
+<td style="font-size:10px;color:#2980b9">2181</td><td style="font-size:10px;color:#e67e22">1.14</td><td style="font-size:10px;color:#27ae60;font-weight:700">38%</td>
+<td>&yen;958</td><td>22</td><td style="font-size:10px">3.0</td>
+<td>7</td>
+<td style="font-weight:600">&yen;1,783</td><td style="font-weight:600">32</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"></td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">01-10</td><td style="color:#2980b9;font-weight:600">土</td>
+<td>&yen;1,222</td><td>9</td><td style="font-size:10px">2.0</td>
+<td style="font-size:10px;color:#27ae60;font-weight:700">2661</td><td style="font-size:10px;color:#27ae60">1.09</td><td style="font-size:10px;color:#2980b9">33%</td>
+<td>&yen;613</td><td>16</td><td style="font-size:10px">3.7</td>
+<td>3</td>
+<td style="font-weight:600">&yen;1,835</td><td style="font-weight:600">25</td>
+<td><span class="tag tag-sale">2</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">岩井浩子(IG), 井原美奈(店舗)※受取なし</td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">01-11</td><td style="color:#e74c3c;font-weight:600">日</td>
+<td>&yen;1,677</td><td>12</td><td style="font-size:10px">1.5</td>
+<td style="font-size:10px;color:#2980b9">2055</td><td style="font-size:10px;color:#e67e22">1.16</td><td style="font-size:10px;color:#27ae60;font-weight:700">44%</td>
+<td>&yen;515</td><td>16</td><td style="font-size:10px">7.0</td>
+<td>10</td>
+<td style="font-weight:600">&yen;2,192</td><td style="font-weight:600">28</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">堤加奈(IG)</td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">01-12</td><td style="">月</td>
+<td>&yen;1,512</td><td>13</td><td style="font-size:10px">2.5</td>
+<td style="font-size:10px;color:#27ae60;font-weight:700">2724</td><td style="font-size:10px;color:#e67e22">1.17</td><td style="font-size:10px;color:#27ae60;font-weight:700">41%</td>
+<td>&yen;497</td><td>14</td><td style="font-size:10px">4.6</td>
+<td>6</td>
+<td style="font-weight:600">&yen;2,009</td><td style="font-weight:600">27</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">西濃紀子(検索)</td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">01-13</td><td style="">火</td>
+<td>&yen;1,564</td><td>13</td><td style="font-size:10px">1.1</td>
+<td style="font-size:10px;color:#e67e22">1320</td><td style="font-size:10px;color:#27ae60">1.10</td><td style="font-size:10px;color:#27ae60;font-weight:700">50%</td>
+<td>&yen;242</td><td>7</td><td style="font-size:10px">1.6</td>
+<td>4</td>
+<td style="font-weight:600">&yen;1,806</td><td style="font-weight:600">20</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">中村真子(FB)</td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">01-14</td><td style="">水</td>
+<td>&yen;1,713</td><td>17</td><td style="font-size:10px">1.7</td>
+<td style="font-size:10px;color:#2980b9">1583</td><td style="font-size:10px;color:#e67e22">1.14</td><td style="font-size:10px;color:#27ae60;font-weight:700">44%</td>
+<td>&yen;691</td><td>16</td><td style="font-size:10px">3.0</td>
+<td>6</td>
+<td style="font-weight:600">&yen;2,404</td><td style="font-weight:600">33</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">田村貴信(Google)</td>
+</tr><tr class="">
+<td style="text-align:left;font-weight:500">01-15</td><td style="">木</td>
+<td>&yen;1,454</td><td>16</td><td style="font-size:10px">2.3</td>
+<td style="font-size:10px;color:#2980b9">2096</td><td style="font-size:10px;color:#e67e22">1.15</td><td style="font-size:10px;color:#27ae60;font-weight:700">38%</td>
+<td>&yen;594</td><td>16</td><td style="font-size:10px">3.6</td>
+<td>15</td>
+<td style="font-weight:600">&yen;2,048</td><td style="font-weight:600">32</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"></td>
+</tr><tr class="">
+<td style="text-align:left;font-weight:500">01-16</td><td style="">金</td>
+<td>&yen;1,142</td><td>13</td><td style="font-size:10px">1.2</td>
+<td style="font-size:10px;color:#e67e22">898</td><td style="font-size:10px;color:#27ae60">1.08</td><td style="font-size:10px;color:#27ae60;font-weight:700">53%</td>
+<td>&yen;487</td><td>14</td><td style="font-size:10px">5.6</td>
+<td>8</td>
+<td style="font-weight:600">&yen;1,629</td><td style="font-weight:600">27</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"></td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">01-17</td><td style="color:#2980b9;font-weight:600">土</td>
+<td>&yen;1,411</td><td>23</td><td style="font-size:10px">2.2</td>
+<td style="font-size:10px;color:#e67e22">1268</td><td style="font-size:10px;color:#27ae60">1.11</td><td style="font-size:10px;color:#27ae60;font-weight:700">36%</td>
+<td>&yen;525</td><td>20</td><td style="font-size:10px">10.0</td>
+<td>1</td>
+<td style="font-weight:600">&yen;1,936</td><td style="font-weight:600">43</td>
+<td><span class="tag tag-sale">2</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">吉田弘道(Yahoo), 小菅みちる(Google)</td>
+</tr><tr class="">
+<td style="text-align:left;font-weight:500">01-18</td><td style="color:#e74c3c;font-weight:600">日</td>
+<td>&yen;1,797</td><td>9</td><td style="font-size:10px">0.8</td>
+<td style="font-size:10px;color:#e67e22">1359</td><td style="font-size:10px;color:#e67e22">1.14</td><td style="font-size:10px;color:#27ae60;font-weight:700">39%</td>
+<td>&yen;286</td><td>11</td><td style="font-size:10px">4.6</td>
+<td>4</td>
+<td style="font-weight:600">&yen;2,083</td><td style="font-weight:600">20</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"></td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">01-19</td><td style="">月</td>
+<td>&yen;1,533</td><td>17</td><td style="font-size:10px">1.2</td>
+<td style="font-size:10px;color:#e67e22">1034</td><td style="font-size:10px;color:#27ae60">1.11</td><td style="font-size:10px;color:#27ae60;font-weight:700">51%</td>
+<td>&yen;470</td><td>18</td><td style="font-size:10px">6.6</td>
+<td>1</td>
+<td style="font-weight:600">&yen;2,003</td><td style="font-weight:600">35</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">宮崎充展(IG)</td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">01-20</td><td style="">火</td>
+<td>&yen;1,687</td><td>20</td><td style="font-size:10px">1.0</td>
+<td style="font-size:10px;color:#e67e22">884</td><td style="font-size:10px;color:#e67e22">1.12</td><td style="font-size:10px;color:#27ae60;font-weight:700">40%</td>
+<td>&yen;323</td><td>12</td><td style="font-size:10px">4.8</td>
+<td>6</td>
+<td style="font-weight:600">&yen;2,010</td><td style="font-weight:600">32</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">栃久保利和(IG)</td>
+</tr><tr class="gap">
+<td style="text-align:left;font-weight:500">01-21</td><td style="">水</td>
+<td>&yen;1,268</td><td>12</td><td style="font-size:10px">1.8</td>
+<td style="font-size:10px;color:#2980b9">1953</td><td style="font-size:10px;color:#e74c3c;font-weight:700">1.20</td><td style="font-size:10px;color:#2980b9">28%</td>
+<td>&yen;943</td><td>23</td><td style="font-size:10px">4.2</td>
+<td>5</td>
+<td style="font-weight:600">&yen;2,211</td><td style="font-weight:600">35</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"> <span class="tag tag-gap">GAP</span></td>
+</tr><tr class="gap">
+<td style="text-align:left;font-weight:500">01-22</td><td style="">木</td>
+<td>&yen;1,471</td><td>21</td><td style="font-size:10px">2.1</td>
+<td style="font-size:10px;color:#2980b9">1634</td><td style="font-size:10px;color:#e74c3c;font-weight:700">1.21</td><td style="font-size:10px;color:#2980b9">26%</td>
+<td>&yen;508</td><td>17</td><td style="font-size:10px">5.8</td>
+<td>4</td>
+<td style="font-weight:600">&yen;1,979</td><td style="font-weight:600">38</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"> <span class="tag tag-gap">GAP</span></td>
+</tr><tr class="gap">
+<td style="text-align:left;font-weight:500">01-23</td><td style="">金</td>
+<td>&yen;1,446</td><td>15</td><td style="font-size:10px">1.3</td>
+<td style="font-size:10px;color:#e67e22">1494</td><td style="font-size:10px;color:#e67e22">1.16</td><td style="font-size:10px;color:#e67e22">22%</td>
+<td>&yen;410</td><td>14</td><td style="font-size:10px">4.0</td>
+<td>0</td>
+<td style="font-weight:600">&yen;1,856</td><td style="font-weight:600">29</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"> <span class="tag tag-gap">GAP</span></td>
+</tr><tr class="gap">
+<td style="text-align:left;font-weight:500">01-24</td><td style="color:#2980b9;font-weight:600">土</td>
+<td>&yen;1,258</td><td>18</td><td style="font-size:10px">1.9</td>
+<td style="font-size:10px;color:#2980b9">1525</td><td style="font-size:10px;color:#e74c3c;font-weight:700">1.21</td><td style="font-size:10px;color:#2980b9">26%</td>
+<td>&yen;471</td><td>16</td><td style="font-size:10px">5.3</td>
+<td>5</td>
+<td style="font-weight:600">&yen;1,729</td><td style="font-weight:600">34</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"> <span class="tag tag-gap">GAP</span></td>
+</tr><tr class="gap">
+<td style="text-align:left;font-weight:500">01-25</td><td style="color:#e74c3c;font-weight:600">日</td>
+<td>&yen;1,715</td><td>8</td><td style="font-size:10px">0.8</td>
+<td style="font-size:10px;color:#2980b9">1840</td><td style="font-size:10px;color:#e67e22">1.14</td><td style="font-size:10px;color:#2980b9">29%</td>
+<td>&yen;236</td><td>8</td><td style="font-size:10px">2.1</td>
+<td>1</td>
+<td style="font-weight:600">&yen;1,951</td><td style="font-weight:600">16</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"> <span class="tag tag-gap">GAP</span></td>
+</tr><tr class="gap">
+<td style="text-align:left;font-weight:500">01-26</td><td style="">月</td>
+<td>&yen;1,275</td><td>9</td><td style="font-size:10px">0.6</td>
+<td style="font-size:10px;color:#e67e22">900</td><td style="font-size:10px;color:#e67e22">1.13</td><td style="font-size:10px;color:#2980b9">28%</td>
+<td>&yen;892</td><td>19</td><td style="font-size:10px">2.9</td>
+<td>5</td>
+<td style="font-weight:600">&yen;2,167</td><td style="font-weight:600">28</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"> <span class="tag tag-gap">GAP</span></td>
+</tr><tr class="gap">
+<td style="text-align:left;font-weight:500">01-27</td><td style="">火</td>
+<td>&yen;1,605</td><td>9</td><td style="font-size:10px">0.4</td>
+<td style="font-size:10px;color:#e67e22">842</td><td style="font-size:10px;color:#27ae60">1.10</td><td style="font-size:10px;color:#2980b9">31%</td>
+<td>&yen;511</td><td>14</td><td style="font-size:10px">3.6</td>
+<td>3</td>
+<td style="font-weight:600">&yen;2,116</td><td style="font-weight:600">23</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"> <span class="tag tag-gap">GAP</span></td>
+</tr><tr class="gap">
+<td style="text-align:left;font-weight:500">01-28</td><td style="">水</td>
+<td>&yen;1,776</td><td>20</td><td style="font-size:10px">1.5</td>
+<td style="font-size:10px;color:#e67e22">1376</td><td style="font-size:10px;color:#27ae60">1.11</td><td style="font-size:10px;color:#e67e22">24%</td>
+<td>&yen;479</td><td>12</td><td style="font-size:10px">1.9</td>
+<td>3</td>
+<td style="font-weight:600">&yen;2,255</td><td style="font-weight:600">32</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"> <span class="tag tag-gap">GAP</span></td>
+</tr><tr class="gap">
+<td style="text-align:left;font-weight:500">01-29</td><td style="">木</td>
+<td>&yen;1,107</td><td>5</td><td style="font-size:10px">0.9</td>
+<td style="font-size:10px;color:#2980b9">1896</td><td style="font-size:10px;color:#27ae60">1.07</td><td style="font-size:10px;color:#e74c3c;font-weight:700">12%</td>
+<td>&yen;1,604</td><td>32</td><td style="font-size:10px">2.8</td>
+<td>1</td>
+<td style="font-weight:600">&yen;2,711</td><td style="font-weight:600">37</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"> <span class="tag tag-gap">GAP</span></td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">01-30</td><td style="">金</td>
+<td>&yen;1,031</td><td>13</td><td style="font-size:10px">1.8</td>
+<td style="font-size:10px;color:#e67e22">1401</td><td style="font-size:10px;color:#e67e22">1.16</td><td style="font-size:10px;color:#e67e22">16%</td>
+<td>&yen;1,012</td><td>21</td><td style="font-size:10px">2.6</td>
+<td>0</td>
+<td style="font-weight:600">&yen;2,043</td><td style="font-weight:600">34</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">田中ゆかり(IG)</td>
+</tr><tr class="">
+<td style="text-align:left;font-weight:500">01-31</td><td style="color:#2980b9;font-weight:600">土</td>
+<td>&yen;873</td><td>10</td><td style="font-size:10px">1.8</td>
+<td style="font-size:10px;color:#2980b9">1560</td><td style="font-size:10px;color:#27ae60">1.08</td><td style="font-size:10px;color:#e67e22">15%</td>
+<td>&yen;903</td><td>22</td><td style="font-size:10px">4.6</td>
+<td>0</td>
+<td style="font-weight:600">&yen;1,776</td><td style="font-weight:600">32</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"></td>
+</tr><tr class="mh"><td colspan="13">2月</td></tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">02-01</td><td style="color:#e74c3c;font-weight:600">日</td>
+<td>&yen;1,298</td><td>14</td><td style="font-size:10px">1.4</td>
+<td style="font-size:10px;color:#e67e22">1083</td><td style="font-size:10px;color:#e67e22">1.14</td><td style="font-size:10px;color:#e74c3c;font-weight:700">15%</td>
+<td>&yen;1,193</td><td>32</td><td style="font-size:10px">7.7</td>
+<td>3</td>
+<td style="font-weight:600">&yen;2,491</td><td style="font-weight:600">46</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">小野寺千晶(IG)</td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">02-02</td><td style="">月</td>
+<td>&yen;1,037</td><td>19</td><td style="font-size:10px">3.5</td>
+<td style="font-size:10px;color:#2980b9">1863</td><td style="font-size:10px;color:#27ae60">1.09</td><td style="font-size:10px;color:#e67e22">22%</td>
+<td>&yen;391</td><td>11</td><td style="font-size:10px">2.2</td>
+<td>0</td>
+<td style="font-weight:600">&yen;1,428</td><td style="font-weight:600">30</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">安達勝行(IG)</td>
+</tr><tr class="">
+<td style="text-align:left;font-weight:500">02-03</td><td style="">火</td>
+<td>&yen;974</td><td>16</td><td style="font-size:10px">1.5</td>
+<td style="font-size:10px;color:#e67e22">841</td><td style="font-size:10px;color:#e67e22">1.12</td><td style="font-size:10px;color:#e67e22">19%</td>
+<td>&yen;1,520</td><td>31</td><td style="font-size:10px">3.6</td>
+<td>3</td>
+<td style="font-weight:600">&yen;2,494</td><td style="font-weight:600">47</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"></td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">02-04</td><td style="">水</td>
+<td>&yen;1,033</td><td>7</td><td style="font-size:10px">0.8</td>
+<td style="font-size:10px;color:#e67e22">999</td><td style="font-size:10px;color:#27ae60">1.06</td><td style="font-size:10px;color:#2980b9">25%</td>
+<td>&yen;1,059</td><td>22</td><td style="font-size:10px">2.6</td>
+<td>1</td>
+<td style="font-weight:600">&yen;2,092</td><td style="font-weight:600">29</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">野田てるみ(YouTube)</td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">02-05</td><td style="">木</td>
+<td>&yen;873</td><td>12</td><td style="font-size:10px">1.0</td>
+<td style="font-size:10px;color:#e74c3c;font-weight:700">733</td><td style="font-size:10px;color:#27ae60">1.11</td><td style="font-size:10px;color:#e67e22">18%</td>
+<td>&yen;1,481</td><td>36</td><td style="font-size:10px">6.2</td>
+<td>3</td>
+<td style="font-weight:600">&yen;2,354</td><td style="font-weight:600">48</td>
+<td><span class="tag tag-sale">2</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">坂本朋生(IG), 安達勝行(IG)※重複?</td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">02-06</td><td style="">金</td>
+<td>&yen;909</td><td>13</td><td style="font-size:10px">1.5</td>
+<td style="font-size:10px;color:#e67e22">947</td><td style="font-size:10px;color:#27ae60">1.07</td><td style="font-size:10px;color:#e67e22">19%</td>
+<td>&yen;666</td><td>16</td><td style="font-size:10px">3.1</td>
+<td>3</td>
+<td style="font-weight:600">&yen;1,575</td><td style="font-weight:600">29</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">大石裕美(検索)</td>
+</tr><tr class="">
+<td style="text-align:left;font-weight:500">02-07</td><td style="color:#2980b9;font-weight:600">土</td>
+<td>&yen;863</td><td>11</td><td style="font-size:10px">0.8</td>
+<td style="font-size:10px;color:#e74c3c;font-weight:700">640</td><td style="font-size:10px;color:#27ae60">1.07</td><td style="font-size:10px;color:#e74c3c;font-weight:700">11%</td>
+<td>&yen;1,558</td><td>33</td><td style="font-size:10px">4.6</td>
+<td>2</td>
+<td style="font-weight:600">&yen;2,421</td><td style="font-weight:600">44</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"></td>
+</tr><tr class="">
+<td style="text-align:left;font-weight:500">02-08</td><td style="color:#e74c3c;font-weight:600">日</td>
+<td>&yen;1,146</td><td>21</td><td style="font-size:10px">1.2</td>
+<td style="font-size:10px;color:#e74c3c;font-weight:700">630</td><td style="font-size:10px;color:#27ae60">1.07</td><td style="font-size:10px;color:#e67e22">19%</td>
+<td>&yen;1,113</td><td>25</td><td style="font-size:10px">4.7</td>
+<td>2</td>
+<td style="font-weight:600">&yen;2,259</td><td style="font-weight:600">46</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"></td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">02-09</td><td style="">月</td>
+<td>&yen;1,058</td><td>24</td><td style="font-size:10px">1.9</td>
+<td style="font-size:10px;color:#e67e22">823</td><td style="font-size:10px;color:#27ae60">1.07</td><td style="font-size:10px;color:#2980b9">33%</td>
+<td>&yen;678</td><td>15</td><td style="font-size:10px">3.1</td>
+<td>5</td>
+<td style="font-weight:600">&yen;1,736</td><td style="font-weight:600">39</td>
+<td><span class="tag tag-sale">2</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">後藤颯介(IG), 辺見芳枝(Yahoo)</td>
+</tr><tr class="">
+<td style="text-align:left;font-weight:500">02-10</td><td style="">火</td>
+<td>&yen;968</td><td>17</td><td style="font-size:10px">1.3</td>
+<td style="font-size:10px;color:#e74c3c;font-weight:700">719</td><td style="font-size:10px;color:#27ae60">1.05</td><td style="font-size:10px;color:#e67e22">20%</td>
+<td>&yen;1,018</td><td>19</td><td style="font-size:10px">2.2</td>
+<td>1</td>
+<td style="font-weight:600">&yen;1,986</td><td style="font-weight:600">36</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"></td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">02-11</td><td style="">水</td>
+<td>&yen;1,092</td><td>19</td><td style="font-size:10px">1.7</td>
+<td style="font-size:10px;color:#e67e22">932</td><td style="font-size:10px;color:#27ae60">1.05</td><td style="font-size:10px;color:#e67e22">19%</td>
+<td>&yen;1,338</td><td>25</td><td style="font-size:10px">2.6</td>
+<td>9</td>
+<td style="font-weight:600">&yen;2,430</td><td style="font-weight:600">44</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">川平みゆき(検索)</td>
+</tr><tr class="">
+<td style="text-align:left;font-weight:500">02-12</td><td style="">木</td>
+<td>&yen;971</td><td>14</td><td style="font-size:10px">2.9</td>
+<td style="font-size:10px;color:#2980b9">1982</td><td style="font-size:10px;color:#e67e22">1.13</td><td style="font-size:10px;color:#2980b9">26%</td>
+<td>&yen;1,176</td><td>24</td><td style="font-size:10px">3.1</td>
+<td>2</td>
+<td style="font-weight:600">&yen;2,147</td><td style="font-weight:600">38</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"></td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">02-13</td><td style="">金</td>
+<td>&yen;763</td><td>10</td><td style="font-size:10px">1.7</td>
+<td style="font-size:10px;color:#e67e22">1293</td><td style="font-size:10px;color:#27ae60">1.05</td><td style="font-size:10px;color:#e67e22">23%</td>
+<td>&yen;1,041</td><td>24</td><td style="font-size:10px">3.9</td>
+<td>7</td>
+<td style="font-weight:600">&yen;1,804</td><td style="font-weight:600">34</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">佐保美鶴(IG)※受取なし</td>
+</tr><tr class="">
+<td style="text-align:left;font-weight:500">02-14</td><td style="color:#2980b9;font-weight:600">土</td>
+<td>&yen;664</td><td>7</td><td style="font-size:10px">1.0</td>
+<td style="font-size:10px;color:#e67e22">916</td><td style="font-size:10px;color:#27ae60">1.08</td><td style="font-size:10px;color:#e67e22">20%</td>
+<td>&yen;1,130</td><td>27</td><td style="font-size:10px">4.0</td>
+<td>0</td>
+<td style="font-weight:600">&yen;1,794</td><td style="font-weight:600">34</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"></td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">02-15</td><td style="color:#e74c3c;font-weight:600">日</td>
+<td>&yen;1,255</td><td>8</td><td style="font-size:10px">1.2</td>
+<td style="font-size:10px;color:#2980b9">1857</td><td style="font-size:10px;color:#27ae60">1.06</td><td style="font-size:10px;color:#e74c3c;font-weight:700">13%</td>
+<td>&yen;1,389</td><td>34</td><td style="font-size:10px">4.0</td>
+<td>7</td>
+<td style="font-weight:600">&yen;2,644</td><td style="font-weight:600">42</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">高須康行(IG)</td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">02-16</td><td style="">月</td>
+<td>&yen;992</td><td>14</td><td style="font-size:10px">1.6</td>
+<td style="font-size:10px;color:#e67e22">1088</td><td style="font-size:10px;color:#27ae60">1.09</td><td style="font-size:10px;color:#e67e22">16%</td>
+<td>&yen;1,208</td><td>28</td><td style="font-size:10px">3.1</td>
+<td>3</td>
+<td style="font-weight:600">&yen;2,200</td><td style="font-weight:600">42</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">横山義嗣(IG)</td>
+</tr><tr class="gap">
+<td style="text-align:left;font-weight:500">02-17</td><td style="">火</td>
+<td>&yen;1,027</td><td>11</td><td style="font-size:10px">1.1</td>
+<td style="font-size:10px;color:#e67e22">978</td><td style="font-size:10px;color:#27ae60">1.10</td><td style="font-size:10px;color:#e67e22">20%</td>
+<td>&yen;847</td><td>21</td><td style="font-size:10px">2.8</td>
+<td>1</td>
+<td style="font-weight:600">&yen;1,874</td><td style="font-weight:600">32</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"> <span class="tag tag-gap">GAP</span></td>
+</tr><tr class="gap">
+<td style="text-align:left;font-weight:500">02-18</td><td style="">水</td>
+<td>&yen;872</td><td>16</td><td style="font-size:10px">1.8</td>
+<td style="font-size:10px;color:#e67e22">934</td><td style="font-size:10px;color:#27ae60">1.08</td><td style="font-size:10px;color:#e67e22">19%</td>
+<td>&yen;1,298</td><td>32</td><td style="font-size:10px">6.6</td>
+<td>8</td>
+<td style="font-weight:600">&yen;2,170</td><td style="font-weight:600">48</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"> <span class="tag tag-gap">GAP</span></td>
+</tr><tr class="gap">
+<td style="text-align:left;font-weight:500">02-19</td><td style="">木</td>
+<td>&yen;916</td><td>16</td><td style="font-size:10px">1.2</td>
+<td style="font-size:10px;color:#e74c3c;font-weight:700">628</td><td style="font-size:10px;color:#27ae60">1.08</td><td style="font-size:10px;color:#e67e22">19%</td>
+<td>&yen;709</td><td>19</td><td style="font-size:10px">3.0</td>
+<td>1</td>
+<td style="font-weight:600">&yen;1,625</td><td style="font-weight:600">35</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"> <span class="tag tag-gap">GAP</span></td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">02-20</td><td style="">金</td>
+<td>&yen;922</td><td>14</td><td style="font-size:10px">1.9</td>
+<td style="font-size:10px;color:#e67e22">1173</td><td style="font-size:10px;color:#27ae60">1.06</td><td style="font-size:10px;color:#e74c3c;font-weight:700">14%</td>
+<td>&yen;762</td><td>18</td><td style="font-size:10px">2.6</td>
+<td>5</td>
+<td style="font-weight:600">&yen;1,684</td><td style="font-weight:600">32</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">西尾初子(検索)</td>
+</tr><tr class="">
+<td style="text-align:left;font-weight:500">02-21</td><td style="color:#2980b9;font-weight:600">土</td>
+<td>&yen;1,016</td><td>4</td><td style="font-size:10px">0.8</td>
+<td style="font-size:10px;color:#e67e22">1475</td><td style="font-size:10px;color:#27ae60">1.04</td><td style="font-size:10px;color:#e74c3c;font-weight:700">10%</td>
+<td>&yen;1,661</td><td>31</td><td style="font-size:10px">2.5</td>
+<td>1</td>
+<td style="font-weight:600">&yen;2,677</td><td style="font-weight:600">35</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"></td>
+</tr><tr class="gap">
+<td style="text-align:left;font-weight:500">02-22</td><td style="color:#2980b9;font-weight:600">土</td>
+<td>&yen;1,747</td><td>6</td><td style="font-size:10px">1.1</td>
+<td style="font-size:10px;color:#27ae60;font-weight:700">2845</td><td style="font-size:10px;color:#27ae60">1.10</td><td style="font-size:10px;color:#e67e22">13%</td>
+<td>&yen;1,025</td><td>21</td><td style="font-size:10px">2.3</td>
+<td>-</td>
+<td style="font-weight:600">&yen;2,772</td><td style="font-weight:600">27</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"> <span class="tag tag-gap">GAP</span></td>
+</tr><tr class="gap">
+<td style="text-align:left;font-weight:500">02-23</td><td style="color:#e74c3c;font-weight:600">日</td>
+<td>&yen;805</td><td>7</td><td style="font-size:10px">2.0</td>
+<td style="font-size:10px;color:#2980b9">1488</td><td style="font-size:10px;color:#27ae60">1.00</td><td style="font-size:10px;color:#e67e22">11%</td>
+<td>&yen;1,050</td><td>23</td><td style="font-size:10px">4.3</td>
+<td>-</td>
+<td style="font-weight:600">&yen;1,855</td><td style="font-weight:600">30</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"> <span class="tag tag-gap">GAP</span></td>
+</tr><tr class="gap">
+<td style="text-align:left;font-weight:500">02-24</td><td style="">月</td>
+<td style="color:#ccc">-</td><td style="color:#ccc">-</td><td style="font-size:10px;color:#ccc">-</td>
+<td style="font-size:10px;color:#ccc">-</td><td style="font-size:10px;color:#ccc">-</td><td style="font-size:10px;color:#ccc">-</td>
+<td>&yen;1,095</td><td>27</td><td style="font-size:10px">4.2</td>
+<td>-</td>
+<td style="font-weight:600">&yen;1,095</td><td style="font-weight:600">27</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"> <span class="tag tag-gap">GAP</span> Meta欠損</td>
+</tr><tr class="gap">
+<td style="text-align:left;font-weight:500">02-25</td><td style="">火</td>
+<td>&yen;697</td><td>15</td><td style="font-size:10px">4.9</td>
+<td style="font-size:10px;color:#27ae60;font-weight:700">2145</td><td style="font-size:10px;color:#27ae60">1.09</td><td style="font-size:10px;color:#e67e22">23%</td>
+<td>&yen;1,039</td><td>24</td><td style="font-size:10px">3.8</td>
+<td>-</td>
+<td style="font-weight:600">&yen;1,736</td><td style="font-weight:600">39</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"> <span class="tag tag-gap">GAP</span> A/B開始</td>
+</tr><tr class="gap">
+<td style="text-align:left;font-weight:500">02-26</td><td style="">水</td>
+<td>&yen;583</td><td>7</td><td style="font-size:10px">2.8</td>
+<td style="font-size:10px;color:#2980b9">1805</td><td style="font-size:10px;color:#27ae60">1.07</td><td style="font-size:10px;color:#e67e22">14%</td>
+<td>&yen;1,037</td><td>20</td><td style="font-size:10px">2.4</td>
+<td>-</td>
+<td style="font-weight:600">&yen;1,620</td><td style="font-weight:600">27</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"> <span class="tag tag-gap">GAP</span></td>
+</tr><tr class="has-sale">
+<td style="text-align:left;font-weight:500">02-27</td><td style="">木</td>
+<td>&yen;757</td><td>7</td><td style="font-size:10px">1.4</td>
+<td style="font-size:10px;color:#2980b9">1807</td><td style="font-size:10px;color:#e74c3c;font-weight:700">1.28</td><td style="font-size:10px;color:#e67e22">16%</td>
+<td>&yen;1,011</td><td>21</td><td style="font-size:10px">2.1</td>
+<td>-</td>
+<td style="font-weight:600">&yen;1,768</td><td style="font-weight:600">28</td>
+<td><span class="tag tag-sale">1</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis">Yahoo CV</td>
+</tr><tr class="">
+<td style="text-align:left;font-weight:500">02-28</td><td style="">金</td>
+<td>&yen;845</td><td>9</td><td style="font-size:10px">1.4</td>
+<td style="font-size:10px;color:#2980b9">1427</td><td style="font-size:10px;color:#27ae60">1.14</td><td style="font-size:10px;color:#e67e22">16%</td>
+<td>&yen;752</td><td>17</td><td style="font-size:10px">4.3</td>
+<td>-</td>
+<td style="font-weight:600">&yen;1,597</td><td style="font-weight:600">26</td>
+<td><span class="tag-zero">-</span></td>
+<td style="text-align:left;font-size:10px;max-width:200px;overflow:hidden;text-overflow:ellipsis"></td>
+</tr></tbody></table></div>
+<div class="section">
+<h2><span class="ico" style="background:#8e44ad">H</span> Clarity ヒートマップ比較（4期間）</h2>
+<div class="desc">LPへの流入後の行動を好調期とギャップ期で比較。タップ率・スクロール深度・注目セクションの違いを分析。</div>
+<div class="compare-grid">
+<div class="compare-card good"><h3>好調期 1/1-20</h3>
+<div style="font-size:10px;color:#999;margin-bottom:6px">4 PV / 2 taps（サンプル極小）</div>
+<div class="metric"><span class="label">PV</span><span class="value">4</span></div>
+<div class="metric"><span class="label">タップ数</span><span class="value">2</span></div>
+<div class="metric"><span class="label">タップ率</span><span class="value">50.0%</span></div>
+<div class="metric"><span class="label">50%到達</span><span class="value">25%</span></div>
+<div class="metric"><span class="label">75%到達</span><span class="value">25%</span></div>
+<div style="font-size:10px;color:#e74c3c;margin-top:6px">※PV少なく参考値</div></div>
+
+<div class="compare-card bad"><h3>ギャップ1 (1/21-29)</h3>
+<div style="font-size:10px;color:#999;margin-bottom:6px">32 PV / 5 taps</div>
+<div class="metric"><span class="label">PV</span><span class="value">32</span></div>
+<div class="metric"><span class="label">タップ数</span><span class="value">5</span></div>
+<div class="metric"><span class="label">タップ率</span><span class="value" style="color:#e74c3c">15.6%</span></div>
+<div class="metric"><span class="label">50%到達</span><span class="value">18.8%</span></div>
+<div class="metric"><span class="label">75%到達</span><span class="value">9.4%</span></div>
+<div style="font-size:10px;color:#e74c3c;margin-top:6px">注文ボタンタップ1回のみ</div></div>
+
+<div class="compare-card good"><h3>好調期 2/1-16</h3>
+<div style="font-size:10px;color:#999;margin-bottom:6px">504 PV / 155 taps（高信頼度）</div>
+<div class="metric"><span class="label">PV</span><span class="value" style="color:#27ae60">504</span></div>
+<div class="metric"><span class="label">タップ数</span><span class="value" style="color:#27ae60">155</span></div>
+<div class="metric"><span class="label">タップ率</span><span class="value" style="color:#27ae60">30.8%</span></div>
+<div class="metric"><span class="label">50%到達</span><span class="value">20.2%</span></div>
+<div class="metric"><span class="label">75%到達</span><span class="value">14.7%</span></div>
+<div style="font-size:10px;color:#27ae60;margin-top:6px">注文ボタン19回+フォーム入力7回</div></div>
+
+<div class="compare-card bad"><h3>ギャップ2 (2/17-19)</h3>
+<div style="font-size:10px;color:#999;margin-bottom:6px">86 PV / 8 taps</div>
+<div class="metric"><span class="label">PV</span><span class="value">86</span></div>
+<div class="metric"><span class="label">タップ数</span><span class="value">8</span></div>
+<div class="metric"><span class="label">タップ率</span><span class="value" style="color:#e74c3c">9.3%</span></div>
+<div class="metric"><span class="label">50%到達</span><span class="value">24.4%</span></div>
+<div class="metric"><span class="label">75%到達</span><span class="value">12.8%</span></div>
+<div style="font-size:10px;color:#e74c3c;margin-top:6px">注文ボタン4回・フォーム入力0回</div></div>
+</div>
+
+<div class="insight"><b>Clarity分析:</b> 好調期（2/1-16）のタップ率<b>30.8%</b>に対し、ギャップ期は<b>9.3-15.6%</b>と大幅に低下。好調期では注文ボタン19回+フォーム入力7回と「購入意欲のある行動」が多いのに対し、ギャップ期ではフォーム入力がほぼゼロです。</div>
+
+<h3 style="font-size:13px;margin:14px 0 8px">スクロール深度比較（残留率）</h3>
+<div style="font-size:11px"><div class="scroll-row"><div class="depth">10%</div><div class="bars">
+<div class="sbar" style="width:120.05000000000001px;background:#27ae60" title="好調期2月:48.0%"></div>
+<div class="sbar" style="width:109.375px;background:#e74c3c" title="Gap1:43.8%"></div>
+<div class="sbar" style="width:130.825px;background:#e67e22" title="Gap2:52.3%"></div>
+<span style="font-size:9px;color:#888;margin-left:4px">好調48% / G1 44% / G2 52%</span>
+</div></div><div class="scroll-row"><div class="depth">25%</div><div class="bars">
+<div class="sbar" style="width:69.45px;background:#27ae60" title="好調期2月:27.8%"></div>
+<div class="sbar" style="width:78.125px;background:#e74c3c" title="Gap1:31.2%"></div>
+<div class="sbar" style="width:78.5px;background:#e67e22" title="Gap2:31.4%"></div>
+<span style="font-size:9px;color:#888;margin-left:4px">好調28% / G1 31% / G2 31%</span>
+</div></div><div class="scroll-row"><div class="depth">50%</div><div class="bars">
+<div class="sbar" style="width:50.599999999999994px;background:#27ae60" title="好調期2月:20.2%"></div>
+<div class="sbar" style="width:46.875px;background:#e74c3c" title="Gap1:18.8%"></div>
+<div class="sbar" style="width:61.050000000000004px;background:#e67e22" title="Gap2:24.4%"></div>
+<span style="font-size:9px;color:#888;margin-left:4px">好調20% / G1 19% / G2 24%</span>
+</div></div><div class="scroll-row"><div class="depth">75%</div><div class="bars">
+<div class="sbar" style="width:36.7px;background:#27ae60" title="好調期2月:14.7%"></div>
+<div class="sbar" style="width:23.424999999999997px;background:#e74c3c" title="Gap1:9.4%"></div>
+<div class="sbar" style="width:31.974999999999998px;background:#e67e22" title="Gap2:12.8%"></div>
+<span style="font-size:9px;color:#888;margin-left:4px">好調15% / G1 9% / G2 13%</span>
+</div></div><div class="scroll-row"><div class="depth">100%</div><div class="bars">
+<div class="sbar" style="width:6.45px;background:#27ae60" title="好調期2月:2.6%"></div>
+<div class="sbar" style="width:15.625px;background:#e74c3c" title="Gap1:6.2%"></div>
+<div class="sbar" style="width:0.0px;background:#e67e22" title="Gap2:0.0%"></div>
+<span style="font-size:9px;color:#888;margin-left:4px">好調3% / G1 6% / G2 0%</span>
+</div></div></div>
+<div style="font-size:10px;color:#888;margin-top:4px">
+<span style="display:inline-block;width:10px;height:10px;background:#27ae60;border-radius:2px;vertical-align:middle"></span> 好調期(2/1-16)
+<span style="display:inline-block;width:10px;height:10px;background:#e74c3c;border-radius:2px;vertical-align:middle;margin-left:10px"></span> ギャップ1(1/21-29)
+<span style="display:inline-block;width:10px;height:10px;background:#e67e22;border-radius:2px;vertical-align:middle;margin-left:10px"></span> ギャップ2(2/17-19)
+</div>
+
+<h3 style="font-size:13px;margin:14px 0 8px">Attention（注目度）比較</h3>
+<table style="font-size:11px">
+<tr><th style="text-align:left;width:100px">セクション</th><th style="width:110px">好調期 2/1-16</th><th style="width:110px">ギャップ1</th><th style="width:110px">ギャップ2</th></tr>
+<tr><td style="text-align:left;font-weight:600">FV (0-10%)</td><td>6.80%</td><td>9.58%</td><td>20.40%</td></tr>
+<tr><td style="text-align:left;font-weight:600">中盤 (50-60%)</td><td style="color:#27ae60;font-weight:700">11.45%</td><td>28.41%</td><td>16.72%</td></tr>
+<tr><td style="text-align:left;font-weight:600">終盤 (70-80%)</td><td style="color:#27ae60;font-weight:700">9.11%</td><td>7.66%</td><td>15.60%</td></tr>
+<tr><td style="text-align:left;font-weight:600">フォーム (90-100%)</td><td style="color:#27ae60;font-weight:700">50.69%</td><td>42.29%</td><td style="color:#e74c3c;font-weight:700">5.93%</td></tr>
+</table>
+<div class="insight info"><b>注目度の違い:</b> 好調期はフォームエリア(90-100%)に<b>50.7%</b>の注目が集中。ギャップ2ではフォーム注目度わずか<b>5.9%</b>。ページ下部の購入動線に到達していません。</div>
+</div><div class="section">
+<h2><span class="ico" style="background:#4285F4">G</span> GA4 チャネル別パフォーマンス</h2>
+<div class="desc">12/23-2/21 全期間チャネル別データ（キーイベント=コンバージョン）</div>
+<table>
+<tr><th style="text-align:left;width:180px">チャネル</th><th>セッション</th><th>平均エンゲージ秒</th><th>エンゲージ率</th><th>CV数</th><th style="font-weight:700">CVR</th></tr>
+<tr style="background:#e8f5e9"><td style="text-align:left;font-weight:600">Paid Search (Yahoo/CPC)</td><td>1,267</td><td>45.2秒</td><td>56.0%</td><td style="font-weight:700;color:#27ae60">10</td><td style="font-weight:700;color:#27ae60">0.79%</td></tr>
+<tr style="background:#e3f2fd"><td style="text-align:left;font-weight:600">Paid Social (Instagram)</td><td>605</td><td>12.2秒</td><td>28.1%</td><td style="font-weight:700;color:#27ae60">16</td><td style="font-weight:700;color:#27ae60">2.64%</td></tr>
+<tr><td style="text-align:left">Organic Search (Google)</td><td>256</td><td>61.2秒</td><td>61.3%</td><td>3</td><td>1.17%</td></tr>
+<tr><td style="text-align:left">Direct</td><td>157</td><td>19.7秒</td><td>40.8%</td><td>4</td><td>2.55%</td></tr>
+<tr><td style="text-align:left">Referral</td><td>71</td><td>29.6秒</td><td>38.0%</td><td>0</td><td>0%</td></tr>
+<tr><td style="text-align:left">Organic Social</td><td>35</td><td>10.4秒</td><td>54.3%</td><td>0</td><td>0%</td></tr>
+<tr><td style="text-align:left">Organic Search (Yahoo)</td><td>26</td><td>98.4秒</td><td>76.9%</td><td>0</td><td>0%</td></tr>
+</table>
+<div class="insight success"><b>Instagram CVR 2.64%はYahoo CVR 0.79%の3.3倍。</b>Instagramは滞在時間は短い(12秒 vs Yahoo 45秒)が、購入率が圧倒的に高い。Yahooは長時間閲覧するが「比較検討」の末に購入に至りにくい傾向。</div>
+<div style="margin:10px 0">
+<div class="bar-row"><div class="bar-label">Instagram CVR</div><div class="bar-container"><div class="bar-fill" style="width:88%;background:#E1306C">2.64%</div></div></div>
+<div class="bar-row"><div class="bar-label">Direct CVR</div><div class="bar-container"><div class="bar-fill" style="width:85%;background:#95a5a6">2.55%</div></div></div>
+<div class="bar-row"><div class="bar-label">Google CVR</div><div class="bar-container"><div class="bar-fill" style="width:39%;background:#4285F4">1.17%</div></div></div>
+<div class="bar-row"><div class="bar-label">Yahoo CVR</div><div class="bar-container"><div class="bar-fill" style="width:26%;background:#ff0033">0.79%</div></div></div>
+</div></div><div class="section">
+<h2><span class="ico" style="background:#34a853">S</span> Search Console 分析</h2>
+<div class="desc">自然検索の動向とブランド指名検索への依存度。</div>
+<h3 style="font-size:13px;margin-bottom:8px">検索クエリ TOP 5</h3>
+<table>
+<tr><th style="text-align:left;width:200px">クエリ</th><th>クリック</th><th>表示回数</th><th>CTR</th><th>順位</th></tr>
+<tr><td style="text-align:left;font-weight:700">ミチルシリカ</td><td style="font-weight:700;color:#27ae60">130</td><td>175</td><td>74.3%</td><td>1.0</td></tr>
+<tr><td style="text-align:left">シリカ水 飲み続けると</td><td>2</td><td>607</td><td>0.3%</td><td>10.5</td></tr>
+<tr><td style="text-align:left">アンドウラボ</td><td>2</td><td>45</td><td>4.4%</td><td>9.7</td></tr>
+<tr><td style="text-align:left">大分 シリカ水</td><td>2</td><td>33</td><td>6.1%</td><td>5.2</td></tr>
+<tr><td style="text-align:left">飲むシリカ 解約方法</td><td>1</td><td>64</td><td>1.6%</td><td>1.3</td></tr>
+</table>
+<div class="insight"><b>自然検索の97%がブランド指名（「ミチルシリカ」）。</b>一般キーワードでの流入はほぼゼロ。広告に依存した構造で、自然検索による新規獲得力が弱い状態。</div>
+<h3 style="font-size:13px;margin:14px 0 8px">期間別 GSCクリック</h3>
+<table>
+<tr><th style="text-align:left;width:180px">期間</th><th>合計</th><th>日平均</th></tr>
+<tr class="has-sale"><td style="text-align:left">好調期 1/1-20</td><td>103</td><td>5.2</td></tr>
+<tr class="gap"><td style="text-align:left">ギャップ1 (1/21-29)</td><td>27</td><td>3.0</td></tr>
+<tr class="has-sale"><td style="text-align:left">好調期 2/1-16</td><td>51</td><td>3.2</td></tr>
+<tr class="gap"><td style="text-align:left">ギャップ2 (2/17-19)</td><td>10</td><td>3.3</td></tr>
+</table></div><div class="section">
+<h2><span class="ico" style="background:#e74c3c">?</span> ギャップ発生の原因分析</h2>
+<div class="desc">複数のデータソースを突き合わせた結果、単一の原因ではなく複合要因です。</div>
+<h3 style="font-size:14px;margin-bottom:10px">ギャップ1（1/21-29: 9日間ゼロ）- 異常レベル</h3>
+<table style="font-size:12px">
+<tr><th style="text-align:left;width:180px">要因</th><th style="width:60px">影響度</th><th style="text-align:left">根拠</th></tr>
+<tr><td style="text-align:left;font-weight:600">日次クリック数の少なさ</td><td style="text-align:center;color:#e74c3c;font-weight:700">大</td>
+<td style="text-align:left">日平均30クリック x CVR1.8% = 期待値0.5件/日。0件の日が出る確率58%。ただし9日連続はP=0.8%で異常。</td></tr>
+<tr><td style="text-align:left;font-weight:600">Meta CTR低下</td><td style="text-align:center;color:#e67e22;font-weight:700">中</td>
+<td style="text-align:left">Meta CTR 1.72%→1.15%(-33%)。クリエイティブ疲弊またはオーディエンス飽和。</td></tr>
+<tr><td style="text-align:left;font-weight:600">LP上のエンゲージメント低下</td><td style="text-align:center;color:#e74c3c;font-weight:700">大</td>
+<td style="text-align:left">Clarityタップ率30.8%→15.6%に半減。フォーム到達者が激減。流入ユーザーの「質」変化。</td></tr>
+<tr><td style="text-align:left;font-weight:600">広告ターゲティング変動</td><td style="text-align:center;color:#e67e22;font-weight:700">中</td>
+<td style="text-align:left">Meta広告の自動最適化で1月後半に配信先オーディエンスが変動した可能性。</td></tr>
+</table>
+
+<h3 style="font-size:14px;margin:16px 0 10px">ギャップ2（2/17-19: 3日間ゼロ）- 統計的に正常範囲</h3>
+<table style="font-size:12px">
+<tr><th style="text-align:left;width:180px">要因</th><th style="width:60px">影響度</th><th style="text-align:left">根拠</th></tr>
+<tr><td style="text-align:left;font-weight:600">統計的偶然</td><td style="text-align:center;color:#e67e22;font-weight:700">中</td>
+<td style="text-align:left">3日間115クリック、期待値2.0件。P(0件)=13.3%で月に1回程度は起こりうる範囲。</td></tr>
+<tr><td style="text-align:left;font-weight:600">LP注目度の変化</td><td style="text-align:center;color:#e67e22;font-weight:700">中</td>
+<td style="text-align:left">フォーム注目度50.7%→5.9%。ただし3日間サンプルでブレ大。</td></tr>
+<tr><td style="text-align:left;font-weight:600">曜日要因</td><td style="text-align:center;color:#ffc107;font-weight:700">小</td>
+<td style="text-align:left">火水木曜。好調期にも同曜日で0件の日は多く特異ではない。</td></tr>
+</table>
+
+<h3 style="font-size:14px;margin:16px 0 10px">2/22-28期間（7日間で1件のみ）- 低迷継続</h3>
+<table style="font-size:12px">
+<tr><th style="text-align:left;width:180px">要因</th><th style="width:60px">影響度</th><th style="text-align:left">根拠</th></tr>
+<tr><td style="text-align:left;font-weight:600">クリエイティブ移行期</td><td style="text-align:center;color:#e74c3c;font-weight:700">大</td>
+<td style="text-align:left">2/24にMeta広告停止（データ欠損）、2/25からA/Bテストに移行。配信が不安定な期間。</td></tr>
+<tr><td style="text-align:left;font-weight:600">A/Bテスト予算分散</td><td style="text-align:center;color:#e67e22;font-weight:700">中</td>
+<td style="text-align:left">2/25以降は予算を2つのクリエイティブに分散（各¥500/日程度）。1クリエイティブあたりの配信量が不足。</td></tr>
+<tr><td style="text-align:left;font-weight:600">Meta広告費の大幅減少</td><td style="text-align:center;color:#e67e22;font-weight:700">中</td>
+<td style="text-align:left">Meta日平均¥776（通常の半分以下）。Yahooが日平均¥1,001で主体に。Meta経由のCVR(2.64%)を活かせていない。</td></tr>
+</table>
+<div class="insight info"><b>2/22-28は「テスト移行期」として理解すべき期間。</b>A/Bテスト結果（価格訴求のCTR 2.83%が勝利）を踏まえ、3月以降は予算を集中投下して回復を図る。</div>
+
+</div>
+
+<!-- 深掘り分析セクション -->
+<div class="section" style="border-left:4px solid #e74c3c">
+<h2><span class="ico" style="background:#e74c3c">!</span> 深掘り分析：クリック数以外の「売れない要因」</h2>
+<div class="desc">CTRやクリック数では説明できない要因を特定。「同じCTRなのに売れる日と売れない日がある」原因を解明。</div>
+
+<div class="insight danger">
+<b>結論：「クリック数」や「CTR」は売上と相関しない。</b><br>
+CTR 0.8〜2.0%の同程度の日を比較しても、売れた日19日 vs 売れない日17日 → CTRでは説明不可。<br>
+<b>真の差は「誰に広告が届いているか（広告の質）」と「ブランド認知の厚み」にある。</b>
+</div>
+
+<h3 style="font-size:14px;margin:16px 0 10px;color:#2c3e50">要因1：CPM＝「オーディエンスの質」</h3>
+<p style="font-size:12px;color:#555;margin-bottom:10px">CPM（1,000回表示あたりの費用）は、Metaが「この人は購入しそう」と判断した人への配信度合いを反映します。CPMが高い＝購買意欲の高い層に配信、CPMが低い＝安い枠＝興味の薄い人に配信。</p>
+<table style="width:auto;margin-bottom:14px">
+<tr><th>IG CPM帯</th><th>売れた日</th><th>売れない日</th><th>売上率</th><th style="width:200px">分布</th></tr>
+<tr><td style="font-weight:700;color:#e74c3c">¥0〜800（低品質）</td><td>1日</td><td>4日</td><td style="font-weight:700;color:#e74c3c">20%</td>
+<td><div style="display:flex;gap:1px"><div style="width:20%;height:14px;background:#e74c3c;border-radius:2px"></div><div style="width:80%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+<tr><td>¥800〜1,200</td><td>9日</td><td>7日</td><td>56%</td>
+<td><div style="display:flex;gap:1px"><div style="width:56%;height:14px;background:#f39c12;border-radius:2px"></div><div style="width:44%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+<tr><td>¥1,200〜1,800</td><td>5日</td><td>7日</td><td>42%</td>
+<td><div style="display:flex;gap:1px"><div style="width:42%;height:14px;background:#f39c12;border-radius:2px"></div><div style="width:58%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+<tr><td>¥1,800〜2,500</td><td>6日</td><td>7日</td><td>46%</td>
+<td><div style="display:flex;gap:1px"><div style="width:46%;height:14px;background:#f39c12;border-radius:2px"></div><div style="width:54%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+<tr><td style="font-weight:700;color:#27ae60">¥2,500以上（高品質）</td><td>5日</td><td>1日</td><td style="font-weight:700;color:#27ae60">83%</td>
+<td><div style="display:flex;gap:1px"><div style="width:83%;height:14px;background:#27ae60;border-radius:2px"></div><div style="width:17%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+</table>
+<div class="insight info"><b>CPM ¥2,500以上の日は83%の確率で売れ、¥800未満の日は20%しか売れない。</b>これがCTRよりも強い売上予測因子です。</div>
+
+<h3 style="font-size:14px;margin:16px 0 10px;color:#2c3e50">要因2：Frequency＝「広告疲弊」</h3>
+<p style="font-size:12px;color:#555;margin-bottom:10px">Frequency（フリークエンシー）は「同じ人に何回広告が表示されたか」。1.0なら毎回新しい人、高くなるほど同じ人への繰り返し。すでに見て買わなかった人に何度見せても効果は薄い。</p>
+<table style="width:auto;margin-bottom:14px">
+<tr><th>Frequency帯</th><th>売れた日</th><th>売れない日</th><th>売上率</th><th>解釈</th></tr>
+<tr><td style="color:#27ae60;font-weight:700">1.00〜1.08（新規中心）</td><td>7日</td><td>5日</td><td style="color:#27ae60;font-weight:700">58%</td><td style="text-align:left;font-size:10px">新しい人に届いている</td></tr>
+<tr><td>1.08〜1.12</td><td>7日</td><td>8日</td><td>47%</td><td style="text-align:left;font-size:10px">やや重複あり</td></tr>
+<tr><td>1.12〜1.18</td><td>10日</td><td>8日</td><td>56%</td><td style="text-align:left;font-size:10px">許容範囲</td></tr>
+<tr><td style="color:#e74c3c;font-weight:700">1.18以上（疲弊ゾーン）</td><td>2日</td><td>5日</td><td style="color:#e74c3c;font-weight:700">29%</td><td style="text-align:left;font-size:10px">同じ人に繰り返し表示</td></tr>
+</table>
+<div class="insight"><b>Frequency 1.18以上になると売上率が29%に急落。</b>ギャップ1期間はFrequencyが高止まりしていた。</div>
+
+<h3 style="font-size:14px;margin:16px 0 10px;color:#2c3e50">要因3：自然検索＝「ブランド認知の厚み」</h3>
+<p style="font-size:12px;color:#555;margin-bottom:10px">広告を見て興味を持っても、すぐに買わず後から「ミチルシリカ」で検索する人がいます。自然検索が多い日は「広告以外でもブランドが認知されている」サイン。</p>
+<table style="width:auto;margin-bottom:14px">
+<tr><th>自然検索クリック数</th><th>売れた日</th><th>売れない日</th><th>売上率</th></tr>
+<tr><td style="color:#e74c3c;font-weight:700">0〜2クリック</td><td>7日</td><td>10日</td><td style="color:#e74c3c;font-weight:700">41%</td></tr>
+<tr><td>2〜5クリック</td><td>7日</td><td>8日</td><td>47%</td></tr>
+<tr><td style="color:#27ae60;font-weight:700">5クリック以上</td><td>12日</td><td>8日</td><td style="color:#27ae60;font-weight:700">60%</td></tr>
+</table>
+<div class="insight info"><b>自然検索5クリック以上の日は60%で売上発生。</b>売れない日は自然検索が平均19%少ない。ブランド検索が厚い日ほど購入につながりやすい。</div>
+
+<h3 style="font-size:14px;margin:16px 0 10px;color:#2c3e50">要因4：曜日パターン</h3>
+<table style="width:auto;margin-bottom:14px">
+<tr><th>曜日</th><th>売れた日</th><th>売れない日</th><th>売上率</th><th style="width:150px">分布</th></tr>
+<tr><td style="color:#27ae60;font-weight:700">月曜</td><td>5</td><td>2</td><td style="color:#27ae60;font-weight:700">71%</td>
+<td><div style="display:flex;gap:1px"><div style="width:71%;height:14px;background:#27ae60;border-radius:2px"></div><div style="width:29%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+<tr><td>金曜</td><td>5</td><td>3</td><td>62%</td>
+<td><div style="display:flex;gap:1px"><div style="width:62%;height:14px;background:#27ae60;border-radius:2px"></div><div style="width:38%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+<tr><td>水曜</td><td>4</td><td>3</td><td>57%</td>
+<td><div style="display:flex;gap:1px"><div style="width:57%;height:14px;background:#f39c12;border-radius:2px"></div><div style="width:43%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+<tr><td>日曜</td><td>4</td><td>3</td><td>57%</td>
+<td><div style="display:flex;gap:1px"><div style="width:57%;height:14px;background:#f39c12;border-radius:2px"></div><div style="width:43%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+<tr><td>火曜</td><td>3</td><td>4</td><td>43%</td>
+<td><div style="display:flex;gap:1px"><div style="width:43%;height:14px;background:#e67e22;border-radius:2px"></div><div style="width:57%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+<tr><td>木曜</td><td>3</td><td>5</td><td>38%</td>
+<td><div style="display:flex;gap:1px"><div style="width:38%;height:14px;background:#e67e22;border-radius:2px"></div><div style="width:62%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+<tr><td style="color:#e74c3c;font-weight:700">土曜</td><td>2</td><td>6</td><td style="color:#e74c3c;font-weight:700">25%</td>
+<td><div style="display:flex;gap:1px"><div style="width:25%;height:14px;background:#e74c3c;border-radius:2px"></div><div style="width:75%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+</table>
+<div class="insight"><b>土曜日は売上率25%と最悪。月曜日は71%で最良。</b>土曜はターゲット層（50-70代女性）の行動パターンが購買に向かない可能性。</div>
+
+<h3 style="font-size:14px;margin:16px 0 10px;color:#2c3e50">週次CPMトレンド（品質の低下が見える）</h3>
+<table style="width:auto;margin-bottom:14px">
+<tr><th>週</th><th>期間</th><th>平均IG CPM</th><th>平均IG CPC</th><th>売上率</th><th style="width:200px">推移</th></tr>
+<tr style="background:#e8f5e9"><td>W1</td><td>1/1〜1/4</td><td style="color:#27ae60;font-weight:700">¥2,473</td><td>¥124</td><td style="font-weight:700">75%</td>
+<td><div style="display:flex;gap:1px"><div style="width:75%;height:14px;background:#27ae60;border-radius:2px"></div><div style="width:25%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+<tr style="background:#e8f5e9"><td>W2</td><td>1/5〜1/11</td><td style="color:#27ae60;font-weight:700">¥2,548</td><td>¥133</td><td style="font-weight:700">71%</td>
+<td><div style="display:flex;gap:1px"><div style="width:71%;height:14px;background:#27ae60;border-radius:2px"></div><div style="width:29%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+<tr><td>W3</td><td>1/12〜1/18</td><td>¥1,607</td><td>¥141</td><td>57%</td>
+<td><div style="display:flex;gap:1px"><div style="width:57%;height:14px;background:#f39c12;border-radius:2px"></div><div style="width:43%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+<tr style="background:#ffebee"><td>W4</td><td>1/19〜1/25</td><td style="color:#e74c3c;font-weight:700">¥1,481</td><td>¥115</td><td style="color:#e74c3c;font-weight:700">29%</td>
+<td><div style="display:flex;gap:1px"><div style="width:29%;height:14px;background:#e74c3c;border-radius:2px"></div><div style="width:71%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+<tr style="background:#ffebee"><td>W5</td><td>1/26〜2/1</td><td style="color:#e74c3c;font-weight:700">¥1,294</td><td>¥143</td><td style="color:#e74c3c;font-weight:700">29%</td>
+<td><div style="display:flex;gap:1px"><div style="width:29%;height:14px;background:#e74c3c;border-radius:2px"></div><div style="width:71%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+<tr><td>W6</td><td>2/2〜2/8</td><td style="color:#e74c3c">¥950</td><td style="color:#27ae60">¥75</td><td>57%</td>
+<td><div style="display:flex;gap:1px"><div style="width:57%;height:14px;background:#f39c12;border-radius:2px"></div><div style="width:43%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+<tr><td>W7</td><td>2/9〜2/15</td><td>¥1,217</td><td>¥80</td><td>57%</td>
+<td><div style="display:flex;gap:1px"><div style="width:57%;height:14px;background:#f39c12;border-radius:2px"></div><div style="width:43%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+<tr style="background:#fff8e1"><td>W8</td><td>2/16〜2/21</td><td>¥1,046</td><td>¥106</td><td>33%</td>
+<td><div style="display:flex;gap:1px"><div style="width:33%;height:14px;background:#e67e22;border-radius:2px"></div><div style="width:67%;height:14px;background:#eee;border-radius:2px"></div></div></td></tr>
+</table>
+<div class="insight danger"><b>CPMは1月初旬の¥2,500から2月には¥950まで低下（-62%）。</b>これは同じ広告費を使っても、Metaが「安い枠（購買意欲の低い層）」に配信を移したことを意味します。CPMの低下と売上率の低下が完全に連動しています。</div>
+
+<h3 style="font-size:14px;margin:16px 0 10px;color:#2c3e50">ギャップ突入時の「急変ポイント」</h3>
+<div class="compare-grid">
+<div class="compare-card good">
+<h3>好調最終日（1/20）→ ギャップ初日（1/21）</h3>
+<div class="metric"><span class="label">IG CPM</span><span class="value">¥884 → ¥1,953 <span style="color:#e74c3c">(+121%)</span></span></div>
+<div class="metric"><span class="label">IG CPC</span><span class="value">¥82 → ¥115 <span style="color:#e74c3c">(+40%)</span></span></div>
+<div class="metric"><span class="label">動画3s視聴率</span><span class="value">40.4% → 28.3% <span style="color:#e74c3c">(-30%)</span></span></div>
+<div class="metric"><span class="label">自然検索</span><span class="value">6 → 5クリック <span style="color:#e67e22">(-17%)</span></span></div>
+<div class="metric"><span class="label">Yahoo CPC</span><span class="value">¥27 → ¥41 <span style="color:#e74c3c">(+52%)</span></span></div>
+<p style="font-size:10px;color:#888;margin-top:8px">※1/20はCPMが低いが自然検索6件で売上。1/21からCPCが急騰し効率悪化。</p>
+</div>
+<div class="compare-card bad">
+<h3>好調最終日（2/16）→ ギャップ初日（2/17）</h3>
+<div class="metric"><span class="label">IG CPM</span><span class="value">¥1,088 → ¥978 <span style="color:#e74c3c">(-10%)</span></span></div>
+<div class="metric"><span class="label">IG CPC</span><span class="value">¥71 → ¥100 <span style="color:#e74c3c">(+40%)</span></span></div>
+<div class="metric"><span class="label">動画3s視聴率</span><span class="value">15.9% → 20.4% <span style="color:#27ae60">(+28%)</span></span></div>
+<div class="metric"><span class="label">自然検索</span><span class="value">3 → 1クリック <span style="color:#e74c3c">(-67%)</span></span></div>
+<div class="metric"><span class="label">Yahoo CPC</span><span class="value">¥43 → ¥40 <span style="color:#27ae60">(-7%)</span></span></div>
+<p style="font-size:10px;color:#888;margin-top:8px">※CPCの急騰(+40%)と自然検索の激減(-67%)が共通パターン。</p>
+</div>
+</div>
+
+<div class="insight" style="margin-top:16px"><b>共通パターン発見：ギャップ突入時には必ず「CPC急騰(+40%)」と「自然検索の減少」が同時に起きている。</b>
+CTRは変わらなくても、1クリックあたりのコストが上がる＝質の低い層へ配信が移っている証拠。</div>
+</div>
+
+<!-- 改善施策（更新版） -->
+<div class="section">
+<h2><span class="ico" style="background:#27ae60">!</span> 毎日売れる実力をつけるための施策</h2>
+<div class="desc">「予算を上げる」以外の、広告の質・ブランド力を高める具体策。</div>
+
+<div class="action-list">
+<div class="action-item" style="border-left:3px solid #e74c3c"><h4>【最重要】CPMモニタリングとクリエイティブリフレッシュ</h4>
+<p>CPMが¥1,500以下に下がったら「広告の質が下がっている」サイン。その時点でクリエイティブ（画像・動画）を差し替える。<br>
+<b>具体策:</b> 2〜3週間ごとに動画のサムネイル・冒頭3秒を変更。同じ訴求でも見た目を変えることでMetaのアルゴリズムが新鮮な広告として配信し直す。</p></div>
+
+<div class="action-item" style="border-left:3px solid #e67e22"><h4>Frequency上限の設定（1.15以下を維持）</h4>
+<p>Frequencyが1.18を超えると売上率が29%に急落する。同じ人に繰り返し見せても購入にはつながらない。<br>
+<b>具体策:</b> Meta広告のフリークエンシーキャップを週1回に設定。オーディエンスサイズを広げる（類似オーディエンス1%→3%等）。新しい人に届ける仕組みを作る。</p></div>
+
+<div class="action-item" style="border-left:3px solid #2196f3"><h4>自然検索の底上げ（広告に依存しない購買チャネル）</h4>
+<p>自然検索5クリック以上の日は売上率60%。現状97%がブランド指名検索で、一般キーワード流入がほぼゼロ。<br>
+<b>具体策:</b> 「シリカ水 効果」「シリカ水 おすすめ」等の記事コンテンツを月2本作成。InstagramストーリーズやReelsでブランド名を印象づけ、後日の指名検索を促進。</p></div>
+
+<div class="action-item" style="border-left:3px solid #9c27b0"><h4>土曜日の戦略変更</h4>
+<p>土曜は売上率25%と最悪（月曜71%の1/3）。ターゲット層の行動パターンが購買に向かない曜日。<br>
+<b>具体策:</b> 土曜のMeta広告予算を抑え、その分を月曜・金曜（62-71%）に集中。土曜はリマーケティング（サイト訪問者への再表示）のみに切り替え。</p></div>
+
+<div class="action-item" style="border-left:3px solid #27ae60"><h4>Instagram広告の比重維持（CVR 2.64%）</h4>
+<p>Instagram経由のCVRは2.64%でYahoo（0.79%）の3.3倍。すでにインスタ重視にシフト済みで回復傾向にあるのは正しい判断。<br>
+<b>具体策:</b> 現在の配分を維持しつつ、動画の3秒視聴率が30%を下回ったらクリエイティブ変更のサイン。</p></div>
+
+<div class="action-item" style="border-left:3px solid #00bcd4"><h4>LP中盤の離脱改善</h4>
+<p>Clarity分析でスクロール50%地点に急激なドロップオフ。フォーム注目度も50.7%→5.9%に低下。<br>
+<b>具体策:</b> 口コミセクションをファーストビュー近くに移動。スクロール50%地点に中間CTAボタン追加。購入ステップの簡素化。</p></div>
+</div>
+</div>
+
+<!-- まとめ（更新版） -->
+<div class="section" style="border-left:4px solid #2c3e50;background:#fafafa">
+<h2 style="font-size:15px">まとめ</h2>
+<div style="font-size:12px;line-height:1.8">
+<p><b>「売れない日」の真因はクリック数やCTRではなく、広告配信の「質」の低下です。</b></p>
+<ul style="padding-left:18px;margin-top:8px">
+<li><b>CPM（広告の質）が最大の要因：</b> CPM ¥2,500以上の日は83%で売れるが、¥800未満では20%。1月初旬→2月でCPMは62%低下し、安い枠＝購買意欲の低い人への配信が増えた。</li>
+<li><b>Frequency（広告疲弊）：</b> 同じ人に1.18回以上見せると売上率が29%に急落。新しい人に届ける仕組みが必要。</li>
+<li><b>自然検索（ブランド力）：</b> 検索5クリック以上の日は60%で売上発生。広告だけに頼らないブランド認知の構築が「毎日売れる」基盤。</li>
+<li><b>曜日：</b> 土曜25% vs 月曜71%。曜日別の予算配分で効率を上げられる。</li>
+<li><b>ギャップの共通パターン：</b> CPC急騰(+40%)と自然検索減少が同時に発生。これがCTRでは見えない「売れない要因」の正体。</li>
+<li><b>回復の理由：</b> インスタにシフトしたことでCVR効率が上がり、CPCも改善傾向。この方向は正しい。</li>
+</ul>
+<p style="margin-top:12px"><b>次のステップ：</b>CPM・Frequency・動画3秒視聴率を日次でモニタリングし、「質の低下サイン」を早期検知→クリエイティブ差し替え。予算を増やさなくても質を維持すれば売上の安定度は上がります。</p>
+</div></div>
+
+<div class="footer-note">ミチルシリカ 総合分析レポート | 2026/03/03 | Meta Ads / Yahoo Ads / GA4 / GSC / Microsoft Clarity</div>
+</div></body></html>
