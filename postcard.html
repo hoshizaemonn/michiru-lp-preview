@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ミチルシリカ ポストカード 改善デザイン案 3案</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Maru+Gothic:wght@300;400;500;700&family=Noto+Serif+JP:wght@200;300;400;500;600;700;900&family=Zen+Old+Mincho:wght@400;700&display=swap');
+
+        :root {
+            /* Design A - 和×シャンパンゴールド */
+            --a-gold: #9E8A6A;
+            --a-gold-light: #C4B08A;
+            --a-gold-pale: #E8DCC8;
+            --a-pink: #E8C4CC;
+            --a-pink-soft: #F2E0E4;
+            --a-lavender: #D8D0E8;
+            --a-cream: #FAF6F0;
+            --a-text: #3A2E24;
+            --a-text-sub: #6A5A4A;
+
+            /* Design B - ボルドー×ゴールド */
+            --b-bordeaux: #7A2840;
+            --b-bordeaux-light: #9A3858;
+            --b-coral: #C46A5A;
+            --b-gold: #B8944A;
+            --b-gold-light: #D4B86A;
+            --b-cream: #FDF8F2;
+            --b-text: #3A2020;
+
+            /* Design C - セージグリーン×クリーム */
+            --c-sage: #8A9A78;
+            --c-sage-dark: #6A8060;
+            --c-sage-pale: #D4DCCC;
+            --c-olive: #A0A880;
+            --c-beige: #F5F0E4;
+            --c-warm: #E8E0D4;
+            --c-text: #3A3828;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Zen Maru Gothic', 'Hiragino Sans', sans-serif;
+            background: #F0ECE4;
+            color: #333;
+            padding: 60px 20px 80px;
+        }
+
+        /* ===== PAGE HEADER ===== */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .page-header::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: var(--a-gold);
+            margin: 0 auto 20px;
+        }
+        .page-header h1 {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #2A2A2A;
+            letter-spacing: 8px;
+        }
+        .page-header .subtitle {
+            font-size: 12px;
+            color: #999;
+            margin-top: 10px;
+            letter-spacing: 3px;
+        }
+        .page-header .desc {
+            font-size: 13px;
+            color: #777;
+            margin-top: 16px;
+            line-height: 2;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===== DESIGN SECTION ===== */
+        .design-section {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+        .section-label {
+            display: inline-block;
+            font-size: 10px;
+            letter-spacing: 4px;
+            color: #AAA;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .section-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: #3A3A3A;
+            letter-spacing: 4px;
+        }
+        .section-concept {
+            font-size: 12px;
+            color: #888;
+            margin-top: 10px;
+            line-height: 2;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .section-improvement {
+            display: inline-block;
+            margin-top: 14px;
+            background: rgba(158,138,106,0.08);
+            border: 1px solid rgba(158,138,106,0.2);
+            border-radius: 6px;
+            padding: 8px 18px;
+            font-size: 11px;
+            color: var(--a-gold);
+            letter-spacing: 1px;
+        }
+
+        .cards-row {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+        .card-wrapper {
+            text-align: center;
+        }
+        .card-label {
+            font-size: 10px;
+            color: #BBB;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        /* ===== COMMON CARD ===== */
+        .postcard {
+            width: 400px;
+            height: 580px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px;
+            box-shadow:
+                0 4px 20px rgba(0,0,0,0.08),
+                0 15px 50px rgba(0,0,0,0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .postcard:hover {
+            transform: translateY(-6px);
+            box-shadow:
+                0 8px 30px rgba(0,0,0,0.12),
+                0 25px 70px rgba(0,0,0,0.12);
+        }
+
+        /* ================================================================
+           DESIGN A — 手紙風パーソナルレター（改善版）
+           ================================================================ */
+
+        .card-a-front {
+            background: var(--a-cream);
+            position: relative;
+        }
+
+        /* 水彩風の背景グラデーション */
+        .a-watercolor {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(ellipse at 15% 15%, rgba(216,208,232,0.25) 0%, transparent 50%),
+                radial-gradient(ellipse at 85% 10%, rgba(232,196,204,0.3) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 90%, rgba(232,196,204,0.15) 0%, transparent 45%),
+                radial-gradient(ellipse at 25% 65%, rgba(216,208,232,0.15) 0%, transparent 40%);
+            z-index: 1;
+        }
+
+        /* 桜の花びら SVG風 */
+        .sakura {
+            position: absolute;
+            z-index: 2;
+            opacity: 0.45;
+        }
+        .sakura::before {
+            content: '❀';
+            font-size: inherit;
+            color: inherit;
+        }
+        .sakura-1 { top: 25px; left: 30px; font-size: 18px; color: var(--a-pink); transform: rotate(15deg); }
+        .sakura-2 { top: 80px; right: 25px; font-size: 14px; color: var(--a-pink); transform: rotate(-25deg); opacity: 0.35; }
+        .sakura-3 { top: 200px; left: 15px; font-size: 10px; color: var(--a-lavender); transform: rotate(45deg); opacity: 0.3; }
+        .sakura-4 { bottom: 180px; right: 20px; font-size: 16px; color: var(--a-pink); transform: rotate(-10deg); opacity: 0.3; }
+        .sakura-5 { bottom: 100px; left: 45px; font-size: 12px; color: var(--a-lavender); transform: rotate(30deg); opacity: 0.25; }
+
+        /* 金の縁飾り */
+        .a-border-frame {
+            position: absolute;
+            top: 12px; left: 12px; right: 12px; bottom: 12px;
+            border: 1px solid var(--a-gold-pale);
+            z-index: 3;
+            pointer-events: none;
+        }
+        .a-border-frame::before {
+            content: '';
+            position: absolute;
+            top: 6px; left: 6px; right: 6px; bottom: 6px;
+            border: 0.5px solid rgba(158,138,106,0.15);
+        }
+
+        /* 角の装飾 */
+        .corner-ornament {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            z-index: 4;
+        }
+        .corner-ornament::before, .corner-ornament::after {
+            content: '';
+            position: absolute;
+            background: var(--a-gold-light);
+        }
+        .corner-tl { top: 18px; left: 18px; }
+        .corner-tl::before { width: 16px; height: 0.5px; top: 0; left: 0; }
+        .corner-tl::after { width: 0.5px; height: 16px; top: 0; left: 0; }
+        .corner-tr { top: 18px; right: 18px; }
+        .corner-tr::before { width: 16px; height: 0.5px; top: 0; right: 0; }
+        .corner-tr::after { width: 0.5px; height: 16px; top: 0; right: 0; }
+        .corner-bl { bottom: 18px; left: 18px; }
+        .corner-bl::before { width: 16px; height: 0.5px; bottom: 0; left: 0; }
+        .corner-bl::after { width: 0.5px; height: 16px; bottom: 0; left: 0; }
+        .corner-br { bottom: 18px; right: 18px; }
+        .corner-br::before { width: 16px; height: 0.5px; bottom: 0; right: 0; }
+        .corner-br::after { width: 0.5px; height: 16px; bottom: 0; right: 0; }
+
+        .a-front-content {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 32px 28px;
+        }
+
+        .a-greeting {
+            font-family: 'Klee One', cursive;
+            font-size: 10px;
+            color: var(--a-gold);
+            letter-spacing: 4px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .a-vertical-area {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 0 8px;
+        }
+
+        .a-main-copy {
+            writing-mode: vertical-rl;
+            font-family: 'Zen Old Mincho', 'Shippori Mincho', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--a-text);
+            letter-spacing: 8px;
+            line-height: 2.4;
+            height: 340px;
+        }
+
+        .a-sub-copy {
+            writing-mode: vertical-rl;
+            font-family: 'Klee One', cursive;
+            font-size: 12px;
+            color: var(--a-text-sub);
+            letter-spacing: 5px;
+            line-height: 2.2;
+            height: 300px;
+        }
+
+        /* 封蝋風のアクセント */
+        .a-seal {
+            position: absolute;
+            bottom: 90px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            background: radial-gradient(circle at 40% 35%, var(--a-gold-light), var(--a-gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(158,138,106,0.3);
+            z-index: 6;
+        }
+        .a-seal-text {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 8px;
+            color: #fff;
+            letter-spacing: 1px;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .a-brand-area {
+            text-align: center;
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid var(--a-gold-pale);
+        }
+        .a-brand-area .brand-name {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--a-gold);
+            letter-spacing: 6px;
+        }
+        .a-brand-area .tagline {
+            font-size: 9px;
+            color: var(--a-text-sub);
+            margin-top: 4px;
+            letter-spacing: 2px;
+        }
+
+        /* A BACK */
+        .card-a-back {
+            background: var(--a-cream);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .a-back-photo {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #D8CEC4, #C8BEB4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .a-back-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+        }
+        .a-back-photo::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 40px;
+            background: linear-gradient(transparent, var(--a-cream));
+            pointer-events: none;
+        }
+
+        /* B/C photo areas */
+        .b-product-photo {
+            width: 100%;
+            height: 160px;
+            position: relative;
+            overflow: hidden;
+        }
+        .b-product-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+        }
+        .b-product-photo::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 30px;
+            background: linear-gradient(transparent, var(--b-cream));
+        }
+        .c-nature-photo {
+            width: 100%;
+            height: 120px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+        .c-nature-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .c-nature-photo::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 20px;
+            background: linear-gradient(transparent, var(--c-beige));
+        }
+
+        .a-back-body {
+            flex: 1;
+            padding: 16px 24px 18px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .a-voice-box {
+            background: rgba(255,255,255,0.7);
+            border-left: 3px solid var(--a-gold-light);
+            padding: 12px 16px;
+            margin-bottom: 14px;
+            border-radius: 0 6px 6px 0;
+        }
+        .a-voice-box q {
+            font-family: 'Klee One', cursive;
+            font-size: 12px;
+            color: var(--a-text);
+            line-height: 1.9;
+            font-style: normal;
+        }
+        .a-voice-box .attr {
+            font-size: 9px;
+            color: #AAA;
+            text-align: right;
+            margin-top: 6px;
+        }
+
+        .a-stats {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .a-stat {
+            flex: 1;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(216,208,232,0.15), rgba(232,196,204,0.1));
+            border-radius: 8px;
+            padding: 10px 6px;
+        }
+        .a-stat .num {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--a-gold);
+        }
+        .a-stat .unit { font-size: 9px; color: var(--a-gold); }
+        .a-stat .label { font-size: 9px; color: #888; margin-top: 2px; }
+
+        /* 共通クーポン */
+        .coupon-box {
+            border: 2px dashed;
+            border-radius: 10px;
+            padding: 14px 16px 10px;
+            position: relative;
+            margin-bottom: 12px;
+        }
+        .coupon-tag {
+            position: absolute;
+            top: -11px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 3px 18px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            color: #fff;
+        }
+        .coupon-amount {
+            text-align: center;
+            margin-top: 6px;
+        }
+        .coupon-amount .big {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 28px;
+            font-weight: 800;
+        }
+        .coupon-amount .sub {
+            font-size: 10px;
+            margin-top: 3px;
+        }
+        .coupon-note {
+            font-size: 8px;
+            text-align: center;
+            margin-top: 4px;
+            color: #AAA;
+        }
+
+        .contact-area {
+            text-align: center;
+            margin-bottom: 6px;
+        }
+        .phone-num {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .phone-hours {
+            font-size: 8px;
+            color: #AAA;
+            margin-top: 2px;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+        .badge {
+            font-size: 8px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .footer-text {
+            font-size: 7px;
+            color: #CCC;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        /* A coupon colors */
+        .card-a-back .coupon-box {
+            border-color: var(--a-gold-pale);
+            background: linear-gradient(135deg, rgba(232,220,200,0.1), rgba(232,196,204,0.08));
+        }
+        .card-a-back .coupon-tag { background: linear-gradient(135deg, var(--a-gold), var(--a-gold-light)); }
+        .card-a-back .coupon-amount .big { color: var(--a-gold); }
+        .card-a-back .coupon-amount .sub { color: var(--a-text-sub); }
+        .card-a-back .phone-num { color: var(--a-gold); }
+        .card-a-back .badge {
+            background: rgba(216,208,232,0.25);
+            color: #7A6A8A;
+            border: 1px solid rgba(216,208,232,0.4);
+        }
+
+        /* ================================================================
+           DESIGN B — 損失回避・期間限定型（改善版）
+           ================================================================ */
+
+        .card-b-front {
+            background: var(--b-cream);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ボルドー帯 */
+        .b-top-band {
+            background: linear-gradient(135deg, #5A1828, var(--b-bordeaux), var(--b-bordeaux-light));
+            color: #fff;
+            text-align: center;
+            padding: 14px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .b-top-band::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+        }
+        .b-top-band::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--b-gold-light), var(--b-gold), var(--b-gold-light), transparent);
+        }
+        .b-band-label {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .b-front-body {
+            flex: 1;
+            padding: 24px 28px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .b-main-copy {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--b-text);
+            line-height: 2.2;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        .b-main-copy .em {
+            color: var(--b-bordeaux);
+            font-weight: 800;
+            font-size: 19px;
+            border-bottom: 2px solid rgba(122,40,64,0.25);
+            padding-bottom: 1px;
+        }
+
+        .b-price-card {
+            background: #fff;
+            border: 2px solid var(--b-bordeaux);
+            border-radius: 10px;
+            padding: 18px 20px 14px;
+            margin-bottom: 18px;
+            position: relative;
+            box-shadow: 0 3px 15px rgba(122,40,64,0.08);
+        }
+        .b-price-label {
+            position: absolute;
+            top: -12px;
+            left: 18px;
+            background: var(--b-bordeaux);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 14px;
+            border-radius: 10px;
+            letter-spacing: 2px;
+        }
+        .b-price-before {
+            font-size: 12px;
+            color: #AAA;
+            text-decoration: line-through;
+            text-decoration-color: var(--b-bordeaux);
+            text-decoration-thickness: 2px;
+            margin-bottom: 4px;
+        }
+        .b-price-after {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+        }
+        .b-price-after .yen {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 16px;
+            color: var(--b-bordeaux);
+            font-weight: 700;
+        }
+        .b-price-after .amount {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 40px;
+            font-weight: 800;
+            color: var(--b-bordeaux);
+            line-height: 1;
+        }
+        .b-price-after .tax {
+            font-size: 9px;
+            color: #999;
+        }
+        .b-price-note {
+            font-size: 9px;
+            color: #7A6A5A;
+            margin-top: 8px;
+            line-height: 1.7;
+        }
+        .b-price-note .highlight {
+            color: var(--b-bordeaux);
+            font-weight: 700;
+        }
+
+        .b-explain {
+            font-size: 11px;
+            color: #7A6A5A;
+            line-height: 1.9;
+            margin-bottom: 14px;
+        }
+
+        .b-deadline-bar {
+            background: linear-gradient(135deg, rgba(122,40,64,0.06), rgba(184,148,74,0.06));
+            border-radius: 8px;
+            padding: 10px 16px;
+            text-align: center;
+            margin-bottom: 14px;
+            border: 1px solid rgba(122,40,64,0.1);
+        }
+        .b-deadline-bar .label {
+            font-size: 9px;
+            color: var(--b-bordeaux);
+            letter-spacing: 2px;
+            margin-bottom: 2px;
+        }
+        .b-deadline-bar .date {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--b-bordeaux);
+            letter-spacing: 2px;
+        }
+        .b-deadline-bar .after {
+            font-size: 8px;
+            color: #AAA;
+            margin-top: 2px;
+        }
+
+        .b-brand-area {
+            margin-top: auto;
+            text-align: center;
+            padding-top: 12px;
+            border-top: 1px solid rgba(184,148,74,0.25);
+        }
+        .b-brand-area .brand-name {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--b-gold);
+            letter-spacing: 5px;
+        }
+        .b-brand-area .spec {
+            font-size: 8px;
+            color: #AAA;
+            margin-top: 3px;
+        }
+
+        /* B BACK */
+        .card-b-back {
+            background: var(--b-cream);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .b-back-header {
+            background: linear-gradient(135deg, var(--b-bordeaux), var(--b-bordeaux-light));
+            color: #fff;
+            text-align: center;
+            padding: 14px 20px;
+            position: relative;
+        }
+        .b-back-header::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 8px solid var(--b-bordeaux-light);
+        }
+        .b-back-header h3 {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            line-height: 1.6;
+        }
+
+        .b-back-body {
+            flex: 1;
+            padding: 22px 24px 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* タイムライン改善 */
+        .b-timeline {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            padding: 0 8px;
+            position: relative;
+        }
+        .b-timeline::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            right: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #DDD, var(--b-bordeaux), #DDD);
+            border-radius: 2px;
+        }
+        .b-tl-item {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            width: 80px;
+        }
+        .b-tl-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin: 0 auto 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+        }
+        .b-tl-item:nth-child(1) .b-tl-dot { background: #E8E0D8; color: #999; }
+        .b-tl-item:nth-child(2) .b-tl-dot {
+            background: var(--b-bordeaux);
+            color: #fff;
+            box-shadow: 0 0 0 5px rgba(122,40,64,0.15);
+        }
+        .b-tl-item:nth-child(3) .b-tl-dot { background: #E0D8D0; color: #BBB; }
+        .b-tl-label { font-size: 8px; color: #AAA; }
+        .b-tl-desc {
+            font-size: 9px;
+            color: #6A5A4A;
+            margin-top: 3px;
+            line-height: 1.5;
+        }
+        .b-tl-item:nth-child(2) .b-tl-desc { color: var(--b-bordeaux); font-weight: 700; }
+
+        /* 再開3つの安心 */
+        .b-reassurance {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .b-reassure-item {
+            flex: 1;
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+            padding: 10px 8px;
+            text-align: center;
+            border: 1px solid rgba(122,40,64,0.06);
+        }
+        .b-reassure-item .icon { font-size: 18px; margin-bottom: 4px; }
+        .b-reassure-item .text {
+            font-size: 9px;
+            color: #5A4A3A;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .card-b-back .coupon-box {
+            border-color: var(--b-bordeaux);
+            background: linear-gradient(135deg, rgba(253,248,242,0.5), rgba(255,240,235,0.5));
+        }
+        .card-b-back .coupon-tag { background: linear-gradient(135deg, var(--b-bordeaux), var(--b-bordeaux-light)); }
+        .card-b-back .coupon-amount .big { color: var(--b-bordeaux); }
+        .card-b-back .coupon-amount .sub { color: #7A5A4A; }
+        .card-b-back .phone-num { color: var(--b-bordeaux); }
+        .card-b-back .badge {
+            background: rgba(122,40,64,0.06);
+            color: var(--b-bordeaux);
+            border: 1px solid rgba(122,40,64,0.15);
+        }
+
+        /* ================================================================
+           DESIGN C — 復帰者の声 × 科学的根拠型（改善版）
+           ================================================================ */
+
+        .card-c-front {
+            background: var(--c-beige);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* ボタニカル装飾 */
+        .botanical {
+            position: absolute;
+            z-index: 1;
+            opacity: 0.2;
+        }
+        .botanical::before {
+            content: '🌿';
+            font-size: inherit;
+        }
+        .bot-1 { top: 8px; right: 12px; font-size: 28px; transform: rotate(-25deg); }
+        .bot-2 { top: 20px; right: 44px; font-size: 20px; transform: rotate(-55deg); opacity: 0.15; }
+        .bot-3 { bottom: 95px; left: 8px; font-size: 24px; transform: rotate(20deg) scaleX(-1); }
+        .bot-4 { bottom: 115px; left: 30px; font-size: 16px; transform: rotate(50deg); opacity: 0.12; }
+
+        .c-front-header {
+            padding: 22px 26px 12px;
+            position: relative;
+            z-index: 2;
+        }
+        .c-header-label {
+            font-size: 9px;
+            color: var(--c-sage);
+            letter-spacing: 4px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .c-header-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--c-text);
+            letter-spacing: 2px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--c-sage-pale);
+        }
+
+        .c-main-copy {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--c-text);
+            line-height: 2;
+            padding: 16px 26px 10px;
+            position: relative;
+            z-index: 2;
+        }
+        .c-main-copy .em {
+            color: var(--c-sage-dark);
+            background: linear-gradient(transparent 65%, rgba(138,154,120,0.15) 65%);
+        }
+
+        .c-testimonials {
+            padding: 0 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        .c-testi {
+            background: rgba(255,255,255,0.75);
+            border-radius: 10px;
+            padding: 12px 16px;
+            border-left: 3px solid;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.03);
+        }
+        .c-testi:nth-child(1) { border-left-color: var(--c-sage); }
+        .c-testi:nth-child(2) { border-left-color: var(--c-olive); }
+        .c-testi:nth-child(3) { border-left-color: var(--c-sage-pale); }
+
+        .c-testi .stars {
+            font-size: 10px;
+            color: #D4A84A;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+        }
+        .c-testi .quote {
+            font-family: 'Klee One', cursive;
+            font-size: 11px;
+            color: #4A4A3A;
+            line-height: 1.8;
+        }
+        .c-testi .who {
+            font-size: 8px;
+            color: #AAA;
+            text-align: right;
+            margin-top: 4px;
+        }
+
+        .c-front-bottom {
+            padding: 14px 26px 18px;
+            text-align: center;
+            border-top: 1px solid rgba(138,154,120,0.15);
+            margin-top: auto;
+            position: relative;
+            z-index: 2;
+        }
+        .c-front-stat {
+            font-size: 11px;
+            color: var(--c-sage-dark);
+            margin-bottom: 6px;
+        }
+        .c-front-stat strong {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Shippori Mincho', serif;
+        }
+        .c-front-bottom .brand-name {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--c-sage-dark);
+            letter-spacing: 5px;
+        }
+        .c-front-bottom .spec {
+            font-size: 8px;
+            color: #AAA;
+            margin-top: 3px;
+        }
+
+        /* C BACK */
+        .card-c-back {
+            background: var(--c-beige);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .c-back-header {
+            background: linear-gradient(135deg, var(--c-sage-dark), var(--c-sage));
+            color: #fff;
+            text-align: center;
+            padding: 14px 20px;
+            position: relative;
+        }
+        .c-back-header::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 8px solid var(--c-sage);
+        }
+        .c-back-header h3 {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .c-back-body {
+            flex: 1;
+            padding: 20px 22px 14px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .c-science-label {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--c-sage-dark);
+            text-align: center;
+            margin-bottom: 14px;
+            letter-spacing: 2px;
+        }
+
+        .c-steps {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .c-step {
+            flex: 1;
+            text-align: center;
+            background: rgba(255,255,255,0.65);
+            border-radius: 10px;
+            padding: 12px 6px 10px;
+            position: relative;
+            border: 1px solid rgba(138,154,120,0.12);
+        }
+        .c-step:not(:last-child)::after {
+            content: '▸';
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--c-sage-pale);
+            font-size: 12px;
+            z-index: 2;
+        }
+        .c-step .month {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--c-sage-dark);
+            margin-bottom: 6px;
+        }
+        .c-step .step-title {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--c-text);
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+        .c-step .step-desc {
+            font-size: 8px;
+            color: #999;
+            line-height: 1.5;
+        }
+
+        .c-data-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .c-data {
+            flex: 1;
+            text-align: center;
+            background: rgba(138,154,120,0.08);
+            border-radius: 8px;
+            padding: 10px 4px;
+        }
+        .c-data .val {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--c-sage-dark);
+        }
+        .c-data .unit { font-size: 8px; color: var(--c-sage); }
+        .c-data .label { font-size: 8px; color: #999; margin-top: 2px; }
+
+        .card-c-back .coupon-box {
+            border-color: var(--c-sage);
+            background: linear-gradient(135deg, rgba(212,220,204,0.15), rgba(245,240,228,0.5));
+        }
+        .card-c-back .coupon-tag { background: linear-gradient(135deg, var(--c-sage-dark), var(--c-sage)); }
+        .card-c-back .coupon-amount .big { color: var(--c-sage-dark); }
+        .card-c-back .coupon-amount .sub { color: #5A5A4A; }
+        .card-c-back .phone-num { color: var(--c-sage-dark); }
+        .card-c-back .badge {
+            background: rgba(138,154,120,0.08);
+            color: var(--c-sage-dark);
+            border: 1px solid rgba(138,154,120,0.2);
+        }
+
+        /* ================================================================
+           COMPARISON TABLE
+           ================================================================ */
+        .comparison {
+            max-width: 1200px;
+            margin: 60px auto 40px;
+        }
+        .comparison h2 {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: #3A3A3A;
+            text-align: center;
+            letter-spacing: 4px;
+            margin-bottom: 6px;
+        }
+        .comparison .comp-sub {
+            font-size: 11px;
+            color: #AAA;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .comp-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .comp-table th, .comp-table td {
+            padding: 14px 16px;
+            font-size: 12px;
+            line-height: 1.7;
+            text-align: left;
+        }
+        .comp-table thead th {
+            background: #3A3A3A;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .comp-table tbody tr { border-bottom: 1px solid #F0ECE4; }
+        .comp-table tbody tr:nth-child(even) { background: #FAFAF6; }
+        .comp-table td:first-child {
+            font-weight: 700;
+            color: #6A6A6A;
+            white-space: nowrap;
+        }
+        .tag-pill {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .tag-a { background: rgba(232,220,200,0.4); color: var(--a-gold); }
+        .tag-b { background: rgba(122,40,64,0.06); color: var(--b-bordeaux); }
+        .tag-c { background: rgba(138,154,120,0.1); color: var(--c-sage-dark); }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .cards-row { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="page-header">
+        <h1>ポストカード デザイン案</h1>
+        <p class="subtitle">ミチルシリカ 休眠顧客リターゲティング DM ─ 完成版</p>
+        <p class="desc">
+            解約顧客（3〜4回以上購入後）向けのリターゲティングポストカード 3案。<br>
+            サイズ: 100×148mm ／ ターゲット: 50〜70代女性 ／ 代引き対応 ／ 3月発送予定
+        </p>
+    </header>
+
+    <!-- ================================================================
+         DESIGN A — 手紙風パーソナルレター（改善版）
+         ================================================================ -->
+    <section class="design-section">
+        <div class="section-header">
+            <span class="section-label">Design A — Improved</span>
+            <h2 class="section-title">手紙風パーソナルレター</h2>
+            <p class="section-concept">
+                縦書きの手紙のような温かみを残しつつ、封蝋アクセント・角飾り・<br>
+                シャンパンゴールド×ラベンダーの配色で40〜60代女性に響く上品さをプラス。
+            </p>
+            <div class="section-improvement">改善: ゴールド強化 ／ 封蝋モチーフ追加 ／ 余白・フォント階層の見直し</div>
+        </div>
+
+        <div class="cards-row">
+            <div class="card-wrapper">
+                <div class="card-label">Front（表面）</div>
+                <div class="postcard card-a-front">
+                    <div class="a-watercolor"></div>
+
+                    <div class="sakura sakura-1"></div>
+                    <div class="sakura sakura-2"></div>
+                    <div class="sakura sakura-3"></div>
+                    <div class="sakura sakura-4"></div>
+                    <div class="sakura sakura-5"></div>
+
+                    <div class="a-border-frame"></div>
+                    <div class="corner-ornament corner-tl"></div>
+                    <div class="corner-ornament corner-tr"></div>
+                    <div class="corner-ornament corner-bl"></div>
+                    <div class="corner-ornament corner-br"></div>
+
+                    <div class="a-front-content">
+                        <div class="a-greeting">ご 愛 飲 い た だ い た お 客 様 へ</div>
+                        <div class="a-vertical-area">
+                            <div class="a-main-copy">お元気ですか。あの味を、もう一度。</div>
+                            <div class="a-sub-copy">春の訪れとともに、お体のことを思い出しておりました。</div>
+                        </div>
+                        <div class="a-seal">
+                            <div class="a-seal-text">特別<br>ご優待</div>
+                        </div>
+                        <div class="a-brand-area" style="display: flex; align-items: center; justify-content: center; gap: 12px;">
+                            <img src="postcard_assets/product_box.png" alt="ミチルシリカ" style="height: 40px; object-fit: contain; opacity: 0.85;">
+                            <div>
+                                <div class="brand-name">ミチルシリカ</div>
+                                <div class="tagline">すばやく身体に満ちるシリカ水</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-wrapper">
+                <div class="card-label">Back（裏面）</div>
+                <div class="postcard card-a-back">
+                    <div class="a-back-photo">
+                        <img src="postcard_assets/lifestyle_sofa.png" alt="ミチルシリカのある暮らし">
+                    </div>
+
+                    <div class="a-back-body">
+                        <div class="a-voice-box">
+                            <q>久しぶりに飲んだら、やっぱりおいしい。<br>やめなきゃよかったと思いました。</q>
+                            <div class="attr">── 60代女性・大阪府　再開3ヶ月目</div>
+                        </div>
+
+                        <div class="a-stats">
+                            <div class="a-stat">
+                                <div class="num">72<span class="unit">mg/L</span></div>
+                                <div class="label">シリカ含有量</div>
+                            </div>
+                            <div class="a-stat">
+                                <div class="num">92<span class="unit">%</span></div>
+                                <div class="label">再開者満足度</div>
+                            </div>
+                        </div>
+
+                        <div class="coupon-box">
+                            <div class="coupon-tag">特別ご優待クーポン</div>
+                            <div class="coupon-amount">
+                                <div class="big">初回半額 1,980円</div>
+                                <div class="sub">40本入り定期便 再開初回に適用</div>
+                            </div>
+                            <div class="coupon-note">※ お電話・LINEで「はがきを見た」とお伝えください</div>
+                        </div>
+
+                        <div class="contact-area">
+                            <div class="phone-num">☎ 0942-33-1228</div>
+                            <div class="phone-hours">平日（月〜金）10:00〜16:00</div>
+                            <div class="phone-hours" style="margin-top:2px;">LINE・メールでもお申込みいただけます</div>
+                        </div>
+
+                        <div class="badges">
+                            <span class="badge">代引き OK</span>
+                            <span class="badge">カード不要</span>
+                            <span class="badge">送料込</span>
+                        </div>
+
+                        <div class="footer-text">株式会社オリヴィア ｜ ミチルシリカ お客様サポート</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         DESIGN B — 損失回避・期間限定型（改善版）
+         ================================================================ -->
+    <section class="design-section">
+        <div class="section-header">
+            <span class="section-label">Design B — Improved</span>
+            <h2 class="section-title">損失回避・期間限定型</h2>
+            <p class="section-concept">
+                安っぽくなりがちな赤→ボルドーに変更し高級感を担保。<br>
+                期限日を大きく表示し、「今動かないと損」の心理を上品に演出。
+            </p>
+            <div class="section-improvement">改善: ボルドー配色 ／ 期限日の視覚強化 ／ 再開の安心要素追加</div>
+        </div>
+
+        <div class="cards-row">
+            <div class="card-wrapper">
+                <div class="card-label">Front（表面）</div>
+                <div class="postcard card-b-front">
+                    <div class="b-top-band">
+                        <div class="b-band-label">大 切 な お 知 ら せ</div>
+                    </div>
+                    <div class="b-product-photo">
+                        <img src="postcard_assets/woman_drinking.jpg" alt="ミチルシリカを飲む女性" style="object-position: center 15%;">
+                    </div>
+                    <div class="b-front-body" style="padding-top: 14px;">
+                        <div class="b-main-copy" style="font-size: 15px; margin-bottom: 12px;">
+                            お客様の<br>
+                            <span class="em">特別ご優待価格</span>の<br>
+                            適用期限が迫って<br>
+                            おります
+                        </div>
+
+                        <div class="b-price-card">
+                            <div class="b-price-label">特別価格</div>
+                            <div class="b-price-before">通常価格 3,960円（税込）</div>
+                            <div class="b-price-after">
+                                <span class="yen">¥</span>
+                                <span class="amount">1,980</span>
+                                <span class="tax">（税込・送料込）</span>
+                            </div>
+                            <div class="b-price-note">
+                                40本入り定期便 ／ <span class="highlight">お客様だけの初回半額</span><br>
+                                ※ 代引き対応 ／ カード不要で安心
+                            </div>
+                        </div>
+
+                        <div class="b-deadline-bar">
+                            <div class="label">お申し込み期限</div>
+                            <div class="date">2026年3月31日まで</div>
+                            <div class="after">期限を過ぎるとこの特別価格は適用されません</div>
+                        </div>
+
+                        <div class="b-brand-area">
+                            <div class="brand-name">ミチルシリカ</div>
+                            <div class="spec">大分県玖珠の天然水 ｜ シリカ含有量 72mg/L</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-wrapper">
+                <div class="card-label">Back（裏面）</div>
+                <div class="postcard card-b-back">
+                    <div class="b-back-header">
+                        <h3>このはがきが届いたお客様だけの<br>特別ご優待です</h3>
+                    </div>
+
+                    <div class="b-back-body">
+                        <div style="text-align:center; margin-bottom:10px;">
+                            <img src="postcard_assets/product_box.png" alt="ミチルシリカ商品" style="height:90px; object-fit:contain; filter: drop-shadow(0 3px 8px rgba(0,0,0,0.1));">
+                        </div>
+                        <div class="b-timeline">
+                            <div class="b-tl-item">
+                                <div class="b-tl-dot">過去</div>
+                                <div class="b-tl-label">ご愛飲期間</div>
+                                <div class="b-tl-desc">特別価格で<br>お届け</div>
+                            </div>
+                            <div class="b-tl-item">
+                                <div class="b-tl-dot">今</div>
+                                <div class="b-tl-label">現在</div>
+                                <div class="b-tl-desc">特別価格<br>適用中！</div>
+                            </div>
+                            <div class="b-tl-item">
+                                <div class="b-tl-dot">後</div>
+                                <div class="b-tl-label">期限後</div>
+                                <div class="b-tl-desc">通常価格に<br>変更</div>
+                            </div>
+                        </div>
+
+                        <div class="b-reassurance">
+                            <div class="b-reassure-item">
+                                <div class="icon">📞</div>
+                                <div class="text">お電話<br>一本でOK</div>
+                            </div>
+                            <div class="b-reassure-item">
+                                <div class="icon">📦</div>
+                                <div class="text">いつでも<br>解約自由</div>
+                            </div>
+                            <div class="b-reassure-item">
+                                <div class="icon">💳</div>
+                                <div class="text">カード<br>不要</div>
+                            </div>
+                        </div>
+
+                        <div class="coupon-box">
+                            <div class="coupon-tag">期間限定 特別ご優待</div>
+                            <div class="coupon-amount">
+                                <div class="big">初回半額 1,980円</div>
+                                <div class="sub">3月31日（火）まで有効</div>
+                            </div>
+                            <div class="coupon-note">※ お電話・LINEで「はがきを見た」とお伝えください</div>
+                        </div>
+
+                        <div class="contact-area">
+                            <div class="phone-num">☎ 0942-33-1228</div>
+                            <div class="phone-hours">平日（月〜金）10:00〜16:00</div>
+                            <div class="phone-hours" style="margin-top:2px;">LINE・メールでもお申込みいただけます</div>
+                        </div>
+
+                        <div class="badges">
+                            <span class="badge">代引き OK</span>
+                            <span class="badge">カード不要</span>
+                            <span class="badge">送料込</span>
+                        </div>
+
+                        <div class="footer-text">株式会社オリヴィア ｜ ミチルシリカ お客様サポート</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         DESIGN C — 復帰者の声 × 科学的根拠型（改善版）
+         ================================================================ -->
+    <section class="design-section">
+        <div class="section-header">
+            <span class="section-label">Design C — Improved</span>
+            <h2 class="section-title">復帰者の声 × 科学的根拠型</h2>
+            <p class="section-concept">
+                セージグリーン×クリームでナチュラル感をアップ。<br>
+                テスティモニアルのカードデザインとインフォグラフィック風データで訴求力を強化。
+            </p>
+            <div class="section-improvement">改善: セージグリーン配色 ／ カード型テスティモニアル ／ ボタニカル装飾強化</div>
+        </div>
+
+        <div class="cards-row">
+            <div class="card-wrapper">
+                <div class="card-label">Front（表面）</div>
+                <div class="postcard card-c-front">
+                    <div class="botanical bot-1"></div>
+                    <div class="botanical bot-2"></div>
+                    <div class="botanical bot-3"></div>
+                    <div class="botanical bot-4"></div>
+
+                    <div class="c-front-header" style="display: flex; align-items: center; gap: 14px;">
+                        <img src="postcard_assets/woman_smiling.png" alt="" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; object-position: center 10%; border: 2px solid var(--c-sage-pale); flex-shrink: 0;">
+                        <div>
+                            <div class="c-header-label">一度やめた方の声</div>
+                            <div class="c-header-title">あのとき続けていれば、<br>と思った方へ</div>
+                        </div>
+                    </div>
+
+                    <div class="c-main-copy">
+                        やめてわかった、<br>
+                        <span class="em">飲んでいた時の自分</span>の<br>
+                        ほうがよかった。
+                    </div>
+
+                    <div class="c-testimonials">
+                        <div class="c-testi">
+                            <div class="stars">★★★★★</div>
+                            <div class="quote">「やめて3ヶ月、なんだか調子が違う。再開したら戻りました」</div>
+                            <div class="who">60代女性・東京都</div>
+                        </div>
+                        <div class="c-testi">
+                            <div class="stars">★★★★★</div>
+                            <div class="quote">「主人にも『最近また調子よさそうだね』と言われました」</div>
+                            <div class="who">50代女性・福岡県</div>
+                        </div>
+                        <div class="c-testi">
+                            <div class="stars">★★★★★</div>
+                            <div class="quote">「お水を変えただけでこんなに違うとは思わなかった」</div>
+                            <div class="who">70代女性・大阪府</div>
+                        </div>
+                    </div>
+
+                    <div class="c-front-bottom">
+                        <div class="c-front-stat">再開されたお客様の <strong>92%</strong> が「やっぱりよかった」と回答</div>
+                        <div class="brand-name">ミチルシリカ</div>
+                        <div class="spec">大分県玖珠の天然水 ｜ シリカ含有量 72mg/L</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-wrapper">
+                <div class="card-label">Back（裏面）</div>
+                <div class="postcard card-c-back">
+                    <div class="c-back-header">
+                        <h3>なぜ3ヶ月がカラダの変わり目なのか</h3>
+                    </div>
+
+                    <div class="c-back-body">
+                        <div class="c-nature-photo">
+                            <img src="postcard_assets/bottle_nature.jpg" alt="自然の中のミチルシリカ">
+                        </div>
+                        <div class="c-science-label">シリカの実感ステップ</div>
+
+                        <div class="c-steps">
+                            <div class="c-step">
+                                <div class="month">1ヶ月</div>
+                                <div class="step-title">体内に<br>蓄積開始</div>
+                                <div class="step-desc">シリカが体内に取り込まれ始める時期</div>
+                            </div>
+                            <div class="c-step">
+                                <div class="month">2ヶ月</div>
+                                <div class="step-title">内側から<br>変化</div>
+                                <div class="step-desc">コラーゲン生成をサポート</div>
+                            </div>
+                            <div class="c-step">
+                                <div class="month">3ヶ月</div>
+                                <div class="step-title">実感の<br>変わり目</div>
+                                <div class="step-desc">髪・爪・肌に変化を感じる方が多数</div>
+                            </div>
+                        </div>
+
+                        <div class="c-data-row">
+                            <div class="c-data">
+                                <div class="val">72<span class="unit">mg/L</span></div>
+                                <div class="label">シリカ含有量</div>
+                            </div>
+                            <div class="c-data">
+                                <div class="val">pH6.9</div>
+                                <div class="label">弱酸性でやさしい</div>
+                            </div>
+                            <div class="c-data">
+                                <div class="val">100<span class="unit">%</span></div>
+                                <div class="label">天然水そのまま</div>
+                            </div>
+                        </div>
+
+                        <div class="coupon-box">
+                            <div class="coupon-tag">再開応援クーポン</div>
+                            <div class="coupon-amount">
+                                <div class="big">初回半額 1,980円</div>
+                                <div class="sub">40本入り定期便 再開初回に適用</div>
+                            </div>
+                            <div class="coupon-note">※ お電話・LINEで「はがきを見た」とお伝えください</div>
+                        </div>
+
+                        <div class="contact-area">
+                            <div class="phone-num">☎ 0942-33-1228</div>
+                            <div class="phone-hours">平日（月〜金）10:00〜16:00</div>
+                            <div class="phone-hours" style="margin-top:2px;">LINE・メールでもお申込みいただけます</div>
+                        </div>
+
+                        <div class="badges">
+                            <span class="badge">代引き OK</span>
+                            <span class="badge">カード不要</span>
+                            <span class="badge">送料込</span>
+                        </div>
+
+                        <div class="footer-text">株式会社オリヴィア ｜ ミチルシリカ お客様サポート</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         COMPARISON TABLE
+         ================================================================ -->
+    <section class="comparison">
+        <h2>3案 改善比較表</h2>
+        <p class="comp-sub">調査結果を反映した主な改善ポイント</p>
+        <table class="comp-table">
+            <thead>
+                <tr>
+                    <th style="width:15%;">比較項目</th>
+                    <th style="width:28%;"><span style="color:var(--a-gold-light);">Design A</span><br>手紙風パーソナルレター</th>
+                    <th style="width:28%;"><span style="color:var(--b-coral);">Design B</span><br>損失回避・期間限定型</th>
+                    <th style="width:28%;"><span style="color:var(--c-sage);">Design C</span><br>復帰者の声 × 科学的根拠</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>配色改善</td>
+                    <td><span class="tag-pill tag-a">ゴールド強化</span><br>シャンパンゴールド × ラベンダー × 桜ピンク → 高級感UP</td>
+                    <td><span class="tag-pill tag-b">ボルドー化</span><br>安価な赤 → ボルドー × ゴールド帯 → 品のある緊急性</td>
+                    <td><span class="tag-pill tag-c">セージ化</span><br>ビビッドグリーン → セージグリーン × クリーム → ナチュラル上品</td>
+                </tr>
+                <tr>
+                    <td>新要素</td>
+                    <td>封蝋モチーフ、角飾り、水彩ラベンダー追加</td>
+                    <td>期限日の大型表示バー、「再開3つの安心」セクション追加</td>
+                    <td>ボタニカル装飾強化、カード型テスティモニアルの角丸化</td>
+                </tr>
+                <tr>
+                    <td>フォント改善</td>
+                    <td>メインコピー 22→24px、Zen Old Minchoで手紙感UP</td>
+                    <td>価格部分 36→40px、期限日 22px新設で視認性UP</td>
+                    <td>メインコピー 16→18px、テスティモニアルの余白改善</td>
+                </tr>
+                <tr>
+                    <td>CTA強化</td>
+                    <td>封蝋で「特別ご優待」を視覚的にアピール</td>
+                    <td>期限日バーで緊急性を最大化、安心要素で障壁を低減</td>
+                    <td>92%統計の視認性UP、クーポンの視覚的な目立ち改善</td>
+                </tr>
+                <tr>
+                    <td>推奨ターゲット</td>
+                    <td>ブランドへの愛着が残る方<br>解約後 1〜3ヶ月</td>
+                    <td>価格が解約理由の方<br>解約後 3〜6ヶ月</td>
+                    <td>効果への不安で解約した方<br>解約後 3ヶ月以上</td>
+                </tr>
+                <tr>
+                    <td>期待レスポンス率</td>
+                    <td><strong style="color:var(--a-gold);">2.5〜4.0%</strong></td>
+                    <td><strong style="color:var(--b-bordeaux);">3.0〜5.0%</strong></td>
+                    <td><strong style="color:var(--c-sage-dark);">2.0〜3.5%</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+</body>
+</html>
