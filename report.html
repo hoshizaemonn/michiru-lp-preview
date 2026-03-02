@@ -1110,53 +1110,91 @@
         </div>
     </div>
 
-    <!-- ===== 3. 現在の予算配分 ===== -->
+    <!-- ===== 3. 広告予算配分の変更 ===== -->
     <div class="section">
-        <div class="section-header green">現在の広告予算配分（3/1〜）</div>
+        <div class="section-header green">広告予算配分の変更</div>
         <div class="section-body">
-            <div class="summary-grid">
-                <div class="summary-card green-border">
-                    <div class="sc-label">日予算合計</div>
-                    <div class="sc-value green">4,000円</div>
-                    <div class="sc-sub">月額上限 約120,000円</div>
+
+            <!-- 現在 → 変更後 比較 -->
+            <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: center; margin-bottom: 24px;">
+
+                <!-- 現在（変更前） -->
+                <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; border: 1px solid var(--border);">
+                    <div style="text-align: center; font-size: 0.8em; color: #999; letter-spacing: 2px; margin-bottom: 10px;">現在の予算</div>
+                    <div class="summary-grid" style="grid-template-columns: 1fr; gap: 8px; margin-bottom: 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #fff; border-radius: 8px; border: 1px solid #e0e4e8;">
+                            <span style="font-size: 0.85em; color: var(--text-light);">日予算合計</span>
+                            <span style="font-size: 1.2em; font-weight: 700; color: #666;">2,000円</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #fff; border-radius: 8px; border: 1px solid #e0e4e8;">
+                            <span style="font-size: 0.85em; color: var(--primary);">Instagram</span>
+                            <span style="font-size: 1.1em; font-weight: 700; color: var(--primary);">1,500円/日</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #fff; border-radius: 8px; border: 1px solid #e0e4e8;">
+                            <span style="font-size: 0.85em; color: var(--warning);">Yahoo</span>
+                            <span style="font-size: 1.1em; font-weight: 700; color: var(--warning);">500円/日</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="summary-card">
-                    <div class="sc-label">Instagram広告</div>
-                    <div class="sc-value blue">3,000円</div>
-                    <div class="sc-sub">日予算 / CVR最優秀チャネル</div>
+
+                <!-- 矢印 -->
+                <div style="text-align: center;">
+                    <div style="font-size: 2em; color: var(--success);">→</div>
+                    <div style="font-size: 0.7em; color: var(--success); font-weight: 700; letter-spacing: 1px;">本会議後</div>
                 </div>
-                <div class="summary-card orange-border">
-                    <div class="sc-label">Yahoo広告</div>
-                    <div class="sc-value orange">1,000円</div>
-                    <div class="sc-sub">日予算 / セッション数確保</div>
+
+                <!-- 変更後 -->
+                <div style="background: linear-gradient(135deg, #e8f5e9, #f1f8e9); border-radius: 12px; padding: 20px; border: 2px solid var(--success-light); box-shadow: 0 4px 16px rgba(46,125,50,0.1);">
+                    <div style="text-align: center; font-size: 0.8em; color: var(--success); font-weight: 700; letter-spacing: 2px; margin-bottom: 10px;">変更後の予算</div>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #fff; border-radius: 8px; border: 1px solid rgba(46,125,50,0.2);">
+                            <span style="font-size: 0.85em; color: var(--success); font-weight: 600;">日予算合計</span>
+                            <span style="font-size: 1.4em; font-weight: 800; color: var(--success);">4,000円</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #fff; border-radius: 8px; border: 1px solid rgba(13,71,161,0.15);">
+                            <div>
+                                <span style="font-size: 0.85em; color: var(--primary); font-weight: 600;">Instagram</span>
+                                <span style="font-size: 0.7em; color: var(--success); margin-left: 6px;">2倍</span>
+                            </div>
+                            <span style="font-size: 1.3em; font-weight: 800; color: var(--primary);">3,000円/日</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #fff; border-radius: 8px; border: 1px solid rgba(230,81,0,0.15);">
+                            <div>
+                                <span style="font-size: 0.85em; color: var(--warning); font-weight: 600;">Yahoo</span>
+                                <span style="font-size: 0.7em; color: var(--success); margin-left: 6px;">2倍</span>
+                            </div>
+                            <span style="font-size: 1.3em; font-weight: 800; color: var(--warning);">1,000円/日</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
+            <!-- 変更理由 -->
             <div class="budget-grid">
                 <div class="budget-card ig">
                     <div class="bc-label">主力チャネル</div>
                     <div class="bc-name">Instagram広告</div>
-                    <div class="bc-amount">3,000円/日</div>
+                    <div class="bc-amount">1,500円 → 3,000円/日</div>
                     <div class="bc-detail">
-                        CVR 4.79%（Yahoo比3.2倍）<br>
-                        購入意思の高いユーザーが多く<br>
-                        <strong>予算増額で更なるCV獲得を狙う</strong>
+                        CVR 4.79%（Yahoo比3.2倍）で購入意思の高いユーザーが多い。<br>
+                        価格訴求-口コミ版がCPC ¥60.4と好調。<br>
+                        <strong>予算倍増でCV獲得を最大化</strong>
                     </div>
                 </div>
                 <div class="budget-card yahoo">
                     <div class="bc-label">補完チャネル</div>
                     <div class="bc-name">Yahoo広告</div>
-                    <div class="bc-amount">1,000円/日</div>
+                    <div class="bc-amount">500円 → 1,000円/日</div>
                     <div class="bc-detail">
-                        セッション数329で最多流入<br>
-                        認知拡大・情報収集層へのリーチ<br>
+                        セッション数329で最多流入チャネル。<br>
+                        認知拡大・情報収集層へのリーチ維持。<br>
                         <strong>IG好調時は更に予算シフト検討</strong>
                     </div>
                 </div>
             </div>
 
             <div class="note-box info" style="margin-top: 16px;">
-                <strong>ポイント:</strong> 前回会議で決定した予算増額（1日4,000円/IG:3,000円・Yahoo:1,000円）を3月1日より開始。上記の通知システムにより、実績に応じた柔軟な配分調整が可能な体制を構築済み。
+                <strong>変更ポイント:</strong> 本会議の承認をもって、日予算を2,000円→4,000円（月額上限 約60,000円→約120,000円）に倍増。Instagram広告の好調な成果（CPC ¥60、CVR 4.79%）を踏まえ、IG側を主力として重点配分。上記の通知システムにより、実績に応じた柔軟な配分調整が可能な体制を構築済み。
             </div>
         </div>
     </div>
