@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ミチルシリカ | 天然シリカ水 - 大分県の名水</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+/* ===== Reset & Base ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+  color: #0F1111;
+  background: #fff;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+
+/* ===== Deals Banner (Red) ===== */
+.deals-banner {
+  background: #cc0c39;
+  text-align: center;
+  padding: 16px 20px;
+  font-size: 28px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 4px;
+}
+
+/* ===== Hero Section ===== */
+.hero {
+  position: relative;
+  background: #0a2e4d;
+  padding: 40px 20px 60px;
+  text-align: center;
+  overflow: hidden;
+  min-height: 80vh;
+}
+/* Video background */
+.hero-video {
+  position: absolute;
+  top: 50%; left: 50%;
+  min-width: 100%; min-height: 100%;
+  width: auto; height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: 0;
+}
+/* Dark overlay on video */
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 20, 50, 0.45);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.hero-title {
+  font-size: 34px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 40px;
+  line-height: 1.4;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  letter-spacing: 3px;
+}
+.hero-title em {
+  font-style: italic;
+  font-weight: 300;
+  font-size: 30px;
+  display: block;
+  opacity: 0.9;
+  letter-spacing: 5px;
+}
+
+/* Hero product cards (3 cards) */
+.hero-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.hero-card {
+  background: transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  text-align: left;
+  transition: transform 0.2s;
+}
+.hero-card:hover {
+  transform: translateY(-4px);
+}
+.hero-card-img {
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 12px;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.hero-card-img .img-bg-blur { display: none; }
+/* Product image on top (clear) */
+.hero-card-img img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+}
+.hero-card-body {
+  padding: 14px 16px 16px;
+  background: #fff;
+}
+.hero-card-badge {
+  display: inline-block;
+  background: #cc0c39;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+}
+.hero-card-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #0F1111;
+  line-height: 1.5;
+  margin-bottom: 6px;
+  min-height: 40px;
+}
+.hero-card-stars {
+  color: #FFA41C;
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+.hero-card-stars span {
+  color: #007185;
+  font-size: 12px;
+  margin-left: 4px;
+}
+.hero-card-price {
+  margin-bottom: 4px;
+}
+.hero-card-price .current {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0F1111;
+}
+.hero-card-price .per-unit {
+  font-size: 12px;
+  color: #565959;
+}
+.hero-card-price .original {
+  font-size: 12px;
+  color: #565959;
+  text-decoration: line-through;
+  margin-left: 6px;
+}
+.hero-card-prime {
+  color: #0574c6;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.hero-card-prime::before {
+  content: '✓';
+  font-weight: 900;
+  margin-right: 2px;
+}
+.hero-card-btn {
+  display: block;
+  width: 100%;
+  background: #ea9b2e;
+  border: 1px solid #d08a20;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+}
+.hero-card-btn:hover {
+  opacity: 0.85;
+}
+
+/* ===== Section Common ===== */
+.section {
+  padding: 50px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 900;
+  color: #0F1111;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+.section-title .brand-name {
+  color: #00a2d3;
+}
+.section-subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #565959;
+  margin-bottom: 40px;
+}
+.section-divider {
+  width: 60px;
+  height: 3px;
+  background: #00a2d3;
+  margin: 0 auto 40px;
+  border-radius: 2px;
+}
+
+/* ===== Benefits (選ばれる理由) ===== */
+.benefits {
+  background: url('assets/benefits_bg.jpg') center center / cover no-repeat;
+  padding: 70px 20px 60px;
+  position: relative;
+  overflow: hidden;
+}
+/* Semi-transparent overlay for readability */
+.benefits::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 30, 60, 0.55);
+  z-index: 0;
+}
+.benefits-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.benefits-heading {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.benefits-heading .sub {
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  display: block;
+  margin-bottom: 4px;
+}
+.benefits-heading h2 {
+  font-size: 30px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.4;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.benefits-heading h2 .brand-name {
+  color: #7dd3fc;
+}
+/* ILOHAS style: left bottle + right feature points */
+.benefits-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.benefits-product {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.benefits-product img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 40px rgba(0,0,0,0.25));
+}
+.benefits-points {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+.benefit-point {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+.benefit-circle {
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  border: 3px solid rgba(255,255,255,0.4);
+}
+.benefit-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Large organic blob shapes like ILOHAS water drops */
+.benefit-point:nth-child(1) .benefit-circle {
+  width: 280px;
+  height: 250px;
+  border-radius: 62% 38% 50% 50% / 55% 62% 38% 45%;
+}
+.benefit-point:nth-child(2) .benefit-circle {
+  width: 300px;
+  height: 270px;
+  border-radius: 45% 55% 38% 62% / 52% 42% 58% 48%;
+}
+.benefit-point:nth-child(3) .benefit-circle {
+  width: 260px;
+  height: 240px;
+  border-radius: 50% 50% 62% 38% / 38% 58% 42% 62%;
+}
+.benefit-text h3 {
+  font-size: 26px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 10px;
+  line-height: 1.4;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.benefit-text p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.92);
+  line-height: 1.8;
+}
+
+/* ===== Voice Carousel (#ミチル暮らし) ===== */
+.voice-section {
+  background: linear-gradient(180deg, #e8f4f8 0%, #f0f9fc 100%);
+  padding: 60px 20px;
+  overflow: hidden;
+}
+.voice-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.voice-heading {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.voice-heading .hashtag {
+  display: inline-block;
+  background: #00a2d3;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 6px 20px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+.voice-heading h2 {
+  font-size: 26px;
+  font-weight: 900;
+  color: #0F1111;
+  line-height: 1.4;
+}
+.voice-heading h2 span {
+  color: #00a2d3;
+}
+/* Carousel wrapper */
+.voice-carousel {
+  position: relative;
+  padding: 0 50px;
+}
+.voice-track {
+  display: flex;
+  gap: 0;
+  transition: transform 0.5s ease;
+}
+.voice-card {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  padding: 20px 40px;
+}
+.voice-card-img {
+  position: relative;
+}
+.voice-card-img img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+}
+.voice-card-body {
+  padding: 0;
+}
+.voice-card-vol {
+  font-size: 14px;
+  font-weight: 700;
+  color: #00a2d3;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.voice-card-name {
+  font-size: 26px;
+  font-weight: 900;
+  color: #0F1111;
+  margin-bottom: 4px;
+}
+.voice-card-attr {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
+}
+.voice-card-quote {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.9;
+}
+/* Arrows */
+.voice-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  background: #fff;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+  z-index: 2;
+}
+.voice-arrow:hover {
+  background: #00a2d3;
+  color: #fff;
+  border-color: #00a2d3;
+}
+.voice-arrow.prev { left: 0; }
+.voice-arrow.next { right: 0; }
+/* Dots */
+.voice-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+.voice-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ccc;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.voice-dot.active {
+  background: #00a2d3;
+}
+
+/* ===== Comparison (比較表 - 画像版) ===== */
+.compare-section {
+  padding: 60px 20px 50px;
+  background: url('assets/water_ripple_bg.png') center center / cover no-repeat;
+  position: relative;
+}
+.compare-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.compare-inner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+}
+
+/* ===== FAQ ===== */
+.faq-section {
+  padding: 60px 20px;
+  background: #f7fafa;
+}
+.faq-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.faq-heading {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.faq-heading h2 {
+  font-size: 26px;
+  font-weight: 900;
+  color: #0F1111;
+}
+.faq-item {
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  overflow: hidden;
+}
+.faq-q {
+  padding: 18px 24px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0F1111;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s;
+}
+.faq-q:hover {
+  background: #f0f9fc;
+}
+.faq-q::before {
+  content: 'Q.';
+  color: #00a2d3;
+  font-weight: 900;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.faq-q .arrow {
+  font-size: 12px;
+  color: #999;
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+.faq-item.open .faq-q .arrow {
+  transform: rotate(180deg);
+}
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.faq-item.open .faq-a {
+  max-height: 300px;
+}
+.faq-a-inner {
+  padding: 0 24px 20px 52px;
+  font-size: 14px;
+  color: #565959;
+  line-height: 1.8;
+}
+
+/* ===== Order Form + 代引き ===== */
+.order-section {
+  padding: 60px 20px;
+  background: #fff;
+}
+.order-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.order-heading {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.order-heading h2 {
+  font-size: 26px;
+  font-weight: 900;
+  color: #0F1111;
+  margin-bottom: 8px;
+}
+.order-heading p {
+  font-size: 14px;
+  color: #565959;
+}
+/* Payment tab toggle */
+.payment-tabs {
+  display: flex;
+  margin-bottom: 0;
+  gap: 4px;
+}
+.payment-tab {
+  flex: 1;
+  padding: 16px 12px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 12px 12px 0 0;
+  border: 2px solid #ddd;
+  border-bottom: none;
+  background: #f0f0f0;
+  color: #888;
+  transition: all 0.2s;
+}
+.payment-tab.active {
+  background: #fff;
+  color: #00a2d3;
+  border-color: #00a2d3;
+}
+.payment-tab .tab-sub {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: #999;
+  margin-top: 2px;
+}
+.payment-tab.active .tab-sub {
+  color: #666;
+}
+.payment-form-area {
+  border: 2px solid #00a2d3;
+  border-radius: 0 0 12px 12px;
+  background: #fff;
+  padding: 0;
+}
+.payment-form-panel {
+  display: none;
+  padding: 32px;
+}
+.payment-form-panel.active {
+  display: block;
+}
+.cod-notice {
+  background: #fff8e8;
+  border: 1px solid #f5c842;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #8a6d00;
+  line-height: 1.6;
+}
+.cod-notice strong {
+  color: #c45500;
+}
+.order-form {
+  background: #f7fafa;
+  border-radius: 16px;
+  padding: 32px;
+}
+.form-row {
+  margin-bottom: 16px;
+}
+.form-row label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 6px;
+}
+.form-row label .required {
+  background: #cc0c39;
+  color: #fff;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-left: 6px;
+}
+.form-row input,
+.form-row select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+.form-row input:focus,
+.form-row select:focus {
+  outline: none;
+  border-color: #00a2d3;
+  box-shadow: 0 0 0 3px rgba(0,162,211,0.15);
+}
+.form-row-half {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.order-submit {
+  display: block;
+  width: 100%;
+  background: #ea9b2e;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 16px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 24px;
+  box-shadow: 0 4px 16px rgba(234,155,46,0.3);
+  transition: transform 0.2s;
+}
+.order-submit:hover {
+  transform: translateY(-2px);
+}
+.order-note {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 12px;
+  color: #999;
+  line-height: 1.6;
+}
+
+/* ===== Hero Sub (注意書き + 代引きボタン) ===== */
+.hero-sub {
+  background: #fff;
+  padding: 24px 20px 20px;
+  text-align: center;
+}
+.hero-sub-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.hero-sub-notice {
+  font-size: 10px;
+  color: #999;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.hero-sub-daibiki {
+  display: inline-block;
+  background: #c45500;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 14px 40px;
+  border-radius: 30px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(196,85,0,0.3);
+  transition: transform 0.2s;
+}
+.hero-sub-daibiki:hover {
+  transform: translateY(-2px);
+}
+
+/* ===== iframe「購入する」ボタン非表示 ===== */
+#creditForm {
+  position: relative;
+  overflow: hidden;
+}
+#creditForm iframe {
+  margin-bottom: -120px;
+}
+
+/* ===== Radio/Checkbox form styles for COD ===== */
+.form-radio-group, .form-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 8px 0;
+}
+.form-radio-group label, .form-checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  cursor: pointer;
+}
+.form-radio-group input, .form-checkbox-group input {
+  width: auto;
+  margin: 0;
+}
+.form-row textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  background: #fff;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.2s;
+}
+.form-row textarea:focus {
+  outline: none;
+  border-color: #00a2d3;
+  box-shadow: 0 0 0 3px rgba(0,162,211,0.15);
+}
+.form-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: #333;
+  line-height: 1.5;
+}
+.form-check input[type="checkbox"] {
+  width: auto;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* ===== CTA Banner ===== */
+.cta-banner {
+  background: linear-gradient(135deg, #00a2d3, #00b8e6);
+  padding: 50px 20px;
+  text-align: center;
+  color: #fff;
+}
+.cta-banner-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.cta-banner h2 {
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+.cta-banner p {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 24px;
+}
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.cta-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ea9b2e;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 14px 40px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transition: transform 0.2s;
+}
+.cta-btn-primary:hover {
+  transform: translateY(-2px);
+}
+.cta-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: 2px solid rgba(255,255,255,0.4);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.cta-btn-secondary:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+/* ===== Footer ===== */
+.footer {
+  background: #232F3E;
+  color: #DDD;
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 12px;
+}
+.footer a {
+  color: #DDD;
+  margin: 0 12px;
+}
+.footer a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.footer-links {
+  margin-bottom: 16px;
+}
+.footer-copy {
+  color: #999;
+  font-size: 11px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .hero-cards { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+}
+@media (max-width: 900px) {
+  .hero-cards { grid-template-columns: 1fr 1fr; }
+  .hero-card:last-child {
+    grid-column: 1 / -1;
+    max-width: 50%;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 768px) {
+  .hero { padding: 30px 16px 40px; min-height: auto; }
+  .hero-title { font-size: 22px; margin-bottom: 24px; }
+  .hero-title em { font-size: 18px; }
+  .hero-cards { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .hero-card:last-child { max-width: 60%; }
+  .hero-card-img { height: 150px; }
+  .hero-card-badge { font-size: 10px; padding: 2px 8px; }
+  .hero-card-name { font-size: 12px; min-height: 36px; }
+  .hero-card-price .current { font-size: 18px; }
+  .benefits { padding: 50px 16px 40px; }
+  .benefits-layout { grid-template-columns: 1fr; }
+  .benefits-product img { max-height: 280px; }
+  .benefit-point { gap: 16px; }
+  .benefit-circle { width: 160px !important; height: 140px !important; }
+  .benefit-text h3 { font-size: 20px; }
+  .benefit-text p { font-size: 13px; }
+  .voice-section { padding: 40px 12px; }
+  .voice-carousel { padding: 0 36px; }
+  .voice-card { grid-template-columns: 1fr; gap: 20px; padding: 16px 12px; }
+  .voice-card-img img { height: 280px; }
+  .voice-card-body { padding: 0 8px; }
+  .voice-card-name { font-size: 22px; }
+  .voice-card-quote { font-size: 14px; }
+  .compare-section { padding: 40px 12px 30px; }
+  .compare-inner { max-width: 100%; }
+  .faq-section { padding: 40px 16px; }
+  .faq-q { font-size: 14px; padding: 14px 16px; }
+  .order-section { padding: 40px 12px; }
+  .payment-tab { font-size: 13px; padding: 12px 8px; }
+  .payment-tab .tab-sub { font-size: 10px; }
+  .payment-form-panel { padding: 20px 16px; }
+  .section-title { font-size: 20px; }
+  .cta-banner h2 { font-size: 20px; }
+  .cta-banner { padding: 36px 16px; }
+  .deals-banner { font-size: 20px; padding: 12px 16px; }
+  .hero-sub-daibiki { font-size: 14px; padding: 12px 32px; }
+  .form-radio-group, .form-checkbox-group { gap: 6px 12px; }
+  .form-radio-group label, .form-checkbox-group label { font-size: 13px; }
+}
+
+@media (max-width: 480px) {
+  .hero { padding: 20px 10px 32px; }
+  .hero-title { font-size: 18px; margin-bottom: 20px; }
+  .hero-title em { font-size: 14px; }
+  .hero-cards { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .hero-card:last-child { max-width: 70%; }
+  .hero-card-img { height: 120px; padding: 10px 8px; }
+  .hero-card-body { padding: 8px 10px 12px; }
+  .hero-card-name { font-size: 10px; min-height: 28px; }
+  .hero-card-stars { font-size: 11px; }
+  .hero-card-price .current { font-size: 16px; }
+  .hero-card-price .per-unit, .hero-card-price .original { font-size: 10px; }
+  .hero-card-prime { font-size: 11px; }
+  .hero-card-btn { font-size: 11px; padding: 6px 10px; }
+  .benefits-heading h2 { font-size: 22px; }
+  .benefit-circle { width: 120px !important; height: 110px !important; }
+  .benefit-text h3 { font-size: 18px; }
+  .voice-heading h2 { font-size: 20px; }
+  .voice-arrow { width: 32px; height: 32px; font-size: 14px; }
+  .voice-carousel { padding: 0 28px; }
+  .compare-section { padding: 30px 8px 24px; }
+  .faq-q { font-size: 13px; }
+  .faq-a-inner { font-size: 12px; padding: 0 16px 16px 40px; }
+  .deals-banner { font-size: 16px; letter-spacing: 2px; padding: 10px 12px; }
+  .cta-buttons { flex-direction: column; align-items: center; }
+  .order-heading h2 { font-size: 22px; }
+  .payment-tab { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Deals Banner (Red) ===== -->
+<div class="deals-banner">商品ラインナップ</div>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="assets/hero_bg.mp4" type="video/mp4">
+  </video>
+
+  <div class="hero-content">
+    <h1 class="hero-title"><em>大分・玖珠の恵み</em>天然シリカ水</h1>
+
+    <div class="hero-cards">
+      <!-- Card 1: 40本入り定期便 (メイン商品 → カートに入れる) -->
+      <div class="hero-card">
+        <div class="hero-card-img">
+          <div class="img-bg-blur"></div>
+          <img src="assets/product_box_bottle.png" alt="ミチルシリカ 525ml × 40本入りケース">
+        </div>
+        <div class="hero-card-body">
+          <div class="hero-card-badge">初回50%OFF</div>
+          <div class="hero-card-name">ミチルシリカ 天然シリカ水 525ml PET×40本【当社最安】</div>
+          <div class="hero-card-stars">★★★★★ <span>4,915</span></div>
+          <div class="hero-card-price">
+            <span class="current">¥1,980</span><span class="per-unit">(¥49/本)</span>
+            <span class="original">¥3,960</span>
+          </div>
+          <div class="hero-card-prime" style="color:#c45500;">定期便・送料無料</div>
+          <a href="#order" class="hero-card-btn">ご注文はこちら</a>
+        </div>
+      </div>
+
+      <!-- Card 2: 24本入り定期便 → colorme-repeat -->
+      <div class="hero-card">
+        <div class="hero-card-img">
+          <div class="img-bg-blur"></div>
+          <img src="assets/product_box_bottle.png" alt="ミチルシリカ 525ml × 24本入り">
+        </div>
+        <div class="hero-card-body">
+          <div class="hero-card-badge">初回50%OFF</div>
+          <div class="hero-card-name">ミチルシリカ 天然シリカ水 525ml × 24本 定期便</div>
+          <div class="hero-card-stars">★★★★☆ <span>2,847</span></div>
+          <div class="hero-card-price">
+            <span class="current">¥1,295</span><span class="per-unit">(¥54/本)</span>
+            <span class="original">¥2,590</span>
+          </div>
+          <div class="hero-card-prime" style="color:#c45500;">定期便・送料無料</div>
+          <a href="https://colorme-repeat.jp/8/f67f8dd1/michiru_water_24?couponCode=MCL50&_gl=1%2a1rt2gvy%2a_gcl_au%2aNzQyNTcyODY5LjE3NjgzODkxMDA.%2a_ga%2aNzg5NzQ2Mzk4LjE3NjA1ODE3ODY.%2a_ga_3SFRPMM1NB%2aczE3NzI0NTg5MzEkbzE4MCRnMCR0MTc3MjQ1ODkzMSRqNjAkbDAkaDA." class="hero-card-btn" target="_blank">ご注文はこちら</a>
+        </div>
+      </div>
+
+      <!-- Card 3: 24本お試しセット → colorme-repeat -->
+      <div class="hero-card">
+        <div class="hero-card-img">
+          <div class="img-bg-blur"></div>
+          <img src="assets/product_box_bottle.png" alt="ミチルシリカ 525ml × 24本 お試し">
+        </div>
+        <div class="hero-card-body">
+          <div class="hero-card-badge" style="background:#232f3e;">お試しセット</div>
+          <div class="hero-card-name">ミチルシリカ 天然シリカ水 525ml × 24本【初めての方に】</div>
+          <div class="hero-card-stars">★★★★☆ <span>1,203</span></div>
+          <div class="hero-card-price">
+            <span class="current">¥2,880</span><span class="per-unit">(¥120/本)</span>
+          </div>
+          <div class="hero-card-prime" style="color:#c45500;">1回限り 送料無料</div>
+          <a href="https://colorme-repeat.jp/8/f67f8dd1/michiru_water_trial?couponCode=&_gl=1%2a12sdtqm%2a_gcl_au%2aNzQyNTcyODY5LjE3NjgzODkxMDA.%2a_ga%2aNzg5NzQ2Mzk4LjE3NjA1ODE3ODY.%2a_ga_3SFRPMM1NB%2aczE3NzI0NTg5MzEkbzE4MCRnMCR0MTc3MjQ1ODkzMSRqNjAkbDAkaDA." class="hero-card-btn" target="_blank">ご注文はこちら</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Hero Sub (注意書き + 代引き) ===== -->
+<div class="hero-sub">
+  <div class="hero-sub-inner">
+    <p class="hero-sub-notice">
+      ※本品は天然のミネラルウォーターであり、特定保健用食品や機能性表示食品ではありません。
+      効果・効能を保証するものではなく、個人の感想です。
+      シリカ（ケイ素）は人体に必要なミネラルの一つですが、疾病の治療や予防を目的としたものではありません。
+    </p>
+    <a href="#order" class="hero-sub-daibiki" onclick="setTimeout(function(){switchPayment('cod')},500)">代引きで注文する</a>
+  </div>
+</div>
+
+<!-- ===== Benefits (選ばれる理由) ===== -->
+<section class="benefits">
+  <div class="benefits-inner">
+    <div class="benefits-heading">
+      <span class="sub">＼ だから選ばれています ／</span>
+      <h2><span class="brand-name">「ミチルシリカ」</span>が選ばれる理由</h2>
+    </div>
+
+    <div class="benefits-layout">
+      <div class="benefits-product">
+        <img src="assets/bottle_blue.png" alt="ミチルシリカ 525ml ボトル">
+      </div>
+      <div class="benefits-points">
+        <div class="benefit-point">
+          <div class="benefit-circle">
+            <img src="assets/hand_bottle.jpg" alt="ミチルシリカを手に持つ">
+          </div>
+          <div class="benefit-text">
+            <h3>シリカ72mg/L<br>トップクラスの含有量</h3>
+            <p>髪・肌・爪・骨の健康に欠かせないシリカを業界トップクラスで含有。毎日1本で効率的に補給できます。</p>
+          </div>
+        </div>
+        <div class="benefit-point">
+          <div class="benefit-circle">
+            <img src="assets/woman_drinking.jpg" alt="ミチルシリカを飲む女性">
+          </div>
+          <div class="benefit-text">
+            <h3>天然軟水だから<br>毎日おいしく飲める</h3>
+            <p>硬度24mg/Lのまろやかな軟水。クセがなく飲みやすいので、お茶やコーヒー、お料理にも使えます。</p>
+          </div>
+        </div>
+        <div class="benefit-point">
+          <div class="benefit-circle">
+            <img src="assets/waterfall_bottle.jpg" alt="滝とミチルシリカボトル">
+          </div>
+          <div class="benefit-text">
+            <h3>完全無添加<br>大分・玖珠の天然水</h3>
+            <p>長い年月をかけて磨かれた大分県玖珠町の地下水をそのままボトリング。防腐剤・保存料は一切不使用。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== #ミチル暮らし Voice Carousel ===== -->
+<section class="voice-section">
+  <div class="voice-inner">
+    <div class="voice-heading">
+      <div class="hashtag">#ミチル暮らし</div>
+      <h2>愛飲者の<span>リアルな声</span>をお届け</h2>
+    </div>
+
+    <div class="voice-carousel">
+      <button class="voice-arrow prev" onclick="slideVoice(-1)">&#10094;</button>
+      <div style="overflow:hidden;">
+        <div class="voice-track" id="voiceTrack">
+          <!-- Slide 1 -->
+          <div class="voice-card">
+            <div class="voice-card-img"><img src="assets/voice_01.jpg" alt="kiimamさん"></div>
+            <div class="voice-card-body">
+              <div class="voice-card-vol">Vol.01</div>
+              <div class="voice-card-name">kiimamさん</div>
+              <div class="voice-card-attr">2児のママ</div>
+              <div class="voice-card-quote">子どもにも安心して飲ませられる軟水。家族みんなで毎日飲んでいます。定期便で買い忘れもなく助かっています。</div>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="voice-card">
+            <div class="voice-card-img"><img src="assets/voice_02.jpg" alt="えりさん"></div>
+            <div class="voice-card-body">
+              <div class="voice-card-vol">Vol.02</div>
+              <div class="voice-card-name">えりさん</div>
+              <div class="voice-card-attr">看護師 / 1児の母</div>
+              <div class="voice-card-quote">口当たりが良く、自然の甘みも感じられて「おいしい！」と思えるお水。夜勤明けの水分補給にも欠かせません。</div>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="voice-card">
+            <div class="voice-card-img"><img src="assets/voice_03.jpg" alt="あやのさん"></div>
+            <div class="voice-card-body">
+              <div class="voice-card-vol">Vol.03</div>
+              <div class="voice-card-name">あやのさん</div>
+              <div class="voice-card-attr">2児のママ</div>
+              <div class="voice-card-quote">他のシリカ水より断然飲みやすい。お料理にも使っていて、ご飯がふっくら炊けるのがお気に入りです。</div>
+            </div>
+          </div>
+          <!-- Slide 4 -->
+          <div class="voice-card">
+            <div class="voice-card-img"><img src="assets/voice_04.jpg" alt="ROMIさん"></div>
+            <div class="voice-card-body">
+              <div class="voice-card-vol">Vol.04</div>
+              <div class="voice-card-name">ROMIさん</div>
+              <div class="voice-card-attr">39歳</div>
+              <div class="voice-card-quote">トレーニング後の水分補給に最適。シリカのおかげか、爪が割れにくくなり、髪にもコシが出てきた気がします。</div>
+            </div>
+          </div>
+          <!-- Slide 5 -->
+          <div class="voice-card">
+            <div class="voice-card-img"><img src="assets/voice_05.jpg" alt="Ayakaさん"></div>
+            <div class="voice-card-body">
+              <div class="voice-card-vol">Vol.05</div>
+              <div class="voice-card-name">Ayakaさん</div>
+              <div class="voice-card-attr">29歳・沖縄在住</div>
+              <div class="voice-card-quote">石垣島での暮らしに欠かせない存在。沖縄の硬水に慣れていたので、この軟水の飲みやすさに感動しました。</div>
+            </div>
+          </div>
+          <!-- Slide 6 -->
+          <div class="voice-card">
+            <div class="voice-card-img"><img src="assets/voice_06.jpg" alt="Saoriさん"></div>
+            <div class="voice-card-body">
+              <div class="voice-card-vol">Vol.06</div>
+              <div class="voice-card-name">Saoriさん</div>
+              <div class="voice-card-attr">38歳・会社員 / ヨガ・ピラティス講師</div>
+              <div class="voice-card-quote">ヨガを始めたきっかけや身体の変化を実感。レッスン後の水分補給にいつもミチルシリカを飲んでいます。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="voice-arrow next" onclick="slideVoice(1)">&#10095;</button>
+
+      <div class="voice-dots">
+        <div class="voice-dot active" onclick="goToSlide(0)"></div>
+        <div class="voice-dot" onclick="goToSlide(1)"></div>
+        <div class="voice-dot" onclick="goToSlide(2)"></div>
+        <div class="voice-dot" onclick="goToSlide(3)"></div>
+        <div class="voice-dot" onclick="goToSlide(4)"></div>
+        <div class="voice-dot" onclick="goToSlide(5)"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  let currentSlide = 0;
+  const track = document.getElementById('voiceTrack');
+  const dots = document.querySelectorAll('.voice-dot');
+  const totalCards = 6;
+
+  function updateSlider() {
+    track.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+    dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+  }
+
+  window.slideVoice = function(dir) {
+    currentSlide = Math.max(0, Math.min(totalCards - 1, currentSlide + dir));
+    updateSlider();
+  };
+
+  window.goToSlide = function(i) {
+    currentSlide = i;
+    updateSlider();
+  };
+})();
+</script>
+
+<!-- ===== Comparison (比較表 - 画像版) ===== -->
+<section class="compare-section">
+  <div class="compare-inner">
+    <img src="assets/compare_table.png" alt="いつものお水とミチルシリカを比較 - A社180円 B社124円 C社203円 D社177円 ミチルシリカ99円">
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="faq-heading">
+      <h2>よくあるご質問</h2>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span>シリカ（ケイ素）とは何ですか？</span>
+        <span class="arrow">&#9660;</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">シリカ（ケイ素）は、肌・髪・爪・骨・血管など全身に存在するミネラルです。体内で生成できず、加齢とともに減少するため、日々の食事や飲料から補うことが大切です。</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span>定期便はいつでも解約できますか？</span>
+        <span class="arrow">&#9660;</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">はい、最低購入回数の縛りはありません。次回お届け予定日の10日前までにお電話（0942-33-1228）いただければ、いつでも解約・休止・変更が可能です。</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span>他のシリカ水との違いは何ですか？</span>
+        <span class="arrow">&#9660;</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">ミチルシリカは硬度24mg/Lの天然軟水です。多くのシリカ水は中硬水〜硬水ですが、ミチルシリカはまろやかで飲みやすく、お茶やお料理にもお使いいただけます。シリカ含有量72mg/Lは業界トップクラスです。</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span>子どもや妊婦でも飲めますか？</span>
+        <span class="arrow">&#9660;</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">はい、天然のミネラルウォーターですので、お子様からご年配の方まで安心してお飲みいただけます。軟水のため赤ちゃんのミルク作りにもお使いいただけます。</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span>賞味期限はどのくらいですか？</span>
+        <span class="arrow">&#9660;</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">製造日より2年間です。未開封であれば常温保存が可能です。開封後はお早めにお飲みください。</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span>代引きでの支払いはできますか？</span>
+        <span class="arrow">&#9660;</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">はい、代金引換でのお支払いに対応しています。代引き手数料は440円（税込）です。商品お届け時に配達員へ現金でお支払いください。</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span>送料はかかりますか？</span>
+        <span class="arrow">&#9660;</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">定期便・初回限定セットは送料無料でお届けいたします。</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <span>どのくらいで届きますか？</span>
+        <span class="arrow">&#9660;</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">ご注文確認後、通常3〜5営業日でお届けいたします。配送日のご指定も可能です。定期便の場合は毎月1日・10日・20日からお届け日をお選びいただけます。</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Order Form + 代引き情報 ===== -->
+<section class="order-section" id="order">
+  <div class="order-inner">
+    <div class="order-heading">
+      <h2>ご注文はこちら</h2>
+      <p>初回限定50%OFF・送料無料・定期縛りなし</p>
+    </div>
+
+    <!-- Payment method tabs -->
+    <div class="payment-tabs">
+      <div class="payment-tab active" onclick="switchPayment('credit')">
+        &#128179; クレジットカード
+        <span class="tab-sub">VISA / Master / JCB / AMEX・手数料無料</span>
+      </div>
+      <div class="payment-tab" onclick="switchPayment('cod')">
+        &#128230; 代金引換
+        <span class="tab-sub">商品お届け時に現金でお支払い</span>
+      </div>
+    </div>
+
+    <div class="payment-form-area">
+      <!-- Credit Card Form (colorme-repeat iframe) -->
+      <div class="payment-form-panel active" id="creditForm">
+        <div style="padding:16px 16px 0;font-size:13px;color:#565959;line-height:1.6;">
+          JCB、VISA、Mastercard、American Express、Discoverのご利用が可能です。<br>
+          定期便の場合はサイクル毎に自動決済です。
+        </div>
+        <iframe
+          src="https://colorme-repeat.jp/8/f67f8dd1/michiru_water_40_1?couponCode=MCL50"
+          width="100%"
+          height="3300"
+          style="border:none; overflow:hidden;"
+          scrolling="no">
+        </iframe>
+      </div>
+
+      <!-- COD (代引き) Form -->
+      <div class="payment-form-panel" id="codForm">
+        <div class="cod-notice">
+          <strong>【代金引換手数料について】</strong><br>
+          代金引換でのお支払いの場合、手数料として<strong style="color:#cc0c39;">440円（税込）</strong>がかかります。
+        </div>
+
+        <!-- 地域別料金表 -->
+        <div style="background:#f7fafa;border-radius:12px;padding:24px;margin-bottom:20px;">
+          <h4 style="font-size:14px;font-weight:700;color:#333;margin-bottom:12px;">お届け先：関東・中部・近畿・中国・四国・九州（沖縄除く）の料金</h4>
+          <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px;">
+            <tr style="background:#e8f4f8;">
+              <th style="padding:8px 12px;text-align:left;border:1px solid #ddd;font-weight:600;">商品</th>
+              <th style="padding:8px 12px;text-align:center;border:1px solid #ddd;font-weight:600;">初回</th>
+              <th style="padding:8px 12px;text-align:center;border:1px solid #ddd;font-weight:600;">2回目以降</th>
+            </tr>
+            <tr>
+              <td style="padding:8px 12px;border:1px solid #ddd;">40本入り</td>
+              <td style="padding:8px 12px;text-align:center;border:1px solid #ddd;font-weight:700;color:#cc0c39;">1,980円</td>
+              <td style="padding:8px 12px;text-align:center;border:1px solid #ddd;">3,960円</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 12px;border:1px solid #ddd;">24本入り</td>
+              <td style="padding:8px 12px;text-align:center;border:1px solid #ddd;font-weight:700;color:#cc0c39;">1,295円</td>
+              <td style="padding:8px 12px;text-align:center;border:1px solid #ddd;">2,590円</td>
+            </tr>
+          </table>
+
+          <h4 style="font-size:14px;font-weight:700;color:#333;margin-bottom:12px;">お届け先：北海道・東北・沖縄・離島の料金</h4>
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <tr style="background:#fff8e8;">
+              <th style="padding:8px 12px;text-align:left;border:1px solid #ddd;font-weight:600;">商品</th>
+              <th style="padding:8px 12px;text-align:center;border:1px solid #ddd;font-weight:600;">初回</th>
+              <th style="padding:8px 12px;text-align:center;border:1px solid #ddd;font-weight:600;">2回目以降</th>
+            </tr>
+            <tr>
+              <td style="padding:8px 12px;border:1px solid #ddd;">40本入り</td>
+              <td style="padding:8px 12px;text-align:center;border:1px solid #ddd;font-weight:700;">2,680円</td>
+              <td style="padding:8px 12px;text-align:center;border:1px solid #ddd;">4,660円</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 12px;border:1px solid #ddd;">24本入り</td>
+              <td style="padding:8px 12px;text-align:center;border:1px solid #ddd;font-weight:700;">1,955円</td>
+              <td style="padding:8px 12px;text-align:center;border:1px solid #ddd;">3,290円</td>
+            </tr>
+          </table>
+          <p style="font-size:12px;color:#888;margin-top:10px;">※いずれも、送料・代引手数料込みの料金となります。</p>
+        </div>
+
+        <!-- 代引き申込フォーム -->
+        <form class="order-form" style="background:transparent;padding:0;" action="https://michiru.olivia-store.com/daibiki/" method="get">
+          <div class="form-row">
+            <label>お名前 <span class="required">必須</span></label>
+            <input type="text" name="your-name" placeholder="山田 花子" autocomplete="name" required>
+          </div>
+          <div class="form-row">
+            <label>フリガナ <span class="required">必須</span></label>
+            <input type="text" name="your-kana" placeholder="ヤマダ ハナコ" autocomplete="off" required>
+          </div>
+          <div class="form-row">
+            <label>メールアドレス <span class="required">必須</span></label>
+            <input type="email" name="your-email" placeholder="example@email.com" autocomplete="email" required>
+          </div>
+          <div class="form-row">
+            <label>電話番号 <span class="required">必須</span></label>
+            <input type="tel" name="tel-402" id="cod-tel" placeholder="090-1234-5678" autocomplete="tel" inputmode="tel" required>
+          </div>
+          <div class="form-row">
+            <label>郵便番号 <span class="required">必須</span></label>
+            <input type="text" name="postno" id="cod-postno" placeholder="123-4567" maxlength="8" autocomplete="off" inputmode="numeric" required>
+          </div>
+          <div class="form-row">
+            <label>住所（都道府県・市区町村・番地） <span class="required">必須</span></label>
+            <input type="text" name="address" id="cod-address" placeholder="東京都渋谷区神南1-2-3" autocomplete="street-address" required>
+          </div>
+          <div class="form-row">
+            <label>建物名・部屋番号</label>
+            <input type="text" name="address2" placeholder="〇〇マンション 101号室" autocomplete="address-line2">
+          </div>
+
+          <hr style="border:0;border-top:1px dashed #ccc;margin:20px 0;">
+
+          <div class="form-row">
+            <label>お届け本数 <span class="required">必須</span></label>
+            <div class="form-radio-group">
+              <label><input type="radio" name="quantity" value="40本入" checked> 40本入</label>
+              <label><input type="radio" name="quantity" value="24本入"> 24本入</label>
+            </div>
+          </div>
+          <div class="form-row">
+            <label>お届けサイクル <span class="required">必須</span></label>
+            <div class="form-radio-group">
+              <label><input type="radio" name="cycle" value="1ヶ月ごと" checked> 1ヶ月ごと</label>
+              <label><input type="radio" name="cycle" value="2ヶ月ごと"> 2ヶ月ごと</label>
+              <label><input type="radio" name="cycle" value="3ヶ月ごと"> 3ヶ月ごと</label>
+            </div>
+          </div>
+          <div class="form-row">
+            <label>お届け日 <span class="required">必須</span></label>
+            <div class="form-radio-group">
+              <label><input type="radio" name="delivery-day" value="1日" checked> 1日</label>
+              <label><input type="radio" name="delivery-day" value="10日"> 10日</label>
+              <label><input type="radio" name="delivery-day" value="20日"> 20日</label>
+            </div>
+          </div>
+
+          <hr style="border:0;border-top:1px dashed #ccc;margin:20px 0;">
+
+          <div class="form-row">
+            <label>性別 <span class="required">必須</span></label>
+            <div class="form-radio-group">
+              <label><input type="radio" name="gender" value="男性"> 男性</label>
+              <label><input type="radio" name="gender" value="女性"> 女性</label>
+              <label><input type="radio" name="gender" value="未選択" checked> 未選択</label>
+            </div>
+          </div>
+          <div class="form-row">
+            <label>年代 <span class="required">必須</span></label>
+            <div class="form-radio-group">
+              <label><input type="radio" name="age" value="10代"> 10代</label>
+              <label><input type="radio" name="age" value="20代"> 20代</label>
+              <label><input type="radio" name="age" value="30代"> 30代</label>
+              <label><input type="radio" name="age" value="40代"> 40代</label>
+              <label><input type="radio" name="age" value="50代"> 50代</label>
+              <label><input type="radio" name="age" value="60代"> 60代</label>
+              <label><input type="radio" name="age" value="70代以上"> 70代以上</label>
+              <label><input type="radio" name="age" value="未選択" checked> 未選択</label>
+            </div>
+          </div>
+          <div class="form-row">
+            <label>ミチルシリカをどこで知りましたか？（複数選択可）</label>
+            <div class="form-checkbox-group">
+              <label><input type="checkbox" name="source[]" value="インターネット（Yahoo、Googleなど）"> インターネット（Yahoo、Googleなど）</label>
+              <label><input type="checkbox" name="source[]" value="YouTube"> YouTube</label>
+              <label><input type="checkbox" name="source[]" value="instagram"> instagram</label>
+              <label><input type="checkbox" name="source[]" value="Facebook"> Facebook</label>
+              <label><input type="checkbox" name="source[]" value="Amazon"> Amazon</label>
+              <label><input type="checkbox" name="source[]" value="知人・友人の紹介"> 知人・友人の紹介</label>
+              <label><input type="checkbox" name="source[]" value="店舗"> 店舗</label>
+              <label><input type="checkbox" name="source[]" value="その他（自由入力）"> その他（自由入力）</label>
+            </div>
+          </div>
+          <div class="form-row">
+            <label>その他の場合、入力してください。</label>
+            <input type="text" name="source-other" placeholder="">
+          </div>
+          <div class="form-row">
+            <label>何かお伝えしたいことがあれば、ご記入ください。</label>
+            <textarea name="message" placeholder=""></textarea>
+          </div>
+
+          <hr style="border:0;border-top:1px dashed #ccc;margin:20px 0;">
+
+          <p style="font-size:13px;font-weight:600;color:#333;margin-bottom:12px;">ご購入前に以下を必ずお読みください</p>
+          <div class="form-check">
+            <input type="checkbox" id="confirm-price" required>
+            <label for="confirm-price"><a href="#caution-area" style="color:#00a2d3;text-decoration:underline;">料金・注意事項</a>を確認しました</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="confirm-terms" required>
+            <label for="confirm-terms">利用規約及びプライバシーポリシーについて同意しました</label>
+          </div>
+
+          <a href="https://michiru.olivia-store.com/daibiki/" target="_blank" class="order-submit" style="background:#c45500;text-decoration:none;text-align:center;display:block;">確認画面へ</a>
+        </form>
+
+        <!-- 注意事項 -->
+        <div id="caution-area" style="margin-top:24px;padding:20px;background:#f7f7f7;border-radius:8px;font-size:12px;color:#666;line-height:1.8;">
+          <h4 style="font-size:13px;font-weight:700;color:#333;margin-bottom:10px;">注意事項</h4>
+          <ul style="padding-left:18px;">
+            <li>お支払いは商品お届け時に配送業者へ現金でお支払いください（毎回の定期便に適用されます）。</li>
+            <li>クレジットカード・電子マネーでのお支払いはご利用いただけません。</li>
+            <li>ご不在の場合は不在票に従い、保管期限内にお受け取りください。期限超過や受取拒否があった場合、次回以降の出荷を停止する場合があります。</li>
+            <li>出荷準備開始後のキャンセルはお受けできません。次回配送の変更・休止・解約は発送予定日の1週間前までにご連絡ください。</li>
+            <li>お届け先の住所・電話番号は正確にご入力ください。誤りがあると配達できません。</li>
+            <li>一部の離島・山間部など、代金引換がご利用いただけない地域があります。</li>
+          </ul>
+        </div>
+
+        <!-- お問い合わせ -->
+        <div style="margin-top:20px;text-align:center;font-size:13px;color:#565959;line-height:1.8;">
+          <p style="margin-bottom:6px;font-weight:600;">ご不明点はお問い合わせください</p>
+          メール：<a href="mailto:info@olivia-store.com" style="color:#00a2d3;">info@olivia-store.com</a><br>
+          お電話：<a href="tel:0942-33-1228" style="color:#00a2d3;">0942-33-1228</a><br>
+          <a href="https://lin.ee/HxgVaq9" style="color:#00a2d3;">ミチルシリカ公式LINE</a><br>
+          <span style="font-size:11px;color:#999;">営業時間：平日（月〜金）10時〜16時</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-note">
+      ※ 定期便はいつでも解約可能（次回お届け10日前まで）<br>
+      ※ 最低購入回数の縛りはありません<br>
+      ※ お問い合わせ：0942-33-1228（平日10:00〜16:00）
+    </div>
+  </div>
+</section>
+
+<script>
+function switchPayment(type) {
+  document.querySelectorAll('.payment-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.payment-form-panel').forEach(p => p.classList.remove('active'));
+  if (type === 'credit') {
+    document.querySelectorAll('.payment-tab')[0].classList.add('active');
+    document.getElementById('creditForm').classList.add('active');
+  } else {
+    document.querySelectorAll('.payment-tab')[1].classList.add('active');
+    document.getElementById('codForm').classList.add('active');
+  }
+}
+
+// 電話番号の自動フォーマット（+81削除 + ハイフン挿入）
+(function() {
+  var telInput = document.getElementById('cod-tel');
+  if (!telInput) return;
+  function formatTel(val) {
+    if (val.startsWith('+81')) { val = val.replace(/^\+81/, ''); if (val.length > 0 && !val.startsWith('0')) val = '0' + val; }
+    else if (val.startsWith('+')) { val = val.replace(/^\+/, ''); }
+    val = val.replace(/[^\d]/g, '');
+    if (val.length <= 3) return val;
+    if (val.length <= 7) return val.slice(0,3) + '-' + val.slice(3);
+    return val.slice(0,3) + '-' + val.slice(3,7) + '-' + val.slice(7,11);
+  }
+  telInput.addEventListener('input', function(e) { e.target.value = formatTel(e.target.value); });
+})();
+
+// 郵便番号から住所を自動入力
+(function() {
+  var postInput = document.getElementById('cod-postno');
+  var addrInput = document.getElementById('cod-address');
+  if (!postInput || !addrInput) return;
+  postInput.addEventListener('input', function(e) {
+    e.target.value = e.target.value.replace(/[^\d-]/g, '');
+  });
+  postInput.addEventListener('blur', function() {
+    var code = this.value.replace(/[^\d]/g, '');
+    if (code.length !== 7) return;
+    fetch('https://zipcloud.ibsnet.co.jp/api/search?zipcode=' + code)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.status === 200 && data.results && data.results.length > 0) {
+          var r = data.results[0];
+          addrInput.value = r.address1 + r.address2 + r.address3;
+          addrInput.focus();
+        }
+      });
+  });
+})();
+</script>
+
+<!-- ===== CTA Banner ===== -->
+<section class="cta-banner">
+  <div class="cta-banner-inner">
+    <h2>今すぐミチルシリカを始めよう</h2>
+    <p>初回限定50%OFF。代引き対応。送料無料でお届けします。</p>
+    <div class="cta-buttons">
+      <a href="#order" class="cta-btn-primary">
+        ご注文はこちら →
+      </a>
+      <a href="#order" class="cta-btn-secondary" onclick="setTimeout(function(){switchPayment('cod')},500)">
+        代引きで注文する
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="footer-links">
+    <a href="#">特定商取引法に基づく表示</a>
+    <a href="#">プライバシーポリシー</a>
+    <a href="#">お問い合わせ</a>
+  </div>
+  <div class="footer-copy">
+    &copy; 2026 ミチルシリカ（株式会社オリビア） All rights reserved.
+  </div>
+</footer>
+
+</body>
+</html>
