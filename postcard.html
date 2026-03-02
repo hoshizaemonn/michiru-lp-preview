@@ -343,50 +343,57 @@
             flex-direction: column;
         }
 
-        .a-back-photo {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #D8CEC4, #C8BEB4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* A BACK - 全面写真背景 */
+        .card-a-back {
             position: relative;
-            overflow: hidden;
         }
-        .a-back-photo img {
+        .a-back-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 0;
+        }
+        .a-back-bg img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 20%;
+            object-position: center 15%;
         }
-        .a-back-photo::after {
+        .a-back-bg::after {
             content: '';
             position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 40px;
-            background: linear-gradient(transparent, var(--a-cream));
-            pointer-events: none;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(250,246,240,0.1) 0%,
+                rgba(250,246,240,0.55) 35%,
+                rgba(250,246,240,0.92) 55%,
+                rgba(250,246,240,1) 70%
+            );
         }
 
-        /* B/C photo areas */
-        .b-product-photo {
-            width: 100%;
-            height: 160px;
-            position: relative;
-            overflow: hidden;
+        /* B FRONT - 全面写真背景 */
+        .b-front-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 0;
         }
-        .b-product-photo img {
+        .b-front-bg img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 30%;
+            object-position: center 10%;
         }
-        .b-product-photo::after {
+        .b-front-bg::after {
             content: '';
             position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 30px;
-            background: linear-gradient(transparent, var(--b-cream));
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(253,248,242,0) 0%,
+                rgba(253,248,242,0.4) 25%,
+                rgba(253,248,242,0.88) 45%,
+                rgba(253,248,242,1) 60%
+            );
         }
         .c-nature-photo {
             width: 100%;
@@ -1254,11 +1261,11 @@
             <div class="card-wrapper">
                 <div class="card-label">Back（裏面）</div>
                 <div class="postcard card-a-back">
-                    <div class="a-back-photo">
+                    <div class="a-back-bg">
                         <img src="postcard_assets/lifestyle_sofa.png" alt="ミチルシリカのある暮らし">
                     </div>
 
-                    <div class="a-back-body">
+                    <div class="a-back-body" style="position: relative; z-index: 1; padding-top: 220px;">
                         <div class="a-voice-box">
                             <q>久しぶりに飲んだら、やっぱりおいしい。<br>やめなきゃよかったと思いました。</q>
                             <div class="attr">── 60代女性・大阪府　再開3ヶ月目</div>
@@ -1320,14 +1327,14 @@
         <div class="cards-row">
             <div class="card-wrapper">
                 <div class="card-label">Front（表面）</div>
-                <div class="postcard card-b-front">
-                    <div class="b-top-band">
+                <div class="postcard card-b-front" style="position: relative;">
+                    <div class="b-front-bg">
+                        <img src="postcard_assets/woman_drinking.jpg" alt="ミチルシリカを飲む女性">
+                    </div>
+                    <div class="b-top-band" style="position: relative; z-index: 2;">
                         <div class="b-band-label">大 切 な お 知 ら せ</div>
                     </div>
-                    <div class="b-product-photo">
-                        <img src="postcard_assets/woman_drinking.jpg" alt="ミチルシリカを飲む女性" style="object-position: center 15%;">
-                    </div>
-                    <div class="b-front-body" style="padding-top: 14px;">
+                    <div class="b-front-body" style="position: relative; z-index: 1; padding-top: 160px;">
                         <div class="b-main-copy" style="font-size: 15px; margin-bottom: 12px;">
                             お客様の<br>
                             <span class="em">特別ご優待価格</span>の<br>
