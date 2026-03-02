@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ミチルシリカ 進捗レポート | 2026年3月3日</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #0d47a1;
+            --primary-light: #1976d2;
+            --success: #2e7d32;
+            --success-light: #4caf50;
+            --warning: #ef6c00;
+            --danger: #c62828;
+            --text: #263238;
+            --text-light: #546e7a;
+            --bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --border: #e0e4e8;
+            --radius: 12px;
+            --shadow: 0 2px 12px rgba(0,0,0,0.06);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ===== ヘッダー ===== */
+        .report-header {
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 50%, #1976d2 100%);
+            color: white;
+            padding: 50px 40px;
+            border-radius: var(--radius);
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        .report-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+        .report-header h1 {
+            font-size: 2em;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .report-header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .report-header .meta {
+            margin-top: 16px;
+            font-size: 0.9em;
+            opacity: 0.75;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* ===== セクション共通 ===== */
+        .section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        .section-header {
+            padding: 20px 28px;
+            font-size: 1.2em;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-header.blue { background: linear-gradient(135deg, var(--primary), var(--primary-light)); }
+        .section-header.green { background: linear-gradient(135deg, var(--success), var(--success-light)); }
+        .section-header.orange { background: linear-gradient(135deg, #e65100, var(--warning)); }
+        .section-header.purple { background: linear-gradient(135deg, #4a148c, #7b1fa2); }
+        .section-header.teal { background: linear-gradient(135deg, #00695c, #00897b); }
+        .section-body {
+            padding: 28px;
+        }
+
+        /* ===== 購入件数ヒーロー ===== */
+        .purchase-hero {
+            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 50%, #43a047 100%);
+            color: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            margin-bottom: 24px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        .purchase-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -40%;
+            left: -5%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 50%;
+        }
+        .ph-label {
+            font-size: 1em;
+            opacity: 0.85;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+        }
+        .ph-period {
+            font-size: 0.9em;
+            opacity: 0.7;
+            margin-bottom: 16px;
+        }
+        .ph-number {
+            font-size: 5em;
+            font-weight: 900;
+            line-height: 1;
+        }
+        .ph-unit {
+            font-size: 1.2em;
+            opacity: 0.85;
+            margin-top: 4px;
+        }
+        .ph-change {
+            margin-top: 12px;
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+        .ph-change .up { color: #a5d6a7; font-weight: 700; }
+        .purchase-breakdown {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 24px;
+        }
+        .pb-item {
+            text-align: center;
+        }
+        .pb-value {
+            font-size: 2.8em;
+            font-weight: 900;
+        }
+        .pb-label {
+            font-size: 0.85em;
+            opacity: 0.8;
+        }
+
+        /* ===== サマリーカード ===== */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .summary-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--primary);
+        }
+        .summary-card.green-border { border-top-color: var(--success); }
+        .summary-card.orange-border { border-top-color: var(--warning); }
+        .summary-card.red-border { border-top-color: var(--danger); }
+        .summary-card .sc-label {
+            font-size: 0.85em;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+        .summary-card .sc-value {
+            font-size: 2.2em;
+            font-weight: 900;
+        }
+        .summary-card .sc-value.blue { color: var(--primary); }
+        .summary-card .sc-value.green { color: var(--success); }
+        .summary-card .sc-value.orange { color: var(--warning); }
+        .summary-card .sc-value.red { color: var(--danger); }
+        .summary-card .sc-sub {
+            font-size: 0.8em;
+            color: var(--text-light);
+            margin-top: 6px;
+        }
+
+        /* ===== タスクテーブル ===== */
+        .task-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        .task-table thead {
+            background: #263238;
+            color: white;
+        }
+        .task-table th {
+            padding: 12px 14px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+        }
+        .task-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+        .task-table tbody tr:hover {
+            background: #f5f8ff;
+        }
+
+        /* ステータスバッジ */
+        .badge {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .badge-done { background: #e8f5e9; color: var(--success); }
+        .badge-progress { background: #e3f2fd; color: var(--primary); }
+        .badge-pending { background: #fafafa; color: #999; border: 1px solid #e0e0e0; }
+        .badge-new { background: #fce4ec; color: #c62828; }
+
+        .row-done { background: #fafff9; }
+        .row-progress { background: #f8fbff; }
+        .row-new { background: #fff8f8; }
+
+        /* ===== タスクカテゴリ ===== */
+        .task-category {
+            margin-bottom: 24px;
+        }
+        .task-category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+        }
+        .tc-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 0.85em;
+            flex-shrink: 0;
+        }
+
+        /* ===== 比較ボックス ===== */
+        .compare-row {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 16px;
+            align-items: center;
+            margin: 16px 0;
+        }
+        .compare-box {
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .compare-box.good {
+            background: #f0f8f0;
+            border: 2px solid var(--success);
+        }
+        .compare-box.bad {
+            background: #fff5f5;
+            border: 2px solid var(--danger);
+        }
+        .compare-box .cb-label {
+            font-size: 0.8em;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+        .compare-box .cb-name {
+            font-size: 1.1em;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+        .compare-box .cb-value {
+            font-size: 1.5em;
+            font-weight: 900;
+        }
+        .compare-box .cb-sub {
+            font-size: 0.85em;
+            color: var(--text-light);
+            margin-top: 6px;
+        }
+        .compare-vs {
+            font-size: 1.4em;
+            font-weight: 900;
+            color: #999;
+        }
+
+        /* ===== ノートボックス ===== */
+        .note-box {
+            padding: 16px 20px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            line-height: 1.7;
+            margin: 12px 0;
+        }
+        .note-box.success {
+            background: #e8f5e9;
+            border-left: 4px solid var(--success);
+        }
+        .note-box.info {
+            background: #e3f2fd;
+            border-left: 4px solid var(--primary);
+        }
+        .note-box.warning {
+            background: #fff3e0;
+            border-left: 4px solid var(--warning);
+        }
+        .note-box.danger {
+            background: #ffebee;
+            border-left: 4px solid var(--danger);
+        }
+
+        /* ===== フローチャート ===== */
+        .flow-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            gap: 12px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .flow-step {
+            flex: 1;
+            min-width: 160px;
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 18px 14px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .flow-step:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        .flow-step.active {
+            border-color: var(--primary);
+            background: #f0f5ff;
+        }
+        .flow-step.done {
+            border-color: var(--success);
+            background: #f0fff0;
+        }
+        .flow-step .fs-icon {
+            font-size: 1.8em;
+            margin-bottom: 8px;
+        }
+        .flow-step .fs-title {
+            font-weight: 700;
+            font-size: 0.9em;
+            margin-bottom: 6px;
+        }
+        .flow-step .fs-desc {
+            font-size: 0.8em;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+        .flow-step .fs-badge {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: 700;
+        }
+        .flow-step .fs-badge.done { background: #c8e6c9; color: #1b5e20; }
+        .flow-step .fs-badge.active { background: #bbdefb; color: #0d47a1; }
+        .flow-step .fs-badge.pending { background: #f5f5f5; color: #999; }
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            font-size: 1.4em;
+            color: #bbb;
+            font-weight: 900;
+        }
+
+        /* ===== 予算配分図 ===== */
+        .budget-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .budget-card {
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .budget-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+        .budget-card.ig::before { background: linear-gradient(90deg, #833ab4, #fd1d1d, #fcb045); }
+        .budget-card.yahoo::before { background: linear-gradient(90deg, #ff0033, #cc0000); }
+        .budget-card .bc-label {
+            font-size: 0.85em;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+        .budget-card .bc-name {
+            font-size: 1.1em;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+        .budget-card .bc-amount {
+            font-size: 2em;
+            font-weight: 900;
+            color: var(--primary);
+        }
+        .budget-card .bc-detail {
+            font-size: 0.8em;
+            color: var(--text-light);
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+
+        /* ===== 施策準備カード ===== */
+        .prep-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+        }
+        .prep-card {
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+        .prep-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        .prep-card .pc-status {
+            font-size: 0.75em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .prep-card .pc-status.ready { color: var(--success); }
+        .prep-card .pc-status.wip { color: var(--primary); }
+        .prep-card .pc-status.planning { color: var(--warning); }
+        .prep-card .pc-title {
+            font-size: 1.05em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .prep-card .pc-desc {
+            font-size: 0.85em;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        .prep-card .pc-highlight {
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: #f5f8ff;
+            border-radius: 8px;
+            font-size: 0.85em;
+            border-left: 3px solid var(--primary);
+        }
+        .prep-card.ready-card {
+            border-color: var(--success);
+            background: linear-gradient(135deg, #f9fff9, #ffffff);
+        }
+        .prep-card.ready-card .pc-highlight {
+            background: #f0f8f0;
+            border-left-color: var(--success);
+        }
+
+        /* ===== 通知システム図 ===== */
+        .system-diagram {
+            background: #f8f9fa;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin: 16px 0;
+        }
+        .system-diagram .sd-title {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1em;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        .system-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .sf-node {
+            padding: 14px 18px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 0.85em;
+            font-weight: 600;
+            min-width: 120px;
+        }
+        .sf-node.data { background: #e3f2fd; border: 2px solid #90caf9; color: #0d47a1; }
+        .sf-node.process { background: #f3e5f5; border: 2px solid #ce93d8; color: #6a1b9a; }
+        .sf-node.action { background: #e8f5e9; border: 2px solid #a5d6a7; color: #1b5e20; }
+        .sf-node.alert { background: #fff3e0; border: 2px solid #ffcc80; color: #e65100; }
+        .sf-arrow {
+            font-size: 1.2em;
+            color: #999;
+            font-weight: 900;
+        }
+
+        /* ===== レスポンシブ ===== */
+        @media (max-width: 768px) {
+            .report-header { padding: 30px 20px; }
+            .report-header h1 { font-size: 1.4em; }
+            .section-body { padding: 18px; }
+            .purchase-breakdown { flex-direction: column; gap: 16px; }
+            .compare-row { grid-template-columns: 1fr; }
+            .compare-vs { text-align: center; }
+            .budget-grid { grid-template-columns: 1fr; }
+            .flow-container { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+            .system-flow { flex-direction: column; }
+            .sf-arrow { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ===== ヘッダー ===== -->
+    <div class="report-header">
+        <h1>ミチルシリカ 進捗レポート</h1>
+        <div class="subtitle">前回会議（2/17）からの進捗報告</div>
+        <div class="meta">
+            <span>会議日: 2026年3月3日</span>
+            <span>前回会議: 2026年2月17日</span>
+        </div>
+    </div>
+
+    <!-- ===== 1. 購入件数 ===== -->
+    <div class="purchase-hero">
+        <div class="ph-label">購入件数</div>
+        <div class="ph-period">2026年1月29日 〜 2月28日</div>
+        <div class="ph-number">14</div>
+        <div class="ph-unit">件</div>
+        <div class="ph-change">前回集計（12件）から <span class="up">+2件</span></div>
+        <div class="purchase-breakdown">
+            <div class="pb-item">
+                <div class="pb-value">8</div>
+                <div class="pb-label">Instagram経由</div>
+            </div>
+            <div class="pb-item">
+                <div class="pb-value">6</div>
+                <div class="pb-label">Yahoo経由</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 2. 実施した施策の報告 ===== -->
+    <div class="section">
+        <div class="section-header blue">実施した施策（2/17〜3/1）</div>
+        <div class="section-body">
+
+            <!-- LP動画ABテスト -->
+            <div class="task-category">
+                <div class="task-category-header" style="background: #e8f5e9; color: #2e7d32;">
+                    <div class="tc-icon" style="background: #2e7d32;">1</div>
+                    LP動画 A/Bテスト 結果
+                    <div style="margin-left: auto;">
+                        <a href="GA4_イベントデータ_2月25日-3月2日.csv" download style="display: inline-block; padding: 3px 10px; background: #fff; color: #2e7d32; border-radius: 14px; font-size: 0.7em; font-weight: 600; text-decoration: none; border: 1px solid rgba(46,125,50,0.3);">GA4イベントデータ</a>
+                    </div>
+                </div>
+                <table class="task-table">
+                    <thead>
+                        <tr>
+                            <th>タスク</th>
+                            <th style="width: 90px;">ステータス</th>
+                            <th style="width: 350px;">対応内容・結果</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="row-done">
+                            <td>LP動画 A/Bテスト配信</td>
+                            <td><span class="badge badge-done">結果あり</span></td>
+                            <td><strong>7秒動画 vs 1分20秒動画</strong>のA/Bテストを2/25〜3/2で実施（6日間）。<strong style="color: var(--success);">1分20秒動画の方が購入フォーム到達率が約2.75倍高い</strong>結果に</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- A/Bテスト結果の比較 -->
+                <div class="compare-row" style="margin-top: 16px;">
+                    <div class="compare-box bad">
+                        <div class="cb-label" style="font-weight: 700; color: var(--danger);">パターンA</div>
+                        <div class="cb-name">現行LP動画（約7秒）</div>
+                        <div class="cb-value" style="color: var(--danger); font-size: 1.8em;">5.1%</div>
+                        <div class="cb-sub">
+                            購入フォーム到達: 4人<br>
+                            短尺・インパクト重視
+                        </div>
+                    </div>
+                    <div class="compare-vs">vs</div>
+                    <div class="compare-box good">
+                        <div class="cb-label" style="font-weight: 700; color: var(--success);">パターンB（勝利）</div>
+                        <div class="cb-name">新LP動画（約1分20秒）</div>
+                        <div class="cb-value" style="color: var(--success); font-size: 1.8em;">14.1%</div>
+                        <div class="cb-sub">
+                            購入フォーム到達: 11人<br>
+                            段階グラフ構成・訴求力重視
+                        </div>
+                    </div>
+                </div>
+
+                <!-- テスト詳細データ -->
+                <div style="margin-top: 16px; padding: 20px; background: #f8f9fa; border-radius: 10px; border: 1px solid var(--border);">
+                    <div style="font-weight: 700; font-size: 0.95em; margin-bottom: 12px;">テスト詳細（2/25〜3/2 / 全ソース合計）</div>
+                    <table class="task-table" style="font-size: 0.85em;">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;">ファネル</th>
+                                <th style="text-align: right;">全体</th>
+                                <th style="text-align: right;">A（7秒）</th>
+                                <th style="text-align: right;">B（1分20秒）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>LP訪問ユーザー</td>
+                                <td style="text-align: right;">155人</td>
+                                <td style="text-align: right; color: var(--text-light);">〜78人</td>
+                                <td style="text-align: right; color: var(--text-light);">〜78人</td>
+                            </tr>
+                            <tr>
+                                <td>エンゲージメント</td>
+                                <td style="text-align: right;">77人（49.7%）</td>
+                                <td style="text-align: right; color: var(--text-light);">—</td>
+                                <td style="text-align: right; color: var(--text-light);">—</td>
+                            </tr>
+                            <tr>
+                                <td>スクロール</td>
+                                <td style="text-align: right;">16人（10.3%）</td>
+                                <td style="text-align: right; color: var(--text-light);">—</td>
+                                <td style="text-align: right; color: var(--text-light);">—</td>
+                            </tr>
+                            <tr style="background: #f0fff0;">
+                                <td><strong>購入フォーム到達</strong></td>
+                                <td style="text-align: right; font-weight: 700;">15人（9.7%）</td>
+                                <td style="text-align: right; color: var(--danger); font-weight: 700;">4人（5.1%）</td>
+                                <td style="text-align: right; color: var(--success); font-weight: 900;">11人（14.1%）</td>
+                            </tr>
+                            <tr>
+                                <td>フォーム入力開始</td>
+                                <td style="text-align: right;">3人（1.9%）</td>
+                                <td style="text-align: right; color: var(--text-light);">—</td>
+                                <td style="text-align: right; color: var(--text-light);">—</td>
+                            </tr>
+                            <tr>
+                                <td>CV（トライアル購入）</td>
+                                <td style="text-align: right;">1人（0.6%）</td>
+                                <td style="text-align: right; color: var(--text-light);">—</td>
+                                <td style="text-align: right; color: var(--text-light);">—</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- チャネル別エンゲージメント -->
+                    <div style="margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div style="padding: 12px; background: #fff; border-radius: 8px; border: 1px solid #e0e0e0;">
+                            <div style="font-size: 0.8em; color: var(--primary); font-weight: 700; margin-bottom: 4px;">Yahoo経由（81人）</div>
+                            <div style="font-size: 0.82em; color: var(--text-light); line-height: 1.7;">
+                                エンゲージメント率: <strong>74.1%</strong><br>
+                                購入フォーム到達: 4人（4.9%）<br>
+                                CV: 1人 / フォーム開始: 1人
+                            </div>
+                        </div>
+                        <div style="padding: 12px; background: #fff; border-radius: 8px; border: 1px solid #e0e0e0;">
+                            <div style="font-size: 0.8em; color: #833ab4; font-weight: 700; margin-bottom: 4px;">Instagram経由（53人）</div>
+                            <div style="font-size: 0.82em; color: var(--text-light); line-height: 1.7;">
+                                エンゲージメント率: <strong>17.0%</strong><br>
+                                購入フォーム到達: 10人（18.9%）<br>
+                                CV: 0人 / フォーム開始: 1人
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- エンゲージメント率の差について -->
+                <div class="note-box info" style="margin-top: 14px;">
+                    <strong>Yahoo（74.1%）vs Instagram（17.0%）のエンゲージメント率の差について</strong><br>
+                    <div style="font-size: 0.88em; margin-top: 6px; line-height: 1.8;">
+                        <strong>Yahoo（検索広告）:</strong> ユーザーが「シリカ水」等を自分で検索してクリック → 最初から購買意欲がある状態でLPに来る → ページを読む率が高い<br>
+                        <strong>Instagram（SNS広告）:</strong> フィードをスクロール中に広告が目に入り「なんとなくクリック」した人が多い → LPを開いた瞬間に離脱する率が高い<br>
+                        <span style="color: var(--text);">SNS広告のエンゲージメント率が低いのは業界全体の傾向であり、異常ではありません。</span><br>
+                        ただし<strong style="color: var(--success);">IGの方がフォーム到達率（18.9%）はYahoo（4.9%）より高い</strong>ため、「見る人は少ないが、見た人の購入意欲が高い」構造です。
+                    </div>
+                </div>
+
+                <!-- 判定・次のアクション -->
+                <div class="note-box success" style="margin-top: 14px;">
+                    <strong>暫定判定: パターンB（1分20秒動画）が優勢</strong><br>
+                    <div style="font-size: 0.88em; margin-top: 6px; line-height: 1.8;">
+                        購入フォーム到達率で約2.75倍の差（5.1% → 14.1%）。長尺動画の方がユーザーの購入意欲を高めている。<br>
+                        ただしサンプル数（155人 / フォーム到達15人）がまだ少ないため、<strong>引き続きデータを蓄積しつつ、1分20秒動画をメインに切り替える方向で検討</strong>。
+                    </div>
+                </div>
+            </div>
+
+            <!-- クリエイティブA/Bテスト -->
+            <div class="task-category">
+                <div class="task-category-header" style="background: #fff3e0; color: #e65100;">
+                    <div class="tc-icon" style="background: #e65100;">2</div>
+                    Meta広告 クリエイティブ A/Bテスト 結果
+                    <div style="margin-left: auto;">
+                        <a href="Meta広告_日次データ_2月25日-3月2日.csv" download style="display: inline-block; padding: 3px 10px; background: #fff; color: #e65100; border-radius: 14px; font-size: 0.7em; font-weight: 600; text-decoration: none; border: 1px solid rgba(230,81,0,0.3);">Meta広告データCSV</a>
+                    </div>
+                </div>
+                <table class="task-table">
+                    <thead>
+                        <tr>
+                            <th>タスク</th>
+                            <th style="width: 90px;">ステータス</th>
+                            <th style="width: 350px;">対応内容・結果</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="row-done">
+                            <td>Meta広告クリエイティブ A/Bテスト</td>
+                            <td><span class="badge badge-done">結果あり</span></td>
+                            <td><strong>悩み訴求 vs 価格訴求-口コミ版</strong>の2パターンを各日予算500円で2/25〜3/2に配信。<strong style="color: var(--success);">価格訴求-口コミ版の方がクリック獲得効率が約2.3倍高い</strong>結果に</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- クリエイティブ比較 -->
+                <div class="compare-row" style="margin-top: 16px;">
+                    <div class="compare-box bad">
+                        <div class="cb-label" style="font-weight: 700; color: var(--danger);">悩み訴求</div>
+                        <div class="cb-name">「こんなお悩みありませんか？」型</div>
+                        <div class="cb-value" style="color: var(--danger); font-size: 1.6em;">18クリック</div>
+                        <div class="cb-sub">
+                            消化 ¥2,458 / CPC ¥136.6<br>
+                            CTR 1.23%
+                        </div>
+                        <a href="https://hoshizaemonn.github.io/michiru-lp-preview/assets/nayami_video.mp4" target="_blank" style="display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; background: var(--danger); color: white; padding: 5px 14px; border-radius: 16px; font-weight: 700; font-size: 0.75em; text-decoration: none;">
+                            動画を見る →
+                        </a>
+                    </div>
+                    <div class="compare-vs">vs</div>
+                    <div class="compare-box good">
+                        <div class="cb-label" style="font-weight: 700; color: var(--success);">価格訴求-口コミ版（勝利）</div>
+                        <div class="cb-name">「この価格で試せる」＋口コミ型</div>
+                        <div class="cb-value" style="color: var(--success); font-size: 1.6em;">33クリック</div>
+                        <div class="cb-sub">
+                            消化 ¥1,992 / CPC ¥60.4<br>
+                            CTR 2.83%
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 詳細データ -->
+                <div style="margin-top: 16px; padding: 20px; background: #f8f9fa; border-radius: 10px; border: 1px solid var(--border);">
+                    <div style="font-weight: 700; font-size: 0.95em; margin-bottom: 12px;">テスト詳細（2/25〜3/2 / 6日間）</div>
+                    <table class="task-table" style="font-size: 0.85em;">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;">指標</th>
+                                <th style="text-align: right;">悩み訴求</th>
+                                <th style="text-align: right;">価格訴求-口コミ版</th>
+                                <th style="text-align: right;">差</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>消化金額</td>
+                                <td style="text-align: right;">¥2,458</td>
+                                <td style="text-align: right;">¥1,992</td>
+                                <td style="text-align: right; color: var(--text-light);">悩みが¥466多い</td>
+                            </tr>
+                            <tr>
+                                <td>インプレッション</td>
+                                <td style="text-align: right;">1,462</td>
+                                <td style="text-align: right;">1,168</td>
+                                <td style="text-align: right; color: var(--text-light);">—</td>
+                            </tr>
+                            <tr style="background: #f0fff0;">
+                                <td><strong>リンククリック</strong></td>
+                                <td style="text-align: right; color: var(--danger); font-weight: 700;">18</td>
+                                <td style="text-align: right; color: var(--success); font-weight: 900;">33</td>
+                                <td style="text-align: right; color: var(--success); font-weight: 700;">価格訴求が1.83倍</td>
+                            </tr>
+                            <tr style="background: #f0fff0;">
+                                <td><strong>CPC（リンク）</strong></td>
+                                <td style="text-align: right; color: var(--danger); font-weight: 700;">¥136.6</td>
+                                <td style="text-align: right; color: var(--success); font-weight: 900;">¥60.4</td>
+                                <td style="text-align: right; color: var(--success); font-weight: 700;">価格訴求が半額以下</td>
+                            </tr>
+                            <tr style="background: #f0fff0;">
+                                <td><strong>CTR（リンク）</strong></td>
+                                <td style="text-align: right; color: var(--danger); font-weight: 700;">1.23%</td>
+                                <td style="text-align: right; color: var(--success); font-weight: 900;">2.83%</td>
+                                <td style="text-align: right; color: var(--success); font-weight: 700;">価格訴求が2.3倍</td>
+                            </tr>
+                            <tr>
+                                <td>CPM</td>
+                                <td style="text-align: right;">¥1,682</td>
+                                <td style="text-align: right;">¥1,706</td>
+                                <td style="text-align: right; color: var(--text-light);">ほぼ同等</td>
+                            </tr>
+                            <tr>
+                                <td>動画3秒再生</td>
+                                <td style="text-align: right;">227回</td>
+                                <td style="text-align: right;">236回</td>
+                                <td style="text-align: right; color: var(--text-light);">ほぼ同等</td>
+                            </tr>
+                            <tr>
+                                <td>動画100%視聴</td>
+                                <td style="text-align: right; font-weight: 600;">20回</td>
+                                <td style="text-align: right;">10回</td>
+                                <td style="text-align: right; color: var(--text-light);">悩みの方が2倍</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- プラットフォーム別 -->
+                    <div style="margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div style="padding: 12px; background: #fff; border-radius: 8px; border: 1px solid #e0e0e0;">
+                            <div style="font-size: 0.8em; color: #833ab4; font-weight: 700; margin-bottom: 4px;">Instagram内訳</div>
+                            <div style="font-size: 0.82em; color: var(--text-light); line-height: 1.7;">
+                                悩み訴求: 12クリック / ¥1,784消化<br>
+                                価格訴求: <strong style="color: var(--success);">30クリック</strong> / ¥1,820消化<br>
+                                <span style="font-size: 0.9em; color: var(--success);">→ IGでは価格訴求が2.5倍のクリック</span>
+                            </div>
+                        </div>
+                        <div style="padding: 12px; background: #fff; border-radius: 8px; border: 1px solid #e0e0e0;">
+                            <div style="font-size: 0.8em; color: var(--primary); font-weight: 700; margin-bottom: 4px;">Facebook内訳</div>
+                            <div style="font-size: 0.82em; color: var(--text-light); line-height: 1.7;">
+                                悩み訴求: 6クリック / ¥674消化<br>
+                                価格訴求: 3クリック / ¥172消化<br>
+                                <span style="font-size: 0.9em;">→ FBは悩み訴求がやや多いが少額</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 判定 -->
+                <div class="note-box success" style="margin-top: 14px;">
+                    <strong>判定: 価格訴求-口コミ版が優勢 ─ ただし両方活かせる</strong><br>
+                    <div style="font-size: 0.88em; margin-top: 6px; line-height: 1.8;">
+                        同程度の予算で<strong>リンククリック数が1.83倍、CPCが半額以下</strong>。特にInstagramでは30クリック vs 12クリックと大差。<br>
+                        一方、悩み訴求は<strong>動画100%視聴が20回（価格訴求の2倍）</strong>あり、興味を持った人は最後まで見る傾向。動画としての訴求力は高い。
+                    </div>
+                </div>
+
+                <!-- 改善提案: ターゲティング分離 -->
+                <div class="note-box info" style="margin-top: 10px;">
+                    <strong>次のアクション: ターゲット層を分けて配信する</strong><br>
+                    <div style="font-size: 0.88em; margin-top: 6px; line-height: 1.8;">
+                        現在は両クリエイティブが<strong>同じターゲット層に配信</strong>されているため、同じ人に2種類の広告が出て互いに食い合っている可能性がある。<br>
+                        ターゲットを分離し、それぞれの強みを活かす運用に切り替える。
+                    </div>
+                </div>
+
+                <div style="margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div style="padding: 18px; border-radius: 10px; border: 2px solid var(--success); background: linear-gradient(135deg, #f8fff8, #fff);">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                            <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--success); color: white; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.8em; flex-shrink: 0;">主</div>
+                            <div style="font-weight: 700; color: var(--success); font-size: 0.95em;">価格訴求-口コミ版</div>
+                        </div>
+                        <div style="font-size: 0.85em; color: var(--text-light); line-height: 1.8;">
+                            <strong>ターゲット:</strong> 購入に近い層<br>
+                            <span style="font-size: 0.9em; color: #888;">リターゲティング・類似オーディエンス</span><br>
+                            <strong>役割:</strong> 「迷っている人」に価格と口コミで後押し<br>
+                            <strong>予算:</strong> 多め（メイン）
+                        </div>
+                    </div>
+                    <div style="padding: 18px; border-radius: 10px; border: 2px solid var(--primary); background: linear-gradient(135deg, #f5f8ff, #fff);">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                            <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.8em; flex-shrink: 0;">副</div>
+                            <div style="font-weight: 700; color: var(--primary); font-size: 0.95em;">悩み訴求</div>
+                        </div>
+                        <div style="font-size: 0.85em; color: var(--text-light); line-height: 1.8;">
+                            <strong>ターゲット:</strong> 認知・興味段階の層<br>
+                            <span style="font-size: 0.9em; color: #888;">広めの興味関心ターゲティング</span><br>
+                            <strong>役割:</strong> 「まだ知らない人」に悩みから興味を引く<br>
+                            <strong>予算:</strong> 少なめ（サブ）
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note-box warning" style="margin-top: 12px;">
+                    <strong>狙い: 2段階ファネルの構築</strong><br>
+                    <div style="font-size: 0.88em; margin-top: 6px; line-height: 1.8;">
+                        <strong>悩み訴求（認知）</strong>で動画を最後まで見て興味を持った人 → 後日<strong>価格訴求（購入促進）</strong>でリターゲティング。<br>
+                        現状の「同じ人に両方出して食い合う」構造から、<strong>「認知→購入」の流れを作る構造</strong>に転換する。
+                    </div>
+                </div>
+            </div>
+
+            <!-- ポストカード -->
+            <div class="task-category">
+                <div class="task-category-header" style="background: #f3e5f5; color: #7b1fa2;">
+                    <div class="tc-icon" style="background: #7b1fa2;">3</div>
+                    ポストカード（解約顧客リターゲティング）
+                </div>
+                <table class="task-table">
+                    <thead>
+                        <tr>
+                            <th>タスク</th>
+                            <th style="width: 90px;">ステータス</th>
+                            <th style="width: 350px;">対応内容・結果</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="row-progress">
+                            <td>デザインのブラッシュアップ・入稿準備</td>
+                            <td><span class="badge badge-progress">進行中</span></td>
+                            <td>桜ピンク系で統一した3案（縦書きレター/写真＋手紙風/写真メイン）を作成。写真素材はオリヴィア様から提供いただき差し替え予定。</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- ポストカードデザインへのリンク -->
+                <a href="https://gist.githack.com/hoshizaemonn/ae1f3ce4e11068cc4d47538dbaf69a5a/raw/%E3%83%9F%E3%83%81%E3%83%AB%E3%82%B7%E3%83%AA%E3%82%AB_%E3%83%9D%E3%82%B9%E3%83%88%E3%82%AB%E3%83%BC%E3%83%89_%E6%96%B0%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E6%A1%88.html" target="_blank"
+                   style="display: block; text-align: center; padding: 16px 24px; margin-top: 12px; background: linear-gradient(135deg, #7b1fa2, #9c27b0); color: white; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 0.95em; box-shadow: 0 4px 16px rgba(123, 31, 162, 0.3); transition: transform 0.2s, box-shadow 0.2s;"
+                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(123, 31, 162, 0.4)';"
+                   onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 16px rgba(123, 31, 162, 0.3)';">
+                    ポストカード デザイン案（3案）を見る →
+                    <div style="font-size: 0.75em; opacity: 0.85; margin-top: 4px; font-weight: 400;">案A: 縦書きレター ／ 案B: 写真＋手紙風 ／ 案C: 写真メイン</div>
+                </a>
+            </div>
+
+            <!-- 予算配分・通知システム -->
+            <div class="task-category">
+                <div class="task-category-header" style="background: #e3f2fd; color: #0d47a1;">
+                    <div class="tc-icon" style="background: #0d47a1;">4</div>
+                    予算配分・通知システム構築
+                </div>
+                <table class="task-table">
+                    <thead>
+                        <tr>
+                            <th>タスク</th>
+                            <th style="width: 90px;">ステータス</th>
+                            <th style="width: 350px;">対応内容・結果</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="row-done">
+                            <td>日次データに基づく予算自動調整の仕組み構築</td>
+                            <td><span class="badge badge-done">完了</span></td>
+                            <td><strong>今回のデータでベースが揃い、柔軟に対応できる体制が整った。</strong>Instagram/Yahoo双方の実績に応じて日次で予算配分を上げ下げできる通知・調整システムを設定済み</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- 通知システムの図解 -->
+                <div class="system-diagram">
+                    <div class="sd-title">予算自動調整フロー（拡張版）</div>
+
+                    <!-- メインフロー -->
+                    <div class="system-flow">
+                        <div class="sf-node data">
+                            蓄積データ分析<br>
+                            <span style="font-size: 0.8em; font-weight: 400;">12月〜2月の実績 + 日次</span>
+                        </div>
+                        <div class="sf-arrow">→</div>
+                        <div class="sf-node process">
+                            AI分析・判定<br>
+                            <span style="font-size: 0.8em; font-weight: 400;">チャネル別 + クリエイティブ別</span>
+                        </div>
+                        <div class="sf-arrow">→</div>
+                        <div class="sf-node alert">
+                            通知・アラート<br>
+                            <span style="font-size: 0.8em; font-weight: 400;">閾値超過 / 傾向変化で通知</span>
+                        </div>
+                        <div class="sf-arrow">→</div>
+                        <div class="sf-node action">
+                            予算配分変更<br>
+                            <span style="font-size: 0.8em; font-weight: 400;">チャネル間 + クリエイティブ間</span>
+                        </div>
+                    </div>
+
+                    <!-- 2階層の調整ロジック -->
+                    <div style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+
+                        <!-- Instagram側：クリエイティブ間の配分調整 -->
+                        <div style="background: linear-gradient(135deg, #f3e5f5, #fff); border: 2px solid #9c27b0; border-radius: 12px; padding: 18px;">
+                            <div style="font-weight: 700; color: #7b1fa2; margin-bottom: 10px; font-size: 0.95em;">Instagram：クリエイティブ間の配分</div>
+                            <div style="font-size: 0.82em; color: var(--text-light); margin-bottom: 12px;">複数クリエイティブを同時運用し、成果に応じて予算を自動配分</div>
+
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <div style="flex: 0 0 auto; background: #4CAF50; color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75em; font-weight: 700;">A</div>
+                                    <div style="flex: 1; background: #e8f5e9; height: 22px; border-radius: 4px; position: relative; overflow: hidden;">
+                                        <div style="width: 50%; height: 100%; background: #4CAF50; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 0.7em; color: white; font-weight: 700;">50%</div>
+                                    </div>
+                                    <div style="font-size: 0.75em; color: #555; min-width: 60px;">好調 → 増</div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <div style="flex: 0 0 auto; background: #FF9800; color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75em; font-weight: 700;">B</div>
+                                    <div style="flex: 1; background: #fff3e0; height: 22px; border-radius: 4px; position: relative; overflow: hidden;">
+                                        <div style="width: 30%; height: 100%; background: #FF9800; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 0.7em; color: white; font-weight: 700;">30%</div>
+                                    </div>
+                                    <div style="font-size: 0.75em; color: #555; min-width: 60px;">様子見</div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <div style="flex: 0 0 auto; background: #2196F3; color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75em; font-weight: 700;">C</div>
+                                    <div style="flex: 1; background: #e3f2fd; height: 22px; border-radius: 4px; position: relative; overflow: hidden;">
+                                        <div style="width: 20%; height: 100%; background: #2196F3; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 0.7em; color: white; font-weight: 700;">20%</div>
+                                    </div>
+                                    <div style="font-size: 0.75em; color: #555; min-width: 60px;">テスト枠</div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 12px; background: rgba(255,255,255,0.8); border-radius: 8px; padding: 10px; font-size: 0.78em; color: #555; border-left: 3px solid #9c27b0;">
+                                CPC・CVRが良いクリエイティブに予算を寄せ、<br>
+                                テスト枠で常に新パターンを検証し続ける
+                            </div>
+                        </div>
+
+                        <!-- Yahoo側：予算の上げ下げ -->
+                        <div style="background: linear-gradient(135deg, #fff3e0, #fff); border: 2px solid #FF9800; border-radius: 12px; padding: 18px;">
+                            <div style="font-weight: 700; color: #e65100; margin-bottom: 10px; font-size: 0.95em;">Yahoo：チャネル予算の上げ下げ</div>
+                            <div style="font-size: 0.82em; color: var(--text-light); margin-bottom: 12px;">クリエイティブは1本。チャネル全体の予算増減で対応</div>
+
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                                <div style="padding: 12px; background: #f0fdf4; border-radius: 8px; border: 1px solid #bbf7d0;">
+                                    <div style="font-size: 0.8em; color: var(--success); font-weight: 700; margin-bottom: 3px;">CVR・セッション数が好調</div>
+                                    <div style="font-size: 0.82em; color: #555;">→ 日予算を増額（1,000円 → 1,500円〜）</div>
+                                </div>
+                                <div style="padding: 12px; background: #fef2f2; border-radius: 8px; border: 1px solid #fecaca;">
+                                    <div style="font-size: 0.8em; color: var(--danger); font-weight: 700; margin-bottom: 3px;">CPA高騰・成果低下</div>
+                                    <div style="font-size: 0.82em; color: #555;">→ 日予算を抑制しIG側へ予算シフト</div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 12px; background: rgba(255,255,255,0.8); border-radius: 8px; padding: 10px; font-size: 0.78em; color: #555; border-left: 3px solid #FF9800;">
+                                Yahooはセッション獲得チャネルとして継続。<br>
+                                IG側の成果に応じて柔軟に予算を移動
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 過去データの活用 -->
+                    <div style="margin-top: 16px; background: #f5f8ff; border-radius: 10px; padding: 16px; border: 1px solid #c8d6e5;">
+                        <div style="font-weight: 700; color: var(--primary); margin-bottom: 8px; font-size: 0.9em;">過去3ヶ月のデータを基準値に活用</div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; font-size: 0.82em;">
+                            <div style="background: white; padding: 10px; border-radius: 6px; text-align: center; border: 1px solid #e0e4e8;">
+                                <div style="font-weight: 700; color: #0d47a1;">12月</div>
+                                <div style="color: #666; font-size: 0.9em;">初期データ蓄積</div>
+                            </div>
+                            <div style="background: white; padding: 10px; border-radius: 6px; text-align: center; border: 1px solid #e0e4e8;">
+                                <div style="font-weight: 700; color: #0d47a1;">1月</div>
+                                <div style="color: #666; font-size: 0.9em;">傾向分析・基準値設定</div>
+                            </div>
+                            <div style="background: white; padding: 10px; border-radius: 6px; text-align: center; border: 1px solid #e0e4e8;">
+                                <div style="font-weight: 700; color: #0d47a1;">2月</div>
+                                <div style="color: #666; font-size: 0.9em;">A/Bテスト結果反映</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px; font-size: 0.8em; color: #555;">
+                            これら3ヶ月の実績データをアラート判定の基準値として使用。異常値の検知精度を向上させ、季節変動も考慮した配分調整が可能に。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== 3. 現在の予算配分 ===== -->
+    <div class="section">
+        <div class="section-header green">現在の広告予算配分（3/1〜）</div>
+        <div class="section-body">
+            <div class="summary-grid">
+                <div class="summary-card green-border">
+                    <div class="sc-label">日予算合計</div>
+                    <div class="sc-value green">4,000円</div>
+                    <div class="sc-sub">月額上限 約120,000円</div>
+                </div>
+                <div class="summary-card">
+                    <div class="sc-label">Instagram広告</div>
+                    <div class="sc-value blue">3,000円</div>
+                    <div class="sc-sub">日予算 / CVR最優秀チャネル</div>
+                </div>
+                <div class="summary-card orange-border">
+                    <div class="sc-label">Yahoo広告</div>
+                    <div class="sc-value orange">1,000円</div>
+                    <div class="sc-sub">日予算 / セッション数確保</div>
+                </div>
+            </div>
+
+            <div class="budget-grid">
+                <div class="budget-card ig">
+                    <div class="bc-label">主力チャネル</div>
+                    <div class="bc-name">Instagram広告</div>
+                    <div class="bc-amount">3,000円/日</div>
+                    <div class="bc-detail">
+                        CVR 4.79%（Yahoo比3.2倍）<br>
+                        購入意思の高いユーザーが多く<br>
+                        <strong>予算増額で更なるCV獲得を狙う</strong>
+                    </div>
+                </div>
+                <div class="budget-card yahoo">
+                    <div class="bc-label">補完チャネル</div>
+                    <div class="bc-name">Yahoo広告</div>
+                    <div class="bc-amount">1,000円/日</div>
+                    <div class="bc-detail">
+                        セッション数329で最多流入<br>
+                        認知拡大・情報収集層へのリーチ<br>
+                        <strong>IG好調時は更に予算シフト検討</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-box info" style="margin-top: 16px;">
+                <strong>ポイント:</strong> 前回会議で決定した予算増額（1日4,000円/IG:3,000円・Yahoo:1,000円）を3月1日より開始。上記の通知システムにより、実績に応じた柔軟な配分調整が可能な体制を構築済み。
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 4. 3月に向けた準備状況 ===== -->
+    <div class="section">
+        <div class="section-header purple">3月に向けた制作・改善サイクル</div>
+        <div class="section-body">
+
+            <!-- 改善サイクル図 -->
+            <div style="margin-bottom: 28px;">
+                <h4 style="font-size: 1em; color: var(--text); margin-bottom: 8px;">継続改善サイクル</h4>
+                <p style="font-size: 0.88em; color: var(--text-light); margin-bottom: 18px;">クリエイティブとLPを交互にテスト・改善し、勝ちパターンを積み上げていきます</p>
+
+                <div style="display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap; background: #f8f5ff; border-radius: 16px; padding: 28px 16px; position: relative;">
+                    <!-- ステップ1 -->
+                    <div style="text-align: center; min-width: 140px;">
+                        <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; color: white; font-size: 1.5em; font-weight: 800;">1</div>
+                        <div style="font-weight: 700; font-size: 0.95em; color: #4a148c;">新クリエイティブ</div>
+                        <div style="font-size: 0.78em; color: #666; margin-top: 2px;">制作・テスト</div>
+                    </div>
+                    <div style="font-size: 1.8em; color: #9c27b0; padding: 0 8px;">→</div>
+                    <!-- ステップ2 -->
+                    <div style="text-align: center; min-width: 140px;">
+                        <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #059669, #10b981); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; color: white; font-size: 1.5em; font-weight: 800;">2</div>
+                        <div style="font-weight: 700; font-size: 0.95em; color: #065f46;">新LP</div>
+                        <div style="font-size: 0.78em; color: #666; margin-top: 2px;">制作・テスト</div>
+                    </div>
+                    <div style="font-size: 1.8em; color: #9c27b0; padding: 0 8px;">→</div>
+                    <!-- ステップ3 -->
+                    <div style="text-align: center; min-width: 140px;">
+                        <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; color: white; font-size: 1.5em; font-weight: 800;">3</div>
+                        <div style="font-weight: 700; font-size: 0.95em; color: #4a148c;">新クリエイティブ</div>
+                        <div style="font-size: 0.78em; color: #666; margin-top: 2px;">改善・テスト</div>
+                    </div>
+                    <div style="font-size: 1.8em; color: #9c27b0; padding: 0 8px;">→</div>
+                    <!-- ステップ4 -->
+                    <div style="text-align: center; min-width: 140px;">
+                        <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #059669, #10b981); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; color: white; font-size: 1.5em; font-weight: 800;">4</div>
+                        <div style="font-weight: 700; font-size: 0.95em; color: #065f46;">新LP</div>
+                        <div style="font-size: 0.78em; color: #666; margin-top: 2px;">改善・テスト</div>
+                    </div>
+                    <div style="font-size: 1.8em; color: #9c27b0; padding: 0 8px;">→</div>
+                    <!-- 繰り返し -->
+                    <div style="text-align: center; min-width: 80px;">
+                        <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #ef4444); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; color: white; font-size: 1.2em; font-weight: 800;">...</div>
+                        <div style="font-weight: 700; font-size: 0.85em; color: #92400e;">繰り返し</div>
+                    </div>
+
+                    <!-- 循環矢印 -->
+                    <div style="position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); font-size: 0.78em; color: #7b1fa2; font-weight: 600; background: rgba(255,255,255,0.9); padding: 3px 16px; border-radius: 20px;">
+                        データを基に勝ちパターンを蓄積 → どんどん精度が上がる
+                    </div>
+                </div>
+            </div>
+
+            <!-- 制作物カード -->
+            <div class="prep-grid">
+                <!-- クリエイティブ -->
+                <div class="prep-card" style="border-color: #667eea; background: linear-gradient(135deg, #f5f3ff, #fff);">
+                    <div class="pc-status wip">A/Bテスト中</div>
+                    <div class="pc-title">広告クリエイティブ</div>
+                    <div class="pc-desc">
+                        価格訴求-口コミ版が悩み訴求を上回る結果。<br>
+                        ターゲティング分離（購入促進 / 認知拡大）で更に精度向上へ。<br>
+                        23パターンの中から次のテスト候補を選定済み。
+                    </div>
+                    <div class="pc-highlight">
+                        <strong>現状:</strong> 価格訴求が主軸（CPC ¥60）<br>
+                        <strong>次の一手:</strong> テレビショッピング風 / カフェトーク風 / 季節訴求
+                    </div>
+                    <a href="https://gist.githack.com/hoshizaemonn/ae1f3ce4e11068cc4d47538dbaf69a5a/raw/%E5%BA%83%E5%91%8A%E3%82%AF%E3%83%AA%E3%82%A8%E3%82%A4%E3%83%86%E3%82%A3%E3%83%96_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E5%9B%B3%E8%A7%A3.html" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 8px 20px; border-radius: 24px; font-weight: 700; font-size: 0.85em; text-decoration: none; margin-top: 12px; box-shadow: 0 3px 10px rgba(102,126,234,0.3);">
+                        クリエイティブ全集を見る →
+                    </a>
+                </div>
+
+                <!-- LP -->
+                <div class="prep-card ready-card">
+                    <div class="pc-status ready">試作完了</div>
+                    <div class="pc-title">新LPデザイン</div>
+                    <div class="pc-desc">
+                        商品ページ型の新LPを試作済み。<br>
+                        FV＋商品情報＋価格＋CTAを1画面で完結させ、Instagramユーザーが<strong>16秒で購入完了</strong>できる設計。
+                    </div>
+                    <div class="pc-highlight" style="background: #f0f8f0; border-left-color: var(--success);">
+                        <strong>状態:</strong> 試作LP完了。商品画像差し替えで即投入可能<br>
+                        <strong>次のステップ:</strong> 現行LP vs 新LPのA/Bテスト
+                    </div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;">
+                        <a href="https://hoshizaemonn.github.io/michiru-lp-preview/" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #059669, #10b981); color: white; padding: 8px 20px; border-radius: 24px; font-weight: 700; font-size: 0.85em; text-decoration: none; box-shadow: 0 3px 10px rgba(5,150,105,0.3);">
+                            新LPを見る →
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ===== 6. Amazon広告 概要 ===== -->
+    <div class="section">
+        <div class="section-header orange">Amazon広告: 2月の状況と改善アクション</div>
+        <div class="section-body">
+
+            <!-- 概要サマリー -->
+            <div class="note-box danger" style="margin-bottom: 20px;">
+                <strong>購入数が57件 → 33件に減少（-42.1%）。</strong>
+                ただし広告効率（ROAS）は1月より改善しており、問題は「予算が使い切れていない」ことです。
+            </div>
+
+            <div class="summary-grid">
+                <div class="summary-card red-border">
+                    <div class="sc-label">購入数</div>
+                    <div class="sc-value red">33件</div>
+                    <div class="sc-sub">1月 57件 → 2月 33件</div>
+                </div>
+                <div class="summary-card orange-border">
+                    <div class="sc-label">広告費</div>
+                    <div class="sc-value orange">¥44,127</div>
+                    <div class="sc-sub">設定¥112,000の39%しか消化できず</div>
+                </div>
+                <div class="summary-card green-border">
+                    <div class="sc-label">ROAS</div>
+                    <div class="sc-value green">2.40</div>
+                    <div class="sc-sub">1月(1.99)より改善 = 効率は良い</div>
+                </div>
+                <div class="summary-card red-border">
+                    <div class="sc-label">無駄遣い率</div>
+                    <div class="sc-value red">71.7%</div>
+                    <div class="sc-sub">¥31,662が購入ゼロKWに消費</div>
+                </div>
+            </div>
+
+            <!-- 改善アクション概要 -->
+            <h4 style="font-size: 1em; color: var(--success); margin: 20px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #a5d6a7;">改善アクション（2つ）</h4>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+                <div style="padding: 18px; border: 2px solid var(--danger); border-radius: 10px; background: linear-gradient(135deg, #fffafa, #fff);">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--danger); color: white; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.9em; flex-shrink: 0;">1</div>
+                        <div style="font-weight: 700; color: var(--danger); font-size: 0.95em;">売れないKWを除外</div>
+                    </div>
+                    <div style="font-size: 0.85em; color: var(--text-light); line-height: 1.7;">
+                        購入ゼロのキーワードに費用の71.7%が流出。除外設定で<strong>月¥12,000〜15,000の無駄を削減</strong>
+                    </div>
+                </div>
+                <div style="padding: 18px; border: 2px solid var(--success); border-radius: 10px; background: linear-gradient(135deg, #f8fff8, #fff);">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--success); color: white; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.9em; flex-shrink: 0;">2</div>
+                        <div style="font-weight: 700; color: var(--success); font-size: 0.95em;">売れるKWを手動CPに移行</div>
+                    </div>
+                    <div style="font-size: 0.85em; color: var(--text-light); line-height: 1.7;">
+                        自動CPで見つかった売れるKW（「ミチル」等）を手動CPで確実に出し、<strong>毎月安定して広告が表示される体制</strong>に
+                    </div>
+                </div>
+            </div>
+
+            <!-- 改善見込み -->
+            <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: center; margin-bottom: 20px;">
+                <div style="text-align: center; padding: 20px; background: #fff5f5; border-radius: 10px; border: 2px solid var(--danger);">
+                    <div style="font-size: 0.8em; color: var(--text-light);">現在（2月実績）</div>
+                    <div style="font-size: 2em; font-weight: 900; color: var(--danger);">33件</div>
+                    <div style="font-size: 0.85em; color: var(--text-light);">売上 ¥105,849</div>
+                </div>
+                <div style="font-size: 1.6em; font-weight: 900; color: var(--success);">→</div>
+                <div style="text-align: center; padding: 20px; background: #f0fff0; border-radius: 10px; border: 2px solid var(--success);">
+                    <div style="font-size: 0.8em; color: var(--success); font-weight: 700;">改善後（見込み）</div>
+                    <div style="font-size: 2em; font-weight: 900; color: var(--success);">55〜67件</div>
+                    <div style="font-size: 0.85em; color: var(--text-light);">売上 ¥175,000〜215,000</div>
+                </div>
+            </div>
+
+            <div class="note-box info" style="margin-bottom: 20px;">
+                <strong>今後同じ問題を繰り返さないために:</strong> 数値基準に基づく週次チェック・除外・キーワード追加の運用ルールを設定しました。<br>
+                詳細は下記の別紙レポートをご覧ください。
+            </div>
+
+            <!-- 詳細レポートへのリンク -->
+            <a href="Amazon広告_改善提案_クライアント向け.html" target="_blank"
+               style="display: block; text-align: center; padding: 18px 24px; background: linear-gradient(135deg, #e65100, #ff9900); color: white; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 1em; box-shadow: 0 4px 16px rgba(230, 81, 0, 0.3); transition: transform 0.2s, box-shadow 0.2s;"
+               onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(230, 81, 0, 0.4)';"
+               onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 16px rgba(230, 81, 0, 0.3)';">
+                Amazon広告 改善提案の詳細レポートを見る →
+                <div style="font-size: 0.75em; opacity: 0.85; margin-top: 4px; font-weight: 400;">改善アクション詳細 / 運用ルール / Amazon広告の仕組み解説</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ===== フッター ===== -->
+    <div style="text-align: center; padding: 24px; color: var(--text-light); font-size: 0.85em;">
+        次回会議日程は会議にて決定
+    </div>
+
+</div>
+</body>
+</html>
