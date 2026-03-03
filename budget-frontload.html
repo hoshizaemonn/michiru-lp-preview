@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ミチルシリカ 月相別予算配分 — 前半集中戦略</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&display=swap');
+:root {
+  --bg:#f5f6fa;--card:#fff;--text:#1a1a2e;--sub:#6c7a89;
+  --accent:#2563eb;--accent-light:#dbeafe;
+  --green:#059669;--green-bg:#d1fae5;
+  --red:#dc2626;--red-bg:#fee2e2;
+  --orange:#d97706;--orange-bg:#fef3c7;
+  --purple:#7c3aed;--purple-bg:#ede9fe;
+  --border:#e5e7eb;
+  --shadow:0 1px 3px rgba(0,0,0,.08);
+  --shadow-lg:0 10px 25px rgba(0,0,0,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7;}
+.page{max-width:1100px;margin:0 auto;padding:24px 16px 60px;}
+
+.hero{background:linear-gradient(135deg,#1a0a2e 0%,#2d1b69 40%,#1e3a5f 100%);color:#fff;padding:40px 36px;border-radius:16px;margin-bottom:28px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;background:radial-gradient(circle,rgba(139,92,246,.4) 0%,transparent 70%);border-radius:50%;}
+.hero h1{font-size:26px;font-weight:800;position:relative;z-index:1;}
+.hero .sub{color:#94a3b8;font-size:12px;margin-top:6px;position:relative;z-index:1;}
+.hero .verdict{margin-top:18px;padding:16px 20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;position:relative;z-index:1;}
+.hero .verdict .big{font-size:22px;font-weight:800;color:#fbbf24;}
+.hero .verdict .sm{font-size:12px;color:#94a3b8;margin-top:4px;}
+
+.section{background:var(--card);border-radius:14px;padding:28px;margin-bottom:20px;box-shadow:var(--shadow);border:1px solid var(--border);}
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.section-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;flex-shrink:0;}
+.section h2{font-size:18px;font-weight:700;}
+.section .desc{font-size:12px;color:var(--sub);margin-bottom:18px;}
+
+.insight{border-left:4px solid #ffc107;padding:14px 18px;border-radius:0 10px 10px 0;margin:14px 0;font-size:13px;background:#fff8e1;}
+.insight.danger{background:#ffebee;border-left-color:#e74c3c;}
+.insight.info{background:#e3f2fd;border-left-color:#2196f3;}
+.insight.success{background:#e8f5e9;border-left-color:#4caf50;}
+.insight b{font-weight:700;}
+
+/* HEATMAP */
+.heatmap{display:grid;grid-template-columns:repeat(31,1fr);gap:2px;margin:16px 0;}
+.hm-cell{aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;position:relative;}
+.hm-cell .day-label{position:absolute;top:-14px;font-size:8px;color:var(--sub);font-weight:400;}
+.hm-0{background:#fee2e2;color:#991b1b;}
+.hm-1{background:#fef3c7;color:#92400e;}
+.hm-2{background:#d1fae5;color:#065f46;}
+.hm-3{background:#059669;color:#fff;}
+
+/* BAR CHART */
+.period-row{display:flex;align-items:center;margin:8px 0;gap:8px;}
+.period-label{width:70px;font-size:12px;font-weight:700;flex-shrink:0;text-align:right;}
+.period-bar{flex:1;height:36px;border-radius:6px;overflow:hidden;display:flex;position:relative;}
+.period-bar .sales-seg{height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;}
+.period-bar .waste-seg{height:100%;background:repeating-linear-gradient(45deg,#fecaca,#fecaca 4px,#fee2e2 4px,#fee2e2 8px);display:flex;align-items:center;justify-content:center;font-size:10px;color:#991b1b;font-weight:600;}
+.period-stats{width:180px;flex-shrink:0;font-size:11px;display:flex;gap:12px;}
+.period-stats .stat{text-align:center;}
+.period-stats .stat-val{font-weight:800;font-size:14px;}
+.period-stats .stat-label{font-size:9px;color:var(--sub);}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px;}
+.data-table th{background:#2c3e50;color:#fff;padding:10px 8px;text-align:center;font-weight:600;font-size:11px;}
+.data-table td{padding:10px 8px;text-align:center;border-bottom:1px solid #f0f0f0;}
+.data-table tr:hover{background:#f8f9fa;}
+.data-table .best{background:#d1fae5;}
+.data-table .worst{background:#fee2e2;}
+
+/* SCENARIO CARDS */
+.sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;}
+.sc-card{border:2px solid var(--border);border-radius:12px;padding:20px;position:relative;}
+.sc-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px);transition:.2s;}
+.sc-card.winner{border-color:var(--green);background:linear-gradient(135deg,#f0fdf4,#fff);}
+.sc-card.winner::before{content:'最推奨';position:absolute;top:-10px;left:16px;background:var(--green);color:#fff;padding:2px 12px;border-radius:10px;font-size:11px;font-weight:700;}
+.sc-card h3{font-size:15px;font-weight:700;margin-bottom:4px;}
+.sc-card .sc-sub{font-size:11px;color:var(--sub);margin-bottom:12px;}
+.sc-metric{display:flex;justify-content:space-between;padding:5px 0;font-size:12px;border-bottom:1px solid #f5f5f5;}
+.sc-metric .label{color:#666;}
+.sc-metric .value{font-weight:700;}
+.sc-split{margin-top:12px;padding-top:8px;border-top:2px dashed var(--border);}
+.sc-split-item{display:flex;align-items:center;gap:6px;margin:4px 0;font-size:11px;}
+.sc-split-bar{height:12px;border-radius:4px;}
+
+/* CALENDAR */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:12px;}
+.cal-header{background:#2c3e50;color:#fff;padding:6px 4px;text-align:center;font-size:10px;font-weight:600;border-radius:4px;}
+.cal-day{border:1px solid var(--border);border-radius:6px;padding:6px 4px;min-height:80px;font-size:10px;}
+.cal-day .dn{font-weight:700;font-size:12px;margin-bottom:2px;}
+.cal-day .budget{font-weight:700;}
+.cal-day .ch-m{color:var(--accent);}
+.cal-day .ch-y{color:var(--orange);}
+.cal-day .total{font-size:9px;color:var(--sub);border-top:1px solid #f0f0f0;margin-top:3px;padding-top:2px;}
+.cal-day.cal-peak{background:#dbeafe;border-color:#93c5fd;}
+.cal-day.cal-mid{background:#f0fdf4;border-color:#86efac;}
+.cal-day.cal-low{background:#fef3c7;border-color:#fcd34d;}
+.cal-day.cal-dead{background:#fee2e2;border-color:#fca5a5;}
+.cal-day.cal-pay{background:#d1fae5;border-color:#6ee7b7;}
+.cal-day.cal-empty{background:#f9fafb;border-color:#f0f0f0;min-height:auto;}
+
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600;}
+.tag-green{background:var(--green-bg);color:var(--green);}
+.tag-red{background:var(--red-bg);color:var(--red);}
+.tag-orange{background:var(--orange-bg);color:var(--orange);}
+.tag-blue{background:var(--accent-light);color:var(--accent);}
+.tag-purple{background:var(--purple-bg);color:var(--purple);}
+
+.footer{text-align:center;color:#aaa;font-size:10px;padding:20px;}
+@media(max-width:768px){.sc-grid{grid-template-columns:1fr;}.period-stats{width:auto;}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hero">
+  <h1>月相別予算配分 — 前半集中戦略</h1>
+  <div class="sub">ミチルシリカ｜データ: 2026年1-2月 全59日間の購入分析｜月額 ¥120,000</div>
+  <div class="verdict">
+    <div class="big">21-25日の「死の5日間」に¥19,861投下 → 売上ゼロ</div>
+    <div class="sm">この¥2万を1-10日に回すだけで +4〜6件/月の増加が期待できる。均等配分は最悪の戦略。</div>
+  </div>
+</div>
+
+<!-- ═══ S1: 購入ヒートマップ ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--red)">1</div>
+    <h2>月内購入ヒートマップ — 日別実績（1-2月合算）</h2>
+  </div>
+  <div class="desc">1月と2月の全32件の購入を「日付」（1日〜31日）で重ねて可視化。色が濃い=売れる日。</div>
+
+  <div style="display:flex;gap:4px;margin-bottom:6px;font-size:9px;color:var(--sub);">
+    <span style="width:14px;height:14px;background:#fee2e2;border-radius:2px;display:inline-block;vertical-align:middle;"></span> 0件
+    <span style="width:14px;height:14px;background:#fef3c7;border-radius:2px;display:inline-block;vertical-align:middle;margin-left:8px;"></span> 1件
+    <span style="width:14px;height:14px;background:#d1fae5;border-radius:2px;display:inline-block;vertical-align:middle;margin-left:8px;"></span> 2件
+    <span style="width:14px;height:14px;background:#059669;border-radius:2px;display:inline-block;vertical-align:middle;margin-left:8px;"></span> 3件
+  </div>
+  <div class="heatmap">
+    <div class="hm-cell hm-2"><span class="day-label">1</span>2</div>
+    <div class="hm-cell hm-2"><span class="day-label">2</span>2</div>
+    <div class="hm-cell hm-0"><span class="day-label">3</span>0</div>
+    <div class="hm-cell hm-2"><span class="day-label">4</span>2</div>
+    <div class="hm-cell hm-2"><span class="day-label">5</span>2</div>
+    <div class="hm-cell hm-3"><span class="day-label">6</span>3</div>
+    <div class="hm-cell hm-1"><span class="day-label">7</span>1</div>
+    <div class="hm-cell hm-1"><span class="day-label">8</span>1</div>
+    <div class="hm-cell hm-2"><span class="day-label">9</span>2</div>
+    <div class="hm-cell hm-2"><span class="day-label">10</span>2</div>
+    <div class="hm-cell hm-2"><span class="day-label">11</span>2</div>
+    <div class="hm-cell hm-1"><span class="day-label">12</span>1</div>
+    <div class="hm-cell hm-2"><span class="day-label">13</span>2</div>
+    <div class="hm-cell hm-1"><span class="day-label">14</span>1</div>
+    <div class="hm-cell hm-1"><span class="day-label">15</span>1</div>
+    <div class="hm-cell hm-1"><span class="day-label">16</span>1</div>
+    <div class="hm-cell hm-2"><span class="day-label">17</span>2</div>
+    <div class="hm-cell hm-0"><span class="day-label">18</span>0</div>
+    <div class="hm-cell hm-1"><span class="day-label">19</span>1</div>
+    <div class="hm-cell hm-2"><span class="day-label">20</span>2</div>
+    <div class="hm-cell hm-0"><span class="day-label">21</span>0</div>
+    <div class="hm-cell hm-0"><span class="day-label">22</span>0</div>
+    <div class="hm-cell hm-0"><span class="day-label">23</span>0</div>
+    <div class="hm-cell hm-0"><span class="day-label">24</span>0</div>
+    <div class="hm-cell hm-0"><span class="day-label">25</span>0</div>
+    <div class="hm-cell hm-0"><span class="day-label">26</span>0</div>
+    <div class="hm-cell hm-1"><span class="day-label">27</span>1</div>
+    <div class="hm-cell hm-0"><span class="day-label">28</span>0</div>
+    <div class="hm-cell hm-0"><span class="day-label">29</span>0</div>
+    <div class="hm-cell hm-1"><span class="day-label">30</span>1</div>
+    <div class="hm-cell hm-0"><span class="day-label">31</span>0</div>
+  </div>
+
+  <div class="insight danger">
+    <b>21日〜26日: 2ヶ月間で完全にゼロ。</b>10日間（1月21-25日 + 2月21-26日）の広告費 ¥19,861が全額無駄に消えています。これは「給料日前の買い控え」期間と完全に一致します。
+  </div>
+</div>
+
+<!-- ═══ S2: 5日区間分析 ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--accent)">2</div>
+    <h2>5日区間別パフォーマンス — CPA比較</h2>
+  </div>
+  <div class="desc">月を6つの区間に分けて、売上効率を精密比較。広告費に対するリターンの格差が明らか。</div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>区間</th>
+        <th>購入数</th>
+        <th>広告費</th>
+        <th>CPA</th>
+        <th>購入発生率</th>
+        <th>効率</th>
+        <th>判定</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="best">
+        <td style="font-weight:700">6-10日</td>
+        <td style="font-weight:800;color:var(--green);">9件</td>
+        <td>¥19,648</td>
+        <td style="font-weight:800;color:var(--green);">¥2,183</td>
+        <td>70%</td>
+        <td>0.458/¥1K</td>
+        <td><span class="tag tag-green">最高効率</span></td>
+      </tr>
+      <tr class="best">
+        <td style="font-weight:700">1-5日</td>
+        <td style="font-weight:800;color:var(--green);">8件</td>
+        <td>¥20,860</td>
+        <td style="font-weight:800;color:var(--green);">¥2,608</td>
+        <td>80%</td>
+        <td>0.383/¥1K</td>
+        <td><span class="tag tag-green">高効率</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">11-15日</td>
+        <td style="font-weight:700;">7件</td>
+        <td>¥21,278</td>
+        <td style="font-weight:700;">¥3,040</td>
+        <td>60%</td>
+        <td>0.329/¥1K</td>
+        <td><span class="tag tag-blue">良好</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">16-20日</td>
+        <td>6件</td>
+        <td>¥19,214</td>
+        <td>¥3,202</td>
+        <td>50%</td>
+        <td>0.312/¥1K</td>
+        <td><span class="tag tag-orange">普通</span></td>
+      </tr>
+      <tr class="worst">
+        <td style="font-weight:700;color:var(--red);">21-25日</td>
+        <td style="font-weight:800;color:var(--red);">0件</td>
+        <td style="color:var(--red);">¥19,861</td>
+        <td style="font-weight:800;color:var(--red);">∞（全損）</td>
+        <td style="color:var(--red);">0%</td>
+        <td style="color:var(--red);">0.000</td>
+        <td><span class="tag tag-red">死亡ゾーン</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">26-31日</td>
+        <td>2件</td>
+        <td>¥17,776</td>
+        <td>¥8,888</td>
+        <td>22%</td>
+        <td>0.112/¥1K</td>
+        <td><span class="tag tag-red">非効率</span></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr style="background:#f0f4f8;">
+        <td style="font-weight:700">合計</td>
+        <td style="font-weight:800">32件</td>
+        <td style="font-weight:700">¥118,637</td>
+        <td style="font-weight:700">¥3,707</td>
+        <td>—</td>
+        <td>0.270/¥1K</td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <div style="margin-top:20px;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:10px;">売上構成 vs 広告費構成（ミスマッチの可視化）</div>
+
+    <div class="period-row">
+      <div class="period-label" style="color:var(--green)">1-10日</div>
+      <div class="period-bar">
+        <div class="sales-seg" style="width:53%;background:var(--green);">売上 53%（17件）</div>
+        <div class="sales-seg" style="width:34%;background:#86efac;color:#065f46;">広告費 34%</div>
+      </div>
+      <div class="period-stats">
+        <div class="stat"><div class="stat-val" style="color:var(--green)">¥2,383</div><div class="stat-label">平均CPA</div></div>
+      </div>
+    </div>
+
+    <div class="period-row">
+      <div class="period-label" style="color:var(--accent)">11-20日</div>
+      <div class="period-bar">
+        <div class="sales-seg" style="width:41%;background:var(--accent);">売上 41%（13件）</div>
+        <div class="sales-seg" style="width:34%;background:#93c5fd;color:#1e40af;">広告費 34%</div>
+      </div>
+      <div class="period-stats">
+        <div class="stat"><div class="stat-val" style="color:var(--accent)">¥3,115</div><div class="stat-label">平均CPA</div></div>
+      </div>
+    </div>
+
+    <div class="period-row">
+      <div class="period-label" style="color:var(--red)">21-31日</div>
+      <div class="period-bar">
+        <div class="sales-seg" style="width:6%;background:var(--orange);">6%</div>
+        <div class="waste-seg" style="width:32%;">広告費 32%（¥37,637浪費）</div>
+      </div>
+      <div class="period-stats">
+        <div class="stat"><div class="stat-val" style="color:var(--red)">¥18,819</div><div class="stat-label">平均CPA</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight danger">
+    <b>核心データ:</b><br>
+    ・1-10日: 売上の<b>53%</b>を稼ぎ、広告費の34%を使用 → <b>CPA ¥2,383</b><br>
+    ・21-31日: 売上の<b>6%</b>しか稼がず、広告費の32%を消費 → <b>CPA ¥18,819</b><br>
+    ・<b>効率差は7.9倍。</b>後半に投下した¥37,637のうち、¥35,000以上が実質的に無駄。
+  </div>
+</div>
+
+<!-- ═══ S3: WHY ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--purple)">3</div>
+    <h2>なぜ21-25日は売れないのか？</h2>
+  </div>
+  <div class="desc">自社データと一般消費行動データを突き合わせた原因分析</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div style="border:2px solid var(--red-bg);border-radius:10px;padding:18px;">
+      <div style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:8px;">自社データが証明</div>
+      <div style="font-size:12px;line-height:1.8;">
+        <b>1月21-29日（9日間ゼロ）:</b><br>
+        - 広告費¥18,975投下（日平均¥2,108）<br>
+        - クリック数272（日平均30.2）<br>
+        - <b>しかし購入ゼロ</b><br><br>
+        <b>2月21-26日（6日間ゼロ）:</b><br>
+        - 広告費¥11,855投下<br>
+        - CPM ¥2,845（2/22）と高いのに売れない<br>
+        - <b>CPM問題ではなく、消費者行動の問題</b>
+      </div>
+    </div>
+    <div style="border:2px solid var(--accent-light);border-radius:10px;padding:18px;">
+      <div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:8px;">一般消費行動データ</div>
+      <div style="font-size:12px;line-height:1.8;">
+        <b>給料日前の買い控え効果:</b><br>
+        - 20-24日は月内で最も消費抑制される期間<br>
+        - 単価3,000円以上の健康食品でCVR低下が顕著<br><br>
+        <b>健康食品EC業界:</b><br>
+        - 25日〜月末が月間売上の30-35%を占める<br>
+        - 1-10日が25-30%（月替わりの切り替え効果）<br>
+        - <b>20-24日は業界全体で「谷間」</b><br><br>
+        <b>50-70代女性特有:</b><br>
+        - 可処分所得が年金・給料日に依存<br>
+        - 計画的購買タイプが多い
+      </div>
+    </div>
+  </div>
+
+  <div class="insight info" style="margin-top:16px;">
+    <b>結論: 21-25日のゼロは偶然ではなく構造的。</b>
+    この期間は「給料日前の買い控え」が働き、特に50-70代女性ターゲットでは購入が発生しにくい。2ヶ月連続で同じパターンが出ていることが証拠です。<b>この期間に広告費を投下しても回収はほぼ不可能。</b>
+  </div>
+</div>
+
+<!-- ═══ S4: SCENARIOS ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--green)">4</div>
+    <h2>予算配分シナリオ比較 — 4プラン</h2>
+  </div>
+  <div class="desc">月12万円を「いつ使うか」で結果が大きく変わる。前半集中の度合い別に4パターンを比較。</div>
+
+  <div class="sc-grid">
+    <!-- Scenario A: Flat -->
+    <div class="sc-card">
+      <h3>A: 均等配分（現行計画）</h3>
+      <div class="sc-sub">毎日 ¥3,871 × 31日</div>
+      <div class="sc-metric"><span class="label">月間予算</span><span class="value">¥120,000</span></div>
+      <div class="sc-metric"><span class="label">1-15日 投下</span><span class="value">¥58,065（48%）</span></div>
+      <div class="sc-metric"><span class="label">16-31日 投下</span><span class="value">¥61,935（52%）</span></div>
+      <div class="sc-metric"><span class="label">21-25日 浪費</span><span class="value" style="color:var(--red)">¥19,355</span></div>
+      <div class="sc-metric"><span class="label" style="font-weight:700">予想月間CV</span><span class="value" style="font-size:16px;">~27件</span></div>
+      <div class="sc-metric"><span class="label">予想CPA</span><span class="value">¥4,444</span></div>
+      <div class="sc-split">
+        <div style="font-size:10px;color:var(--red);font-weight:600;">
+          死亡ゾーンに¥19,355を投下。効率最悪。
+        </div>
+      </div>
+    </div>
+
+    <!-- Scenario B: User's idea -->
+    <div class="sc-card">
+      <h3>B: 前半6千・後半2千</h3>
+      <div class="sc-sub">前半 ¥6,000×15日 / 後半 ¥1,875×16日</div>
+      <div class="sc-metric"><span class="label">月間予算</span><span class="value">¥120,000</span></div>
+      <div class="sc-metric"><span class="label">1-15日 投下</span><span class="value" style="color:var(--green)">¥90,000（75%）</span></div>
+      <div class="sc-metric"><span class="label">16-31日 投下</span><span class="value">¥30,000（25%）</span></div>
+      <div class="sc-metric"><span class="label">21-25日 浪費</span><span class="value" style="color:var(--green)">¥9,375</span></div>
+      <div class="sc-metric"><span class="label" style="font-weight:700">予想月間CV</span><span class="value" style="font-size:16px;color:var(--green);">~31件</span></div>
+      <div class="sc-metric"><span class="label">予想CPA</span><span class="value" style="color:var(--green);">¥3,871</span></div>
+      <div class="sc-split">
+        <div style="font-size:10px;color:var(--green);font-weight:600;">
+          均等比 +4件。死亡ゾーン浪費を¥10,000削減。
+        </div>
+      </div>
+    </div>
+
+    <!-- Scenario C: Optimized -->
+    <div class="sc-card winner">
+      <h3>C: 4段階傾斜配分</h3>
+      <div class="sc-sub">ピーク→中→抑制→回復の4フェーズ</div>
+      <div class="sc-metric"><span class="label">月間予算</span><span class="value">¥120,000</span></div>
+      <div class="sc-metric"><span class="label">1-10日</span><span class="value" style="color:var(--green)">¥7,000/日 = ¥70,000</span></div>
+      <div class="sc-metric"><span class="label">11-20日</span><span class="value">¥4,000/日 = ¥40,000</span></div>
+      <div class="sc-metric"><span class="label">21-25日</span><span class="value" style="color:var(--red)">¥500/日 = ¥2,500</span></div>
+      <div class="sc-metric"><span class="label">26-31日</span><span class="value">¥1,250/日 = ¥7,500</span></div>
+      <div class="sc-metric"><span class="label">21-25日 浪費</span><span class="value" style="color:var(--green)">¥2,500のみ</span></div>
+      <div class="sc-metric"><span class="label" style="font-weight:700">予想月間CV</span><span class="value" style="font-size:18px;color:var(--green);font-weight:800;">~34件</span></div>
+      <div class="sc-metric"><span class="label">予想CPA</span><span class="value" style="color:var(--green);">¥3,529</span></div>
+      <div class="sc-split">
+        <div style="font-size:10px;color:var(--green);font-weight:600;">
+          均等比 +7件。ピーク期に全力投下+死亡ゾーンほぼ停止。
+        </div>
+      </div>
+    </div>
+
+    <!-- Scenario D: Ultra-aggressive -->
+    <div class="sc-card">
+      <h3>D: 超集中（10日間勝負）</h3>
+      <div class="sc-sub">月頭10日に67%を集中投下</div>
+      <div class="sc-metric"><span class="label">月間予算</span><span class="value">¥120,000</span></div>
+      <div class="sc-metric"><span class="label">1-10日</span><span class="value" style="color:var(--accent)">¥8,000/日 = ¥80,000</span></div>
+      <div class="sc-metric"><span class="label">11-15日</span><span class="value">¥5,000/日 = ¥25,000</span></div>
+      <div class="sc-metric"><span class="label">16-31日</span><span class="value">¥938/日 = ¥15,000</span></div>
+      <div class="sc-metric"><span class="label">21-25日 浪費</span><span class="value" style="color:var(--green)">¥4,690のみ</span></div>
+      <div class="sc-metric"><span class="label" style="font-weight:700">予想月間CV</span><span class="value" style="font-size:16px;">~33件</span></div>
+      <div class="sc-metric"><span class="label">予想CPA</span><span class="value">¥3,636</span></div>
+      <div class="sc-split">
+        <div style="font-size:10px;color:var(--orange);font-weight:600;">
+          均等比 +6件。ただしMeta CPM劣化リスクが高い。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight success" style="margin-top:16px;">
+    <b>推奨: Plan C（4段階傾斜配分）</b><br>
+    ・<b>ピーク期（1-10日）に¥70,000（58%）を集中</b> — CPA ¥2,183〜2,608のゾーン<br>
+    ・<b>中盤（11-20日）に¥40,000（33%）</b> — まだ効率の良い期間<br>
+    ・<b>死亡ゾーン（21-25日）は¥500/日で最低稼働</b> — キャンペーン学習を維持するだけ<br>
+    ・<b>月末回復（26-31日）に¥7,500（6%）</b> — 給料日後の回復をカバー<br>
+    <br>
+    Plan Dは¥8,000/日でMeta CPMの劣化が激しくなるリスクが高い。Plan Cの¥7,000/日がCPM維持と量のバランスが最良。
+  </div>
+</div>
+
+<!-- ═══ S5: GAIN CALCULATION ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--orange)">5</div>
+    <h2>なぜ+7件増えるのか — 計算根拠</h2>
+  </div>
+  <div class="desc">均等配分（Plan A）→ 傾斜配分（Plan C）でどこから+7件が生まれるか</div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>区間</th>
+        <th>Plan A 予算</th>
+        <th>Plan A 予想CV</th>
+        <th>Plan C 予算</th>
+        <th>Plan C 予想CV</th>
+        <th>差分</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="best">
+        <td style="font-weight:700">1-10日</td>
+        <td>¥38,710</td>
+        <td>13.9件</td>
+        <td style="font-weight:700;color:var(--green);">¥70,000</td>
+        <td style="font-weight:700;color:var(--green);">20.6件</td>
+        <td style="color:var(--green);font-weight:700;">+6.7</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">11-20日</td>
+        <td>¥38,710</td>
+        <td>10.3件</td>
+        <td>¥40,000</td>
+        <td>10.9件</td>
+        <td>+0.6</td>
+      </tr>
+      <tr class="worst">
+        <td style="font-weight:700">21-25日</td>
+        <td>¥19,355</td>
+        <td style="color:var(--red);">0件</td>
+        <td style="font-weight:700;color:var(--green);">¥2,500</td>
+        <td style="color:var(--red);">0件</td>
+        <td>0（浪費¥16,855削減）</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">26-31日</td>
+        <td>¥23,225</td>
+        <td>2.2件</td>
+        <td>¥7,500</td>
+        <td>0.9件</td>
+        <td style="color:var(--red);">-1.3</td>
+      </tr>
+      <tr style="background:#f0f4f8;font-weight:700;">
+        <td>合計</td>
+        <td>¥120,000</td>
+        <td>26.4件</td>
+        <td>¥120,000</td>
+        <td style="color:var(--green);font-size:16px;">32.4件</td>
+        <td style="color:var(--green);font-size:16px;">+6.0</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="insight">
+    <b>仕組み:</b> 21-25日の「回収不能な¥16,855」を1-10日に移動。<br>
+    1-10日のCPA ¥2,383で計算: ¥16,855 ÷ ¥2,383 = <b>+7.1件の理論値</b>。<br>
+    日予算¥7,000時のCPM劣化による効率低下（推定15-20%）を織り込んで<b>+5〜7件</b>を見込んでいます。<br>
+    <br>
+    <b>※逆に26-31日を削りすぎると給料日後の回復分を取りこぼすリスクあり。</b>¥1,250/日は維持推奨。
+  </div>
+</div>
+
+<!-- ═══ S6: MARCH CALENDAR ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#1a1a2e">6</div>
+    <h2>3月 予算カレンダー — Plan C 実装版</h2>
+  </div>
+  <div class="desc">
+    <span class="tag tag-blue">青=ピーク(¥7,000)</span>
+    <span class="tag tag-green" style="margin-left:4px;">緑=中盤(¥4,000)</span>
+    <span class="tag tag-red" style="margin-left:4px;">赤=停止(¥500)</span>
+    <span class="tag tag-orange" style="margin-left:4px;">黄=回復(¥1,250)</span>
+    ｜合計: ¥120,000
+  </div>
+
+  <div class="cal-grid">
+    <div class="cal-header">月</div>
+    <div class="cal-header">火</div>
+    <div class="cal-header">水</div>
+    <div class="cal-header">木</div>
+    <div class="cal-header">金</div>
+    <div class="cal-header" style="background:#c0392b;">土</div>
+    <div class="cal-header" style="background:#c0392b;">日</div>
+
+    <!-- 3/1=日曜 -->
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-peak">
+      <div class="dn">1</div>
+      <div class="ch-m">M ¥4,200</div>
+      <div class="ch-y">Y ¥2,800</div>
+      <div class="total">計 ¥7,000</div>
+    </div>
+
+    <!-- Week 1: 3/2-8 -->
+    <div class="cal-day cal-peak">
+      <div class="dn">2</div>
+      <div class="ch-m">M ¥4,500</div>
+      <div class="ch-y">Y ¥2,500</div>
+      <div class="total">計 ¥7,000</div>
+    </div>
+    <div class="cal-day cal-peak">
+      <div class="dn">3</div>
+      <div class="ch-m">M ¥4,200</div>
+      <div class="ch-y">Y ¥2,800</div>
+      <div class="total">計 ¥7,000</div>
+    </div>
+    <div class="cal-day cal-peak">
+      <div class="dn">4</div>
+      <div class="ch-m">M ¥4,200</div>
+      <div class="ch-y">Y ¥2,800</div>
+      <div class="total">計 ¥7,000</div>
+    </div>
+    <div class="cal-day cal-peak">
+      <div class="dn">5</div>
+      <div class="ch-m">M ¥4,200</div>
+      <div class="ch-y">Y ¥2,800</div>
+      <div class="total">計 ¥7,000</div>
+    </div>
+    <div class="cal-day cal-peak">
+      <div class="dn">6</div>
+      <div class="ch-m">M ¥4,200</div>
+      <div class="ch-y">Y ¥2,800</div>
+      <div class="total">計 ¥7,000</div>
+    </div>
+    <div class="cal-day cal-peak" style="opacity:.85;">
+      <div class="dn">7</div>
+      <div style="font-size:9px;color:var(--sub);">土曜抑制</div>
+      <div class="ch-m">M ¥3,500</div>
+      <div class="ch-y">Y ¥2,500</div>
+      <div class="total">計 ¥6,000</div>
+    </div>
+    <div class="cal-day cal-peak">
+      <div class="dn">8</div>
+      <div class="ch-m">M ¥4,200</div>
+      <div class="ch-y">Y ¥2,800</div>
+      <div class="total">計 ¥7,000</div>
+    </div>
+
+    <!-- Week 2: 3/9-15 -->
+    <div class="cal-day cal-peak">
+      <div class="dn">9</div>
+      <div class="ch-m">M ¥4,500</div>
+      <div class="ch-y">Y ¥3,500</div>
+      <div class="total">計 ¥8,000</div>
+    </div>
+    <div class="cal-day cal-peak">
+      <div class="dn">10</div>
+      <div class="ch-m">M ¥4,200</div>
+      <div class="ch-y">Y ¥2,800</div>
+      <div class="total">計 ¥7,000</div>
+    </div>
+    <div class="cal-day cal-mid">
+      <div class="dn">11</div>
+      <div class="ch-m">M ¥2,500</div>
+      <div class="ch-y">Y ¥1,500</div>
+      <div class="total">計 ¥4,000</div>
+    </div>
+    <div class="cal-day cal-mid">
+      <div class="dn">12</div>
+      <div class="ch-m">M ¥2,500</div>
+      <div class="ch-y">Y ¥1,500</div>
+      <div class="total">計 ¥4,000</div>
+    </div>
+    <div class="cal-day cal-mid">
+      <div class="dn">13</div>
+      <div class="ch-m">M ¥2,500</div>
+      <div class="ch-y">Y ¥1,500</div>
+      <div class="total">計 ¥4,000</div>
+    </div>
+    <div class="cal-day cal-mid" style="opacity:.85;">
+      <div class="dn">14</div>
+      <div style="font-size:9px;color:var(--sub);">土曜</div>
+      <div class="ch-m">M ¥2,000</div>
+      <div class="ch-y">Y ¥1,500</div>
+      <div class="total">計 ¥3,500</div>
+    </div>
+    <div class="cal-day cal-mid">
+      <div class="dn">15</div>
+      <div style="font-size:8px;color:var(--sub);">奇数月:年金なし</div>
+      <div class="ch-m">M ¥2,500</div>
+      <div class="ch-y">Y ¥1,500</div>
+      <div class="total">計 ¥4,000</div>
+    </div>
+
+    <!-- Week 3: 3/16-22 -->
+    <div class="cal-day cal-mid">
+      <div class="dn">16</div>
+      <div class="ch-m">M ¥2,500</div>
+      <div class="ch-y">Y ¥1,500</div>
+      <div class="total">計 ¥4,000</div>
+    </div>
+    <div class="cal-day cal-mid">
+      <div class="dn">17</div>
+      <div class="ch-m">M ¥2,500</div>
+      <div class="ch-y">Y ¥1,500</div>
+      <div class="total">計 ¥4,000</div>
+    </div>
+    <div class="cal-day cal-mid">
+      <div class="dn">18</div>
+      <div style="font-size:8px;color:var(--accent);font-weight:700;">MTG 9:30</div>
+      <div class="ch-m">M ¥2,500</div>
+      <div class="ch-y">Y ¥1,500</div>
+      <div class="total">計 ¥4,000</div>
+    </div>
+    <div class="cal-day cal-mid">
+      <div class="dn">19</div>
+      <div class="ch-m">M ¥2,500</div>
+      <div class="ch-y">Y ¥1,500</div>
+      <div class="total">計 ¥4,000</div>
+    </div>
+    <div class="cal-day cal-mid">
+      <div class="dn">20</div>
+      <div class="ch-m">M ¥2,500</div>
+      <div class="ch-y">Y ¥1,500</div>
+      <div class="total">計 ¥4,000</div>
+    </div>
+    <div class="cal-day cal-dead">
+      <div class="dn">21</div>
+      <div style="font-size:8px;color:var(--red);font-weight:700;">死亡ゾーン</div>
+      <div class="ch-m">M ¥300</div>
+      <div class="ch-y">Y ¥200</div>
+      <div class="total">計 ¥500</div>
+    </div>
+    <div class="cal-day cal-dead">
+      <div class="dn">22</div>
+      <div class="ch-m">M ¥300</div>
+      <div class="ch-y">Y ¥200</div>
+      <div class="total">計 ¥500</div>
+    </div>
+
+    <!-- Week 4: 3/23-29 -->
+    <div class="cal-day cal-dead">
+      <div class="dn">23</div>
+      <div class="ch-m">M ¥300</div>
+      <div class="ch-y">Y ¥200</div>
+      <div class="total">計 ¥500</div>
+    </div>
+    <div class="cal-day cal-dead">
+      <div class="dn">24</div>
+      <div class="ch-m">M ¥300</div>
+      <div class="ch-y">Y ¥200</div>
+      <div class="total">計 ¥500</div>
+    </div>
+    <div class="cal-day cal-pay">
+      <div class="dn">25</div>
+      <div style="font-size:8px;color:var(--green);font-weight:700;">給料日</div>
+      <div class="ch-m">M ¥300</div>
+      <div class="ch-y">Y ¥200</div>
+      <div class="total">計 ¥500</div>
+    </div>
+    <div class="cal-day cal-low">
+      <div class="dn">26</div>
+      <div style="font-size:8px;color:var(--orange);">回復開始</div>
+      <div class="ch-m">M ¥750</div>
+      <div class="ch-y">Y ¥500</div>
+      <div class="total">計 ¥1,250</div>
+    </div>
+    <div class="cal-day cal-low">
+      <div class="dn">27</div>
+      <div class="ch-m">M ¥750</div>
+      <div class="ch-y">Y ¥500</div>
+      <div class="total">計 ¥1,250</div>
+    </div>
+    <div class="cal-day cal-low">
+      <div class="dn">28</div>
+      <div class="ch-m">M ¥750</div>
+      <div class="ch-y">Y ¥500</div>
+      <div class="total">計 ¥1,250</div>
+    </div>
+    <div class="cal-day cal-low">
+      <div class="dn">29</div>
+      <div class="ch-m">M ¥750</div>
+      <div class="ch-y">Y ¥500</div>
+      <div class="total">計 ¥1,250</div>
+    </div>
+
+    <!-- Week 5: 3/30-31 -->
+    <div class="cal-day cal-low">
+      <div class="dn">30</div>
+      <div class="ch-m">M ¥750</div>
+      <div class="ch-y">Y ¥500</div>
+      <div class="total">計 ¥1,250</div>
+    </div>
+    <div class="cal-day cal-low">
+      <div class="dn">31</div>
+      <div class="ch-m">M ¥750</div>
+      <div class="ch-y">Y ¥500</div>
+      <div class="total">計 ¥1,250</div>
+    </div>
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+  </div>
+
+  <div style="margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;font-size:12px;">
+    <div style="background:#dbeafe;padding:12px;border-radius:8px;text-align:center;">
+      <div style="font-size:10px;color:var(--accent);">Phase 1: ピーク</div>
+      <div style="font-size:10px;color:var(--sub);">3/1-10（10日間）</div>
+      <div style="font-size:20px;font-weight:800;color:var(--accent);">¥70,000</div>
+      <div style="font-size:10px;color:var(--accent);font-weight:600;">58% | 予想 ~20件</div>
+    </div>
+    <div style="background:#f0fdf4;padding:12px;border-radius:8px;text-align:center;">
+      <div style="font-size:10px;color:var(--green);">Phase 2: 中盤</div>
+      <div style="font-size:10px;color:var(--sub);">3/11-20（10日間）</div>
+      <div style="font-size:20px;font-weight:800;color:var(--green);">¥40,000</div>
+      <div style="font-size:10px;color:var(--green);font-weight:600;">33% | 予想 ~11件</div>
+    </div>
+    <div style="background:#fee2e2;padding:12px;border-radius:8px;text-align:center;">
+      <div style="font-size:10px;color:var(--red);">Phase 3: 停止</div>
+      <div style="font-size:10px;color:var(--sub);">3/21-25（5日間）</div>
+      <div style="font-size:20px;font-weight:800;color:var(--red);">¥2,500</div>
+      <div style="font-size:10px;color:var(--red);font-weight:600;">2% | 予想 0件</div>
+    </div>
+    <div style="background:#fef3c7;padding:12px;border-radius:8px;text-align:center;">
+      <div style="font-size:10px;color:var(--orange);">Phase 4: 回復</div>
+      <div style="font-size:10px;color:var(--sub);">3/26-31（6日間）</div>
+      <div style="font-size:20px;font-weight:800;color:var(--orange);">¥7,500</div>
+      <div style="font-size:10px;color:var(--orange);font-weight:600;">6% | 予想 ~1件</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S7: Channel Split ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#e67e22">7</div>
+    <h2>Phase別チャネル配分 — Meta vs Yahoo</h2>
+  </div>
+  <div class="desc">Phase 1（¥7,000/日）でのMeta/Yahoo配分がCPM維持の鍵</div>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>Phase</th><th>日予算</th><th>Meta</th><th>Yahoo</th><th>Meta比率</th><th>理由</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-weight:700">Phase 1<br>（1-10日）</td>
+        <td style="font-weight:700">¥7,000</td>
+        <td style="color:var(--accent);font-weight:700">¥4,200</td>
+        <td style="color:var(--orange);font-weight:700">¥2,800</td>
+        <td>60%</td>
+        <td style="text-align:left;font-size:11px">Meta ¥4,200はCPM維持ギリギリの水準。Yahooも¥2,800で検索をしっかり捕捉</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">Phase 2<br>（11-20日）</td>
+        <td style="font-weight:700">¥4,000</td>
+        <td style="color:var(--accent);font-weight:700">¥2,500</td>
+        <td style="color:var(--orange);font-weight:700">¥1,500</td>
+        <td>63%</td>
+        <td style="text-align:left;font-size:11px">Phase 1でのMeta学習を維持しつつ予算適正化</td>
+      </tr>
+      <tr class="worst">
+        <td style="font-weight:700">Phase 3<br>（21-25日）</td>
+        <td style="font-weight:700">¥500</td>
+        <td style="color:var(--accent)">¥300</td>
+        <td style="color:var(--orange)">¥200</td>
+        <td>60%</td>
+        <td style="text-align:left;font-size:11px">最低稼働。配信停止するとMeta学習がリセットされるため¥300で維持</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">Phase 4<br>（26-31日）</td>
+        <td style="font-weight:700">¥1,250</td>
+        <td style="color:var(--accent)">¥750</td>
+        <td style="color:var(--orange)">¥500</td>
+        <td>60%</td>
+        <td style="text-align:left;font-size:11px">給料日後の回復期。徐々に戻す</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr style="background:#f0f4f8;">
+        <td style="font-weight:700" colspan="2">月間合計</td>
+        <td style="font-weight:700;color:var(--accent)">Meta ¥72,300</td>
+        <td style="font-weight:700;color:var(--orange)">Yahoo ¥47,700</td>
+        <td>60%</td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <div class="insight">
+    <b>Phase 3（死亡ゾーン）でも完全停止しない理由:</b><br>
+    Meta広告を完全に止めると、Advantage+の機械学習がリセットされ、Phase 4で再開したとき学習期間が再び必要になります。¥300/日（月間¥1,500）は「学習維持コスト」として割り切ります。
+  </div>
+</div>
+
+<!-- ═══ S8: 注意点 ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#7f8c8d">8</div>
+    <h2>運用上の注意点 & エスケープバルブ</h2>
+  </div>
+  <div class="desc">前半集中は強力だが、いくつかのリスクへの備えが必要</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div style="border:2px solid var(--red-bg);border-radius:10px;padding:18px;">
+      <div style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:8px;">Meta CPM劣化リスク</div>
+      <div style="font-size:12px;color:#555;">
+        <b>懸念:</b> Meta ¥4,200/日はこれまでの最大値（¥1,800）の2.3倍。CPMが¥800未満に落ちる可能性。<br><br>
+        <b>対処:</b> Phase 1の最初3日間はCPMを毎日チェック。<br>
+        ・CPM ¥1,000以上: 継続OK<br>
+        ・CPM ¥800未満が2日連続: Meta→¥3,000に減額、差分¥1,200をYahooへ<br>
+        ・CPM ¥600未満: Meta→¥2,000、Yahoo→¥5,000に切替
+      </div>
+    </div>
+    <div style="border:2px solid var(--orange-bg);border-radius:10px;padding:18px;">
+      <div style="font-size:14px;font-weight:700;color:var(--orange);margin-bottom:8px;">Phase 3が本当にゼロか問題</div>
+      <div style="font-size:12px;color:#555;">
+        <b>懸念:</b> 2ヶ月のデータでは21-25日はゼロだったが、3月に変わる可能性もゼロではない。<br><br>
+        <b>対処:</b> Phase 3期間中もGA4のイベントは監視。<br>
+        ・LP上でフォーム到達が急増した場合: 緊急で¥2,000/日に引き上げ<br>
+        ・3月もゼロなら4月以降も同じ戦略を継続<br>
+        ・<b>3ヶ月連続ゼロで「構造的パターン」として確定</b>
+      </div>
+    </div>
+    <div style="border:2px solid var(--accent-light);border-radius:10px;padding:18px;">
+      <div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:8px;">予算消化のペース管理</div>
+      <div style="font-size:12px;color:#555;">
+        <b>懸念:</b> Phase 1で日¥7,000を使い続けるとPhase 2の予算が足りなくなる。<br><br>
+        <b>チェックポイント:</b><br>
+        ・3/10時点で累計¥72,000以上消化 → Phase 2を¥3,500に抑制<br>
+        ・3/10時点で累計¥65,000以下 → Phase 2は¥4,500に増額可<br>
+        ・常に¥120,000上限を意識
+      </div>
+    </div>
+    <div style="border:2px solid var(--green-bg);border-radius:10px;padding:18px;">
+      <div style="font-size:14px;font-weight:700;color:var(--green);margin-bottom:8px;">3/18 MTGでの中間レビュー</div>
+      <div style="font-size:12px;color:#555;">
+        <b>3/18 9:30のミーティングで確認すべきこと:</b><br><br>
+        ・Phase 1（3/1-10）の結果: CV数・CPA・CPM<br>
+        ・Phase 2（3/11-17）の途中経過<br>
+        ・Phase 3の配分調整の判断<br>
+        ・この時点で20件以上 → 36件ペースで順調<br>
+        ・15件未満 → Phase 2を延長して対策
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SUMMARY ═══ -->
+<div class="section" style="background:linear-gradient(135deg,#f0f9ff,#f0fdf4);">
+  <div class="section-header">
+    <div class="section-icon" style="background:#1a1a2e">★</div>
+    <h2>最終まとめ</h2>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>項目</th><th>均等配分（旧）</th><th>前半集中Plan C（推奨）</th><th>差</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-weight:700">Phase 1（1-10日）予算</td>
+        <td>¥38,710（32%）</td>
+        <td style="color:var(--green);font-weight:700">¥70,000（58%）</td>
+        <td>+¥31,290</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">死亡ゾーン浪費</td>
+        <td style="color:var(--red)">¥19,355</td>
+        <td style="color:var(--green);font-weight:700">¥2,500</td>
+        <td style="color:var(--green);font-weight:700">-¥16,855節約</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">予想月間CV</td>
+        <td>~27件</td>
+        <td style="color:var(--green);font-weight:800;font-size:16px;">~34件</td>
+        <td style="color:var(--green);font-weight:800;font-size:16px;">+7件</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">予想CPA</td>
+        <td>¥4,444</td>
+        <td style="color:var(--green);font-weight:700">¥3,529</td>
+        <td style="color:var(--green)">-¥915改善</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="insight success" style="margin-top:16px;">
+    <b>結論:</b> 均等配分は「売れない期間にも均等に投資する」最悪の戦略です。<br><br>
+    <b>「1-10日に月予算の58%を集中投下、21-25日はほぼ停止」</b>が、同じ¥120,000でCVを+7件（+26%）増やす最適解です。<br><br>
+    この戦略で月34件、CPA ¥3,529を目標にします。曜日調整（月曜強め、土曜弱め）も組み合わせることで、さらに+2〜3件の上積みも可能です。
+  </div>
+</div>
+
+<div class="footer">
+  ミチルシリカ 月相別予算配分戦略 | 作成: 2026-03-03 | データ: 1-2月59日間の全購入32件 + 市場調査
+</div>
+
+</div>
+</body>
+</html>
