@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ミチルシリカ 予算配分戦略 — 月12万円最適化プラン</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg: #f5f6fa; --card: #fff; --text: #1a1a2e; --sub: #6c7a89;
+  --accent: #2563eb; --accent-light: #dbeafe;
+  --green: #059669; --green-bg: #d1fae5;
+  --red: #dc2626; --red-bg: #fee2e2;
+  --orange: #d97706; --orange-bg: #fef3c7;
+  --purple: #7c3aed; --purple-bg: #ede9fe;
+  --border: #e5e7eb;
+  --shadow: 0 1px 3px rgba(0,0,0,.08);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,.08);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif; background:var(--bg); color:var(--text); font-size:14px; line-height:1.7; -webkit-font-smoothing:antialiased; }
+.page { max-width:1100px; margin:0 auto; padding:24px 16px 60px; }
+
+/* HERO */
+.hero { background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#1a365d 100%); color:#fff; padding:40px 36px 36px; border-radius:16px; margin-bottom:28px; position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; top:-60px; right:-60px; width:200px; height:200px; background:radial-gradient(circle,rgba(59,130,246,.3) 0%,transparent 70%); border-radius:50%; }
+.hero::after { content:''; position:absolute; bottom:-40px; left:30%; width:300px; height:120px; background:radial-gradient(ellipse,rgba(16,185,129,.15) 0%,transparent 70%); }
+.hero h1 { font-size:26px; font-weight:800; letter-spacing:-.5px; position:relative; z-index:1; }
+.hero .sub { color:#94a3b8; font-size:12px; margin-top:6px; position:relative; z-index:1; }
+.hero .badge-row { display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; position:relative; z-index:1; }
+.hero .badge { display:inline-flex; align-items:center; gap:4px; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:600; background:rgba(255,255,255,.1); }
+.hero .badge.green { background:rgba(16,185,129,.2); color:#6ee7b7; }
+.hero .badge.blue { background:rgba(59,130,246,.2); color:#93c5fd; }
+.hero .badge.orange { background:rgba(217,119,6,.2); color:#fcd34d; }
+.hero .badge.red { background:rgba(220,38,38,.2); color:#fca5a5; }
+
+/* SECTION */
+.section { background:var(--card); border-radius:14px; padding:28px; margin-bottom:20px; box-shadow:var(--shadow); border:1px solid var(--border); }
+.section-header { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+.section-icon { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:15px; color:#fff; flex-shrink:0; }
+.section h2 { font-size:18px; font-weight:700; }
+.section .desc { font-size:12px; color:var(--sub); margin-bottom:18px; }
+
+/* INSIGHT */
+.insight { border-left:4px solid #ffc107; padding:14px 18px; border-radius:0 10px 10px 0; margin:14px 0; font-size:13px; background:#fff8e1; }
+.insight.danger { background:#ffebee; border-left-color:#e74c3c; }
+.insight.info { background:#e3f2fd; border-left-color:#2196f3; }
+.insight.success { background:#e8f5e9; border-left-color:#4caf50; }
+.insight b { font-weight:700; }
+
+/* GRID */
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+@media(max-width:768px) { .grid-2,.grid-3 { grid-template-columns:1fr; } }
+
+/* PLAN CARDS */
+.plan-card { border:2px solid var(--border); border-radius:12px; padding:24px; position:relative; transition:transform .2s; }
+.plan-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+.plan-card.recommended { border-color:var(--accent); }
+.plan-card.recommended::before { content:'推奨'; position:absolute; top:-10px; left:20px; background:var(--accent); color:#fff; padding:2px 12px; border-radius:10px; font-size:11px; font-weight:700; }
+.plan-card h3 { font-size:16px; font-weight:700; margin-bottom:4px; }
+.plan-card .plan-sub { font-size:11px; color:var(--sub); margin-bottom:12px; }
+.plan-metric { display:flex; justify-content:space-between; padding:6px 0; font-size:13px; border-bottom:1px solid #f5f5f5; }
+.plan-metric .label { color:#666; }
+.plan-metric .value { font-weight:700; }
+.plan-pros { margin-top:12px; }
+.plan-pros dt { font-size:11px; font-weight:700; color:var(--green); margin-top:8px; }
+.plan-pros dt.con { color:var(--red); }
+.plan-pros dd { font-size:12px; color:#555; margin-left:8px; }
+
+/* CPM CHART */
+.cpm-chart { display:flex; align-items:flex-end; gap:12px; padding:20px 0; justify-content:center; }
+.cpm-bar { display:flex; flex-direction:column; align-items:center; gap:4px; }
+.cpm-bar .bar { width:80px; border-radius:6px 6px 0 0; display:flex; align-items:flex-end; justify-content:center; padding-bottom:8px; color:#fff; font-size:13px; font-weight:700; transition:height .5s; }
+.cpm-bar .bar-label { font-size:10px; color:var(--sub); text-align:center; }
+.cpm-bar .bar-amount { font-size:11px; font-weight:600; }
+
+/* DOW TABLE */
+.dow-table { width:100%; border-collapse:collapse; font-size:12px; margin-top:12px; }
+.dow-table th { background:#2c3e50; color:#fff; padding:10px 8px; text-align:center; font-weight:600; font-size:11px; }
+.dow-table td { padding:10px 8px; text-align:center; border-bottom:1px solid #f0f0f0; }
+.dow-table tr:hover { background:#f8f9fa; }
+.dow-table .dow-best { background:#d1fae5; }
+.dow-table .dow-worst { background:#fee2e2; }
+
+/* CALENDAR */
+.cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-top:12px; }
+.cal-header { background:#2c3e50; color:#fff; padding:8px 4px; text-align:center; font-size:11px; font-weight:600; border-radius:4px; }
+.cal-day { border:1px solid var(--border); border-radius:6px; padding:8px 6px; min-height:90px; font-size:11px; position:relative; }
+.cal-day .day-num { font-weight:700; font-size:13px; margin-bottom:4px; }
+.cal-day .day-meta { color:var(--accent); font-weight:600; }
+.cal-day .day-yahoo { color:var(--orange); font-weight:600; }
+.cal-day .day-total { font-size:10px; color:var(--sub); border-top:1px solid #f0f0f0; margin-top:4px; padding-top:3px; }
+.cal-day.cal-high { background:#dbeafe; border-color:#93c5fd; }
+.cal-day.cal-low { background:#fef3c7; border-color:#fcd34d; }
+.cal-day.cal-payday { background:#d1fae5; border-color:#6ee7b7; }
+.cal-day.cal-empty { background:#f9fafb; border-color:#f0f0f0; min-height:auto; }
+
+/* TARGETING */
+.target-compare { display:grid; grid-template-columns:1fr auto 1fr; gap:16px; align-items:start; }
+.target-card { border:1px solid var(--border); border-radius:10px; padding:20px; }
+.target-card.current { border-left:4px solid var(--orange); }
+.target-card.proposed { border-left:4px solid var(--green); }
+.target-card h4 { font-size:14px; font-weight:700; margin-bottom:10px; }
+.target-item { font-size:12px; padding:4px 0; display:flex; align-items:center; gap:6px; }
+.target-arrow { font-size:28px; color:var(--accent); display:flex; align-items:center; padding-top:30px; }
+@media(max-width:768px) { .target-compare { grid-template-columns:1fr; } .target-arrow { justify-content:center; transform:rotate(90deg); padding:0; } }
+
+/* REVIEW */
+.review-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:12px; }
+.review-card { border:1px solid var(--border); border-radius:10px; padding:16px; }
+.review-card h4 { font-size:13px; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+.review-item { font-size:12px; padding:4px 0; border-bottom:1px solid #f8f8f8; display:flex; justify-content:space-between; }
+.review-item .threshold { font-weight:600; }
+.review-item .action { color:var(--sub); font-size:11px; }
+
+/* STACKED BAR */
+.stacked-row { display:flex; align-items:center; margin:8px 0; }
+.stacked-label { width:60px; font-size:12px; font-weight:600; flex-shrink:0; }
+.stacked-bar { flex:1; height:32px; border-radius:6px; overflow:hidden; display:flex; }
+.stacked-bar .seg { height:100%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:10px; font-weight:600; }
+.stacked-amount { width:80px; text-align:right; font-size:12px; font-weight:600; flex-shrink:0; margin-left:8px; }
+
+.footer { text-align:center; color:#aaa; font-size:10px; padding:20px; }
+.tag { display:inline-block; padding:2px 8px; border-radius:10px; font-size:10px; font-weight:600; }
+.tag-green { background:var(--green-bg); color:var(--green); }
+.tag-red { background:var(--red-bg); color:var(--red); }
+.tag-orange { background:var(--orange-bg); color:var(--orange); }
+.tag-blue { background:var(--accent-light); color:var(--accent); }
+.tag-purple { background:var(--purple-bg); color:var(--purple); }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <h1>予算配分戦略 — 月12万円最適化プラン</h1>
+  <div class="sub">ミチルシリカ｜対象月: 2026年3月｜日予算 ¥4,000 → 月額 ¥120,000 上限</div>
+  <div class="badge-row">
+    <span class="badge blue">月額上限 ¥120,000</span>
+    <span class="badge green">目標 36件/月</span>
+    <span class="badge orange">CPM維持が最優先</span>
+    <span class="badge red">予算増=品質低下リスク</span>
+  </div>
+</div>
+
+<!-- ═══ S1: EXECUTIVE SUMMARY ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--accent)">1</div>
+    <h2>エグゼクティブサマリー</h2>
+  </div>
+  <div class="desc">データから導いた3つの最重要ファインディングと推奨アクション</div>
+
+  <div class="insight danger">
+    <b>核心的発見 — Meta予算を増やすほどCPMが下がる:</b><br>
+    Meta ¥1,000/日 → CPM ¥2,773（購入率83%）<br>
+    Meta ¥1,800/日 → CPM ¥1,046（購入率大幅低下）<br>
+    <b>Meta予算80%増で、CPMは62%下落。</b>予算を¥3,000に上げるとさらなるCPM劣化が確実に起こります。
+  </div>
+
+  <div class="insight success">
+    <b>推奨戦略 — 「質を保ちつつ量を増やす」ハイブリッド配分:</b><br>
+    Meta ¥2,000〜2,500 / Yahoo ¥1,500〜2,000の可変配分で、<b>CPMを¥1,500以上に維持</b>しながら月36件を狙います。
+    会議決定のIG ¥3,000 / Yahoo ¥1,000は「速攻テスト型」として有効ですが、CPM監視を必須とし、¥1,000未満に落ちたら即座にMeta減額します。
+  </div>
+
+  <div class="insight info">
+    <b>曜日×月相で¥120,000を最大効率化:</b><br>
+    月曜（購入率71%）に予算130%集中、土曜（25%）は70%に抑制。さらに月前半に55%配分、給料日前（21-24日）を減額し、給料日後（25-28日）に回復させます。
+  </div>
+</div>
+
+<!-- ═══ S2: CPM PARADOX ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#e74c3c">2</div>
+    <h2>CPM-予算パラドックス — なぜ増額が逆効果になるか</h2>
+  </div>
+  <div class="desc">1-2月の実データから、Meta予算とCPMの逆相関関係を可視化</div>
+
+  <div class="cpm-chart">
+    <div class="cpm-bar">
+      <div class="bar-amount">¥2,773</div>
+      <div class="bar" style="height:220px; background:linear-gradient(to top,#059669,#34d399);">83%</div>
+      <div class="bar-label">Meta<br>¥1,000/日</div>
+      <div class="bar-label" style="color:var(--green);font-weight:700">Era A</div>
+    </div>
+    <div class="cpm-bar">
+      <div class="bar-amount">¥1,861</div>
+      <div class="bar" style="height:148px; background:linear-gradient(to top,#d97706,#fbbf24);">60%</div>
+      <div class="bar-label">Meta<br>¥1,000/日+動画</div>
+      <div class="bar-label" style="color:var(--orange);font-weight:700">Era B</div>
+    </div>
+    <div class="cpm-bar">
+      <div class="bar-amount">¥1,046</div>
+      <div class="bar" style="height:83px; background:linear-gradient(to top,#dc2626,#f87171);">35%</div>
+      <div class="bar-label">Meta<br>¥1,800/日</div>
+      <div class="bar-label" style="color:var(--red);font-weight:700">Era C</div>
+    </div>
+    <div class="cpm-bar" style="opacity:.5;">
+      <div class="bar-amount" style="color:var(--red);">¥600〜800?</div>
+      <div class="bar" style="height:55px; background:linear-gradient(to top,#991b1b,#dc2626); border:2px dashed #dc2626;">??%</div>
+      <div class="bar-label">Meta<br>¥3,000/日</div>
+      <div class="bar-label" style="color:var(--red);font-weight:700">予測</div>
+    </div>
+  </div>
+
+  <div style="text-align:center; font-size:12px; color:var(--sub); margin-bottom:16px;">
+    棒の高さ = CPM、数字 = そのCPM帯での購入発生率<br>
+    ※¥3,000/日は過去データから外挿した推計値
+  </div>
+
+  <div class="insight">
+    <b>なぜこうなるか:</b> Advantage+はまず「最も安い配信先」から埋めます。予算が少ないと高CPM=高購買力層のみに配信されますが、予算が増えると安い枠（購入意欲の低い層）にも広がります。<br>
+    <b>対策:</b> Meta予算は「CPMを¥1,500以上に維持できる水準」に留め、余剰はYahooに回すのが合理的です。
+  </div>
+</div>
+
+<!-- ═══ S3: 3 PLANS ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--purple)">3</div>
+    <h2>チャネル配分 — 3プラン比較</h2>
+  </div>
+  <div class="desc">会議決定案を含む3つのプランを、データに基づいて比較評価</div>
+
+  <div class="grid-3">
+    <!-- Plan A -->
+    <div class="plan-card">
+      <h3>Plan A: 会議決定案</h3>
+      <div class="plan-sub">速攻テスト型 — 最大IG投下</div>
+      <div class="plan-metric"><span class="label">Meta</span><span class="value" style="color:var(--accent)">¥3,000/日</span></div>
+      <div class="plan-metric"><span class="label">Yahoo</span><span class="value" style="color:var(--orange)">¥1,000/日</span></div>
+      <div class="plan-metric"><span class="label">予想CPM</span><span class="value" style="color:var(--red)">¥600〜900</span></div>
+      <div class="plan-metric"><span class="label">予想月間CV</span><span class="value">28〜34件</span></div>
+      <div class="plan-metric"><span class="label">予想CPA</span><span class="value">¥3,500〜4,300</span></div>
+      <div class="plan-pros">
+        <dt>メリット</dt>
+        <dd>IG広告量が最大、LP A/Bテストデータが最速で溜まる</dd>
+        <dt class="con">リスク</dt>
+        <dd>CPM大幅低下→購入ゼロ日増加の可能性大。IG CVR低下でCPA悪化リスク</dd>
+      </div>
+    </div>
+
+    <!-- Plan B -->
+    <div class="plan-card recommended">
+      <h3>Plan B: データ最適化案</h3>
+      <div class="plan-sub">CPM維持型 — 質と量のバランス</div>
+      <div class="plan-metric"><span class="label">Meta</span><span class="value" style="color:var(--accent)">¥2,000/日</span></div>
+      <div class="plan-metric"><span class="label">Yahoo</span><span class="value" style="color:var(--orange)">¥2,000/日</span></div>
+      <div class="plan-metric"><span class="label">予想CPM</span><span class="value" style="color:var(--green)">¥1,200〜1,800</span></div>
+      <div class="plan-metric"><span class="label">予想月間CV</span><span class="value" style="color:var(--green)">33〜39件</span></div>
+      <div class="plan-metric"><span class="label">予想CPA</span><span class="value" style="color:var(--green)">¥3,100〜3,600</span></div>
+      <div class="plan-pros">
+        <dt>メリット</dt>
+        <dd>CPMが維持され高品質オーディエンスに配信。Yahoo検索流入も倍増しオーガニック効果も強化</dd>
+        <dt class="con">リスク</dt>
+        <dd>IG側のテスト速度がやや遅くなる。新クリエイティブの検証に時間がかかる可能性</dd>
+      </div>
+    </div>
+
+    <!-- Plan C -->
+    <div class="plan-card">
+      <h3>Plan C: ハイブリッド案</h3>
+      <div class="plan-sub">曜日変動型 — 攻守切替</div>
+      <div class="plan-metric"><span class="label">Meta</span><span class="value" style="color:var(--accent)">¥1,500〜3,000/日</span></div>
+      <div class="plan-metric"><span class="label">Yahoo</span><span class="value" style="color:var(--orange)">¥1,000〜2,500/日</span></div>
+      <div class="plan-metric"><span class="label">予想CPM</span><span class="value" style="color:var(--accent)">¥1,000〜2,500</span></div>
+      <div class="plan-metric"><span class="label">予想月間CV</span><span class="value">30〜36件</span></div>
+      <div class="plan-metric"><span class="label">予想CPA</span><span class="value">¥3,300〜4,000</span></div>
+      <div class="plan-pros">
+        <dt>メリット</dt>
+        <dd>月曜に攻め、土曜は守りの配分。日ごとのMeta予算変動でCPMをコントロール可能</dd>
+        <dt class="con">リスク</dt>
+        <dd>日次の手動調整が必要（運用負荷が高い）。Advantage+学習が不安定になる可能性</dd>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight info">
+    <b>推奨: Plan Bをベースに、Plan Cの曜日変動エッセンスを加味</b><br>
+    平日はMeta ¥2,500 / Yahoo ¥1,500、土日はMeta ¥1,500 / Yahoo ¥2,000の「ゆるやかな変動」を推奨。Advantage+の学習が不安定にならない範囲で、曜日効果を反映させます。
+    <br><br>
+    <b>もしPlan Aで進める場合の必須ルール:</b> 初週（3/2-8）にCPMを毎日チェック。3日連続でCPM ¥1,000未満なら、Meta ¥2,500に減額＋Yahoo ¥1,500に増額します。
+  </div>
+</div>
+
+<!-- ═══ S4: DAY-OF-WEEK MATRIX ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--green)">4</div>
+    <h2>曜日別予算配分マトリックス</h2>
+  </div>
+  <div class="desc">1-2月の曜日別購入実績に基づく最適配分。月額¥120,000を31日に効率配分</div>
+
+  <table class="dow-table">
+    <thead>
+      <tr>
+        <th>曜日</th>
+        <th>購入発生率</th>
+        <th>予算倍率</th>
+        <th>日予算</th>
+        <th>Meta</th>
+        <th>Yahoo</th>
+        <th>戦略ポイント</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="dow-best">
+        <td style="font-weight:700">月曜</td>
+        <td style="color:var(--green);font-weight:700">71%</td>
+        <td><span class="tag tag-green">×1.20</span></td>
+        <td style="font-weight:700">¥4,615</td>
+        <td style="color:var(--accent)">¥2,800</td>
+        <td style="color:var(--orange)">¥1,815</td>
+        <td style="text-align:left;font-size:11px">最高効率日。Metaに強気配分。週明け購買意欲を最大活用</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">火曜</td>
+        <td>50%</td>
+        <td><span class="tag tag-blue">×1.10</span></td>
+        <td style="font-weight:700">¥4,231</td>
+        <td style="color:var(--accent)">¥2,500</td>
+        <td style="color:var(--orange)">¥1,731</td>
+        <td style="text-align:left;font-size:11px">月曜の余波で購買意欲持続。上位2番手</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">水曜</td>
+        <td>50%</td>
+        <td><span class="tag tag-blue">×1.00</span></td>
+        <td style="font-weight:700">¥3,846</td>
+        <td style="color:var(--accent)">¥2,200</td>
+        <td style="color:var(--orange)">¥1,646</td>
+        <td style="text-align:left;font-size:11px">標準配分。安定した中間パフォーマンス</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">木曜</td>
+        <td>50%</td>
+        <td><span class="tag tag-blue">×1.00</span></td>
+        <td style="font-weight:700">¥3,846</td>
+        <td style="color:var(--accent)">¥2,200</td>
+        <td style="color:var(--orange)">¥1,646</td>
+        <td style="text-align:left;font-size:11px">標準配分。給料日前の木曜は要注意</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">金曜</td>
+        <td>43%</td>
+        <td><span class="tag tag-blue">×1.05</span></td>
+        <td style="font-weight:700">¥4,038</td>
+        <td style="color:var(--accent)">¥2,200</td>
+        <td style="color:var(--orange)">¥1,838</td>
+        <td style="text-align:left;font-size:11px">週末前。Yahoo検索がやや増える傾向</td>
+      </tr>
+      <tr class="dow-worst">
+        <td style="font-weight:700">土曜</td>
+        <td style="color:var(--red);font-weight:700">25%</td>
+        <td><span class="tag tag-red">×0.75</span></td>
+        <td style="font-weight:700">¥2,885</td>
+        <td style="color:var(--accent)">¥1,500</td>
+        <td style="color:var(--orange)">¥1,385</td>
+        <td style="text-align:left;font-size:11px">最低効率日。Meta大幅抑制。節約した分を月曜に</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">日曜</td>
+        <td>40%</td>
+        <td><span class="tag tag-orange">×0.90</span></td>
+        <td style="font-weight:700">¥3,462</td>
+        <td style="color:var(--accent)">¥1,800</td>
+        <td style="color:var(--orange)">¥1,662</td>
+        <td style="text-align:left;font-size:11px">IG閲覧は多いが購入転換率が低い</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr style="background:#f0f4f8;">
+        <td style="font-weight:700" colspan="3">月間合計（31日）</td>
+        <td style="font-weight:800">¥120,000</td>
+        <td style="font-weight:700;color:var(--accent)">¥68,500</td>
+        <td style="font-weight:700;color:var(--orange)">¥51,500</td>
+        <td style="text-align:left;font-size:11px">Meta 57% / Yahoo 43%</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <div style="margin-top:16px;">
+    <div style="font-size:12px;font-weight:700;margin-bottom:8px;">曜日別チャネル配分の視覚化</div>
+    <div class="stacked-row">
+      <div class="stacked-label">月</div>
+      <div class="stacked-bar">
+        <div class="seg" style="width:60.7%;background:var(--accent);">Meta ¥2,800</div>
+        <div class="seg" style="width:39.3%;background:var(--orange);">Yahoo ¥1,815</div>
+      </div>
+      <div class="stacked-amount">¥4,615</div>
+    </div>
+    <div class="stacked-row">
+      <div class="stacked-label">火</div>
+      <div class="stacked-bar">
+        <div class="seg" style="width:59.1%;background:var(--accent);">Meta ¥2,500</div>
+        <div class="seg" style="width:40.9%;background:var(--orange);">Yahoo ¥1,731</div>
+      </div>
+      <div class="stacked-amount">¥4,231</div>
+    </div>
+    <div class="stacked-row">
+      <div class="stacked-label">水</div>
+      <div class="stacked-bar">
+        <div class="seg" style="width:57.2%;background:var(--accent);">Meta ¥2,200</div>
+        <div class="seg" style="width:42.8%;background:var(--orange);">Yahoo ¥1,646</div>
+      </div>
+      <div class="stacked-amount">¥3,846</div>
+    </div>
+    <div class="stacked-row">
+      <div class="stacked-label">木</div>
+      <div class="stacked-bar">
+        <div class="seg" style="width:57.2%;background:var(--accent);">Meta ¥2,200</div>
+        <div class="seg" style="width:42.8%;background:var(--orange);">Yahoo ¥1,646</div>
+      </div>
+      <div class="stacked-amount">¥3,846</div>
+    </div>
+    <div class="stacked-row">
+      <div class="stacked-label">金</div>
+      <div class="stacked-bar">
+        <div class="seg" style="width:54.5%;background:var(--accent);">Meta ¥2,200</div>
+        <div class="seg" style="width:45.5%;background:var(--orange);">Yahoo ¥1,838</div>
+      </div>
+      <div class="stacked-amount">¥4,038</div>
+    </div>
+    <div class="stacked-row">
+      <div class="stacked-label">土</div>
+      <div class="stacked-bar">
+        <div class="seg" style="width:52%;background:var(--accent);">Meta ¥1,500</div>
+        <div class="seg" style="width:48%;background:var(--orange);">Yahoo ¥1,385</div>
+      </div>
+      <div class="stacked-amount">¥2,885</div>
+    </div>
+    <div class="stacked-row">
+      <div class="stacked-label">日</div>
+      <div class="stacked-bar">
+        <div class="seg" style="width:52%;background:var(--accent);">Meta ¥1,800</div>
+        <div class="seg" style="width:48%;background:var(--orange);">Yahoo ¥1,662</div>
+      </div>
+      <div class="stacked-amount">¥3,462</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S5: MARCH CALENDAR ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--orange)">5</div>
+    <h2>3月 予算カレンダー（全31日）</h2>
+  </div>
+  <div class="desc">
+    <span class="tag tag-blue">青=高配分日</span>
+    <span class="tag tag-orange" style="margin-left:4px;">黄=抑制日</span>
+    <span class="tag tag-green" style="margin-left:4px;">緑=給料日ブースト</span>
+    ｜月間合計: ¥120,000
+  </div>
+
+  <div class="cal-grid">
+    <div class="cal-header">月</div>
+    <div class="cal-header">火</div>
+    <div class="cal-header">水</div>
+    <div class="cal-header">木</div>
+    <div class="cal-header">金</div>
+    <div class="cal-header" style="background:#c0392b;">土</div>
+    <div class="cal-header" style="background:#c0392b;">日</div>
+
+    <!-- Week 0: 3/1 is Saturday... wait, March 2026 -->
+    <!-- 2026年3月: 1日=日曜 -->
+    <!-- empty Mon-Sat before 3/1 -->
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+    <!-- 3/1 Sun -->
+    <div class="cal-day">
+      <div class="day-num">1</div>
+      <div class="day-meta">M ¥1,800</div>
+      <div class="day-yahoo">Y ¥1,662</div>
+      <div class="day-total">計 ¥3,462</div>
+    </div>
+
+    <!-- Week 1: 3/2 Mon - 3/8 Sun -->
+    <div class="cal-day cal-high">
+      <div class="day-num">2</div>
+      <div class="day-meta">M ¥2,800</div>
+      <div class="day-yahoo">Y ¥1,815</div>
+      <div class="day-total">計 ¥4,615</div>
+    </div>
+    <div class="cal-day cal-high">
+      <div class="day-num">3</div>
+      <div class="day-meta">M ¥2,500</div>
+      <div class="day-yahoo">Y ¥1,731</div>
+      <div class="day-total">計 ¥4,231</div>
+    </div>
+    <div class="cal-day">
+      <div class="day-num">4</div>
+      <div class="day-meta">M ¥2,200</div>
+      <div class="day-yahoo">Y ¥1,646</div>
+      <div class="day-total">計 ¥3,846</div>
+    </div>
+    <div class="cal-day">
+      <div class="day-num">5</div>
+      <div class="day-meta">M ¥2,200</div>
+      <div class="day-yahoo">Y ¥1,646</div>
+      <div class="day-total">計 ¥3,846</div>
+    </div>
+    <div class="cal-day">
+      <div class="day-num">6</div>
+      <div class="day-meta">M ¥2,200</div>
+      <div class="day-yahoo">Y ¥1,838</div>
+      <div class="day-total">計 ¥4,038</div>
+    </div>
+    <div class="cal-day cal-low">
+      <div class="day-num">7</div>
+      <div class="day-meta">M ¥1,500</div>
+      <div class="day-yahoo">Y ¥1,385</div>
+      <div class="day-total">計 ¥2,885</div>
+    </div>
+    <div class="cal-day">
+      <div class="day-num">8</div>
+      <div class="day-meta">M ¥1,800</div>
+      <div class="day-yahoo">Y ¥1,662</div>
+      <div class="day-total">計 ¥3,462</div>
+    </div>
+
+    <!-- Week 2: 3/9 Mon - 3/15 Sun -->
+    <div class="cal-day cal-high">
+      <div class="day-num">9</div>
+      <div class="day-meta">M ¥2,800</div>
+      <div class="day-yahoo">Y ¥1,815</div>
+      <div class="day-total">計 ¥4,615</div>
+    </div>
+    <div class="cal-day cal-high">
+      <div class="day-num">10</div>
+      <div style="font-size:9px;color:var(--red);font-weight:600">会食前日</div>
+      <div class="day-meta">M ¥2,500</div>
+      <div class="day-yahoo">Y ¥1,731</div>
+      <div class="day-total">計 ¥4,231</div>
+    </div>
+    <div class="cal-day">
+      <div class="day-num">11</div>
+      <div class="day-meta">M ¥2,200</div>
+      <div class="day-yahoo">Y ¥1,646</div>
+      <div class="day-total">計 ¥3,846</div>
+    </div>
+    <div class="cal-day">
+      <div class="day-num">12</div>
+      <div class="day-meta">M ¥2,200</div>
+      <div class="day-yahoo">Y ¥1,646</div>
+      <div class="day-total">計 ¥3,846</div>
+    </div>
+    <div class="cal-day">
+      <div class="day-num">13</div>
+      <div class="day-meta">M ¥2,200</div>
+      <div class="day-yahoo">Y ¥1,838</div>
+      <div class="day-total">計 ¥4,038</div>
+    </div>
+    <div class="cal-day cal-low">
+      <div class="day-num">14</div>
+      <div class="day-meta">M ¥1,500</div>
+      <div class="day-yahoo">Y ¥1,385</div>
+      <div class="day-total">計 ¥2,885</div>
+    </div>
+    <div class="cal-day">
+      <div class="day-num">15</div>
+      <div style="font-size:9px;color:var(--sub)">※奇数月:年金なし</div>
+      <div class="day-meta">M ¥1,800</div>
+      <div class="day-yahoo">Y ¥1,662</div>
+      <div class="day-total">計 ¥3,462</div>
+    </div>
+
+    <!-- Week 3: 3/16 Mon - 3/22 Sun -->
+    <div class="cal-day cal-high">
+      <div class="day-num">16</div>
+      <div class="day-meta">M ¥2,800</div>
+      <div class="day-yahoo">Y ¥1,815</div>
+      <div class="day-total">計 ¥4,615</div>
+    </div>
+    <div class="cal-day cal-high">
+      <div class="day-num">17</div>
+      <div class="day-meta">M ¥2,500</div>
+      <div class="day-yahoo">Y ¥1,731</div>
+      <div class="day-total">計 ¥4,231</div>
+    </div>
+    <div class="cal-day">
+      <div class="day-num">18</div>
+      <div style="font-size:9px;color:var(--accent);font-weight:700">次回MTG 9:30</div>
+      <div class="day-meta">M ¥2,200</div>
+      <div class="day-yahoo">Y ¥1,646</div>
+      <div class="day-total">計 ¥3,846</div>
+    </div>
+    <div class="cal-day">
+      <div class="day-num">19</div>
+      <div class="day-meta">M ¥2,200</div>
+      <div class="day-yahoo">Y ¥1,646</div>
+      <div class="day-total">計 ¥3,846</div>
+    </div>
+    <div class="cal-day">
+      <div class="day-num">20</div>
+      <div class="day-meta">M ¥2,200</div>
+      <div class="day-yahoo">Y ¥1,838</div>
+      <div class="day-total">計 ¥4,038</div>
+    </div>
+    <div class="cal-day cal-low">
+      <div class="day-num">21</div>
+      <div style="font-size:9px;color:var(--sub)">給料日前抑制開始</div>
+      <div class="day-meta">M ¥1,200</div>
+      <div class="day-yahoo">Y ¥1,200</div>
+      <div class="day-total">計 ¥2,400</div>
+    </div>
+    <div class="cal-day cal-low">
+      <div class="day-num">22</div>
+      <div class="day-meta">M ¥1,500</div>
+      <div class="day-yahoo">Y ¥1,400</div>
+      <div class="day-total">計 ¥2,900</div>
+    </div>
+
+    <!-- Week 4: 3/23 Mon - 3/29 Sun -->
+    <div class="cal-day cal-low">
+      <div class="day-num">23</div>
+      <div style="font-size:9px;color:var(--sub)">給料日前</div>
+      <div class="day-meta">M ¥2,200</div>
+      <div class="day-yahoo">Y ¥1,500</div>
+      <div class="day-total">計 ¥3,700</div>
+    </div>
+    <div class="cal-day">
+      <div class="day-num">24</div>
+      <div class="day-meta">M ¥2,200</div>
+      <div class="day-yahoo">Y ¥1,646</div>
+      <div class="day-total">計 ¥3,846</div>
+    </div>
+    <div class="cal-day cal-payday">
+      <div class="day-num">25</div>
+      <div style="font-size:9px;color:var(--green);font-weight:700">給料日ブースト</div>
+      <div class="day-meta">M ¥2,800</div>
+      <div class="day-yahoo">Y ¥2,000</div>
+      <div class="day-total">計 ¥4,800</div>
+    </div>
+    <div class="cal-day cal-payday">
+      <div class="day-num">26</div>
+      <div style="font-size:9px;color:var(--green);font-weight:700">給料日翌日</div>
+      <div class="day-meta">M ¥2,500</div>
+      <div class="day-yahoo">Y ¥1,800</div>
+      <div class="day-total">計 ¥4,300</div>
+    </div>
+    <div class="cal-day cal-payday">
+      <div class="day-num">27</div>
+      <div class="day-meta">M ¥2,500</div>
+      <div class="day-yahoo">Y ¥2,000</div>
+      <div class="day-total">計 ¥4,500</div>
+    </div>
+    <div class="cal-day cal-low">
+      <div class="day-num">28</div>
+      <div class="day-meta">M ¥1,500</div>
+      <div class="day-yahoo">Y ¥1,385</div>
+      <div class="day-total">計 ¥2,885</div>
+    </div>
+    <div class="cal-day">
+      <div class="day-num">29</div>
+      <div class="day-meta">M ¥1,500</div>
+      <div class="day-yahoo">Y ¥1,400</div>
+      <div class="day-total">計 ¥2,900</div>
+    </div>
+
+    <!-- Week 5: 3/30 Mon - 3/31 Tue -->
+    <div class="cal-day">
+      <div class="day-num">30</div>
+      <div style="font-size:9px;color:var(--sub)">残予算調整</div>
+      <div class="day-meta">M ¥2,500</div>
+      <div class="day-yahoo">Y ¥1,500</div>
+      <div class="day-total">計 ¥4,000</div>
+    </div>
+    <div class="cal-day">
+      <div class="day-num">31</div>
+      <div style="font-size:9px;color:var(--sub)">残予算調整</div>
+      <div class="day-meta">M ¥2,200</div>
+      <div class="day-yahoo">Y ¥1,400</div>
+      <div class="day-total">計 ¥3,600</div>
+    </div>
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+    <div class="cal-day cal-empty"></div>
+  </div>
+
+  <div style="margin-top:16px; display:grid; grid-template-columns:repeat(4,1fr); gap:10px; font-size:12px;">
+    <div style="background:#f0f4f8; padding:12px; border-radius:8px; text-align:center;">
+      <div style="font-size:10px;color:var(--sub);">Week 1 (3/1-8)</div>
+      <div style="font-size:18px;font-weight:800;">¥30,923</div>
+      <div style="font-size:10px;color:var(--sub);">25.8%</div>
+    </div>
+    <div style="background:#f0f4f8; padding:12px; border-radius:8px; text-align:center;">
+      <div style="font-size:10px;color:var(--sub);">Week 2 (3/9-15)</div>
+      <div style="font-size:18px;font-weight:800;">¥30,923</div>
+      <div style="font-size:10px;color:var(--sub);">25.8%</div>
+    </div>
+    <div style="background:#f0f4f8; padding:12px; border-radius:8px; text-align:center;">
+      <div style="font-size:10px;color:var(--sub);">Week 3 (3/16-22)</div>
+      <div style="font-size:18px;font-weight:800;">¥25,876</div>
+      <div style="font-size:10px;color:var(--sub);">21.6% ※給料前抑制</div>
+    </div>
+    <div style="background:#e8f5e9; padding:12px; border-radius:8px; text-align:center;">
+      <div style="font-size:10px;color:var(--green);">Week 4-5 (3/23-31)</div>
+      <div style="font-size:18px;font-weight:800;color:var(--green);">¥32,278</div>
+      <div style="font-size:10px;color:var(--green);">26.9% ※給料日ブースト</div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <b>月相戦略のロジック:</b><br>
+    ・<b>Week 1-2（55%）</b>: 月初は購買意欲が高い。新クリエイティブのテスト期間も兼ねて積極投下<br>
+    ・<b>Week 3前半（通常）→ 後半（抑制）</b>: 21-22日は給料日前の買い控え期間。1-2月のギャップ期間（1/21-29）もこの時期に集中<br>
+    ・<b>Week 4（給料日ブースト）</b>: 25日給料日の+33%効果を活用。26-27日まで余波を活かす<br>
+    ・<b>Week 5（残予算調整）</b>: ¥120,000上限に合わせて調整。余裕があれば月曜に追加投下
+  </div>
+</div>
+
+<!-- ═══ S6: TARGETING ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#8e44ad">6</div>
+    <h2>ターゲティング最適化</h2>
+  </div>
+  <div class="desc">現在の設定 vs データが示す最適設定。段階的にテスト推奨</div>
+
+  <div class="target-compare">
+    <div class="target-card current">
+      <h4 style="color:var(--orange);">現在の設定</h4>
+      <div class="target-item"><span class="tag tag-orange">現</span> 類似オーディエンス: 3-5%</div>
+      <div class="target-item"><span class="tag tag-orange">現</span> ソース: サイト訪問者180日</div>
+      <div class="target-item"><span class="tag tag-orange">現</span> 性別: 女性</div>
+      <div class="target-item"><span class="tag tag-orange">現</span> 年齢: 20-60歳</div>
+      <div class="target-item"><span class="tag tag-orange">現</span> キャンペーン: Advantage+ セールス</div>
+      <div class="target-item"><span class="tag tag-orange">現</span> 詳細ターゲット: すべての利用者</div>
+    </div>
+
+    <div class="target-arrow">→</div>
+
+    <div class="target-card proposed">
+      <h4 style="color:var(--green);">推奨設定（段階テスト）</h4>
+      <div class="target-item"><span class="tag tag-green">推</span> 類似: <b>1-3%</b>に縮小（より類似度の高い層に）</div>
+      <div class="target-item"><span class="tag tag-green">推</span> ソース: <b>購入者リスト</b>に変更（訪問者より精度高）</div>
+      <div class="target-item"><span class="tag tag-green">推</span> 性別: 女性（維持）</div>
+      <div class="target-item"><span class="tag tag-green">推</span> 年齢: <b>40-65歳</b>に絞る（実購入者の中心層）</div>
+      <div class="target-item"><span class="tag tag-green">推</span> キャンペーン: Advantage+ セールス（維持）</div>
+      <div class="target-item"><span class="tag tag-green">推</span> 詳細ターゲット: <b>健康・美容関心</b>を追加テスト</div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:10px;">段階テストスケジュール</div>
+    <table class="dow-table">
+      <thead>
+        <tr><th>Phase</th><th>期間</th><th>テスト内容</th><th>判定基準</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag tag-blue">Phase 1</span></td>
+          <td>3/2-8</td>
+          <td style="text-align:left">現設定のまま予算¥4,000で稼働。ベースライン取得</td>
+          <td style="text-align:left">CPM、CVR、CPAの基準値を記録</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-blue">Phase 2</span></td>
+          <td>3/9-15</td>
+          <td style="text-align:left">年齢を40-65歳に変更。他は維持</td>
+          <td style="text-align:left">Phase 1比でCPM +20%以上 or CVR +1%以上で勝ち</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-blue">Phase 3</span></td>
+          <td>3/16-22</td>
+          <td style="text-align:left">類似を1-3%に縮小 + 年齢40-65</td>
+          <td style="text-align:left">CPMがPhase 1比で維持以上なら採用</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-green">決定</span></td>
+          <td>3/18 MTG</td>
+          <td style="text-align:left">Phase 1-3の結果を比較し、3月後半の設定を決定</td>
+          <td style="text-align:left">3/18 MTGでPhase 1-2の結果をレビュー</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight info">
+    <b>なぜ年齢を40-65に絞るか:</b><br>
+    実際の購入者データから、50-70代女性が中心。20-39歳はIG閲覧しても購入に至らないケースが多く、この層への配信がCPMを下げている可能性があります。年齢を絞ることでAdvantage+が高購買力層に集中でき、<b>CPMの回復が期待できます</b>。
+  </div>
+</div>
+
+<!-- ═══ S7: WEEKLY REVIEW ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#e67e22">7</div>
+    <h2>週次レビューフレームワーク</h2>
+  </div>
+  <div class="desc">毎週月曜にチェックすべき指標と、しきい値別のアクション</div>
+
+  <div class="review-grid">
+    <div class="review-card" style="border-left:4px solid var(--red);">
+      <h4><span style="color:var(--red);">🔴</span> 即時アクション（日次チェック）</h4>
+      <div class="review-item">
+        <span>Meta CPM</span>
+        <span class="threshold" style="color:var(--red);">＜¥800 が2日連続</span>
+      </div>
+      <div class="review-item" style="border:0;">
+        <span class="action">→ Meta予算を¥500減額、Yahooに振替</span>
+      </div>
+      <div class="review-item">
+        <span>Frequency</span>
+        <span class="threshold" style="color:var(--red);">≧1.18</span>
+      </div>
+      <div class="review-item" style="border:0;">
+        <span class="action">→ クリエイティブを切替 or 配信停止1日</span>
+      </div>
+      <div class="review-item">
+        <span>購入ゼロ</span>
+        <span class="threshold" style="color:var(--red);">3日連続</span>
+      </div>
+      <div class="review-item" style="border:0;">
+        <span class="action">→ LP・クリエイティブの組み合わせ変更</span>
+      </div>
+    </div>
+
+    <div class="review-card" style="border-left:4px solid var(--orange);">
+      <h4><span style="color:var(--orange);">🟡</span> 週次レビュー（毎週月曜）</h4>
+      <div class="review-item">
+        <span>週間CV数</span>
+        <span class="threshold" style="color:var(--green);">≧8件で順調</span>
+      </div>
+      <div class="review-item">
+        <span>週間CPA</span>
+        <span class="threshold">¥3,500以下で合格</span>
+      </div>
+      <div class="review-item">
+        <span>Meta CTR</span>
+        <span class="threshold">≧1.5%が目安</span>
+      </div>
+      <div class="review-item">
+        <span>Yahoo CTR</span>
+        <span class="threshold">≧3.0%が目安</span>
+      </div>
+      <div class="review-item">
+        <span>予算消化率</span>
+        <span class="threshold">計画比±10%以内</span>
+      </div>
+    </div>
+
+    <div class="review-card" style="border-left:4px solid var(--green);">
+      <h4><span style="color:var(--green);">🟢</span> 好調時のアクション</h4>
+      <div class="review-item">
+        <span>CPM ≧¥2,000</span>
+        <span class="threshold" style="color:var(--green);">Meta ¥500増額OK</span>
+      </div>
+      <div class="review-item">
+        <span>週8件以上</span>
+        <span class="threshold" style="color:var(--green);">現配分を維持</span>
+      </div>
+      <div class="review-item">
+        <span>CPA ¥3,000以下</span>
+        <span class="threshold" style="color:var(--green);">勝ちパターン記録</span>
+      </div>
+      <div class="review-item" style="border:0;">
+        <span class="action" style="color:var(--green);">→ その日の設定（曜日、CPM、クリエイティブ、LP）を記録して再現可能に</span>
+      </div>
+    </div>
+
+    <div class="review-card" style="border-left:4px solid var(--purple);">
+      <h4><span style="color:var(--purple);">🟣</span> 月中チェックポイント</h4>
+      <div class="review-item">
+        <span>3/15時点</span>
+        <span class="threshold">15件以上で月36件ペース</span>
+      </div>
+      <div class="review-item">
+        <span>予算消化</span>
+        <span class="threshold">¥58,000±¥5,000</span>
+      </div>
+      <div class="review-item">
+        <span>CPA推移</span>
+        <span class="threshold">¥3,800以下で健全</span>
+      </div>
+      <div class="review-item" style="border:0;">
+        <span class="action">→ 15件未満: 後半に攻め予算シフト。15件以上: 計画通り継続</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S8: LP ALLOCATION ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#16a085">8</div>
+    <h2>LP × クリエイティブ 組み合わせ戦略</h2>
+  </div>
+  <div class="desc">GA4データ: メインLP「/」= 全29CV、「/water-ig/」= 0CV。この事実に基づくLP配信方針</div>
+
+  <div class="insight danger">
+    <b>重要: /water-ig/ LPは即時停止を推奨。</b> 2ヶ月間の配信で購入ゼロ（0CV）。GA4で16セッション確認されるも転換ゼロ。このLPへの流入はすべて無駄コストです。
+  </div>
+
+  <table class="dow-table">
+    <thead>
+      <tr><th>LP</th><th>クリエイティブ</th><th>チャネル</th><th>配分</th><th>目的</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-weight:700">メインLP「/」</td>
+        <td>悩み訴求（静止画）</td>
+        <td>Meta</td>
+        <td><span class="tag tag-green">40%</span></td>
+        <td style="text-align:left">実績最強の組み合わせ。CVR 3.84%を維持</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">メインLP「/」</td>
+        <td>価格訴求（7秒動画）</td>
+        <td>Meta</td>
+        <td><span class="tag tag-blue">25%</span></td>
+        <td style="text-align:left">動画の短尺効果を検証。Vid3s率向上を狙う</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">購入特化LP（新規）</td>
+        <td>悩み→価格の導線</td>
+        <td>Meta</td>
+        <td><span class="tag tag-purple">20%</span></td>
+        <td style="text-align:left">ファーストビュー→即購入ボタンの特化LP</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">メインLP「/」</td>
+        <td>検索キーワード連動</td>
+        <td>Yahoo</td>
+        <td><span class="tag tag-orange">15%</span></td>
+        <td style="text-align:left">Yahoo検索流入はメインLPに集約</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="insight">
+    <b>LP A/Bテスト設計（3月）:</b><br>
+    ・<b>テスト1</b>: 悩み訴求（静止画）× メインLP vs 悩み訴求（静止画）× 購入特化LP<br>
+    ・<b>テスト2</b>: 7秒動画 × メインLP vs 1分動画 × メインLP<br>
+    ・各テストは最低150クリック（約5-7日）で有意差判定。CPAベースで評価<br>
+    ・<b>/water-ig/ は完全停止</b>し、その予算をメインLPに集約
+  </div>
+</div>
+
+<!-- ═══ S9: RISK MANAGEMENT ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#7f8c8d">9</div>
+    <h2>リスク管理 & エスケープバルブ</h2>
+  </div>
+  <div class="desc">予算倍増に伴うリスクシナリオと、事前に決めておく対処ルール</div>
+
+  <div class="grid-2">
+    <div style="border:2px solid var(--red-bg);border-radius:10px;padding:18px;">
+      <div style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:10px;">リスク1: CPM暴落</div>
+      <div style="font-size:12px;color:#555;margin-bottom:8px;">
+        <b>シナリオ:</b> Meta ¥3,000投下でCPM ¥500台に低下<br>
+        <b>影響:</b> 購入ゼロ日が連続（1月ギャップ再現）
+      </div>
+      <div style="font-size:12px;padding:10px;background:var(--red-bg);border-radius:6px;">
+        <b>対処:</b> Meta を¥1,800に戻し、差分¥1,200をYahooへ。<b>Era A水準（¥1,000）まで下げてCPM回復を確認</b>してから段階的に増額。
+      </div>
+    </div>
+
+    <div style="border:2px solid var(--orange-bg);border-radius:10px;padding:18px;">
+      <div style="font-size:14px;font-weight:700;color:var(--orange);margin-bottom:10px;">リスク2: Frequency急上昇</div>
+      <div style="font-size:12px;color:#555;margin-bottom:8px;">
+        <b>シナリオ:</b> 予算増でFrequency 1.2超が常態化<br>
+        <b>影響:</b> 同じ人に繰り返し表示→広告疲れ→CVR低下
+      </div>
+      <div style="font-size:12px;padding:10px;background:var(--orange-bg);border-radius:6px;">
+        <b>対処:</b> クリエイティブを週次ローテーション（最低3パターン常時準備）。Frequency 1.18超えたらMeta予算¥500減額。
+      </div>
+    </div>
+
+    <div style="border:2px solid var(--accent-light);border-radius:10px;padding:18px;">
+      <div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:10px;">リスク3: 予算超過</div>
+      <div style="font-size:12px;color:#555;margin-bottom:8px;">
+        <b>シナリオ:</b> 高配分日が続き月半ばで¥65,000超消化<br>
+        <b>影響:</b> 月後半に予算不足で配信停止
+      </div>
+      <div style="font-size:12px;padding:10px;background:var(--accent-light);border-radius:6px;">
+        <b>対処:</b> 毎週月曜に残予算チェック。Week 2終了時点で¥62,000以上消化なら、Week 3を日¥3,000に抑制して調整。
+      </div>
+    </div>
+
+    <div style="border:2px solid var(--green-bg);border-radius:10px;padding:18px;">
+      <div style="font-size:14px;font-weight:700;color:var(--green);margin-bottom:10px;">リスク4: ボット混入増加</div>
+      <div style="font-size:12px;color:#555;margin-bottom:8px;">
+        <b>シナリオ:</b> 予算増でPPCアドフラウドも比例増加<br>
+        <b>影響:</b> Clarity: 現在31件/2ヶ月のPPCフラウド。倍増で月30件超の可能性
+      </div>
+      <div style="font-size:12px;padding:10px;background:var(--green-bg);border-radius:6px;">
+        <b>対処:</b> Clarity週次チェック。ボット率20%超なら配信面除外設定を見直し。Yahoo側は無効クリック報告を月1回実施。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S10: SUMMARY TABLE ═══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#1a1a2e">★</div>
+    <h2>まとめ — 予算配分の全体像</h2>
+  </div>
+
+  <table class="dow-table">
+    <thead>
+      <tr><th>項目</th><th>設定値</th><th>根拠</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-weight:700">月間予算上限</td>
+        <td style="font-weight:700">¥120,000</td>
+        <td style="text-align:left">会議決定</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">日予算（平均）</td>
+        <td>¥3,871</td>
+        <td style="text-align:left">¥120,000 ÷ 31日</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">Meta 月間</td>
+        <td style="color:var(--accent);font-weight:700">¥68,500（57%）</td>
+        <td style="text-align:left">CPM ¥1,500維持を条件に。日¥1,500-2,800の変動幅</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">Yahoo 月間</td>
+        <td style="color:var(--orange);font-weight:700">¥51,500（43%）</td>
+        <td style="text-align:left">検索流入の安定供給 + オーガニック検索との相乗効果</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">最高配分日</td>
+        <td>月曜 ¥4,615</td>
+        <td style="text-align:left">購入率71%（全曜日最高）</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">最低配分日</td>
+        <td>土曜 ¥2,885</td>
+        <td style="text-align:left">購入率25%（全曜日最低）</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">月相: 前半</td>
+        <td>55%（¥66,000）</td>
+        <td style="text-align:left">月初の購買意欲 + テスト期間</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">月相: 後半</td>
+        <td>45%（¥54,000）</td>
+        <td style="text-align:left">給料日前抑制 → 給料日後ブースト</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">給料日ブースト</td>
+        <td>3/25-27に¥4,300-4,800</td>
+        <td style="text-align:left">給料日効果+33%（一般データ）</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">CPM監視ライン</td>
+        <td style="color:var(--red);font-weight:700">¥1,000未満でアラート</td>
+        <td style="text-align:left">¥800以下が2日続いたらMeta減額</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">Frequency上限</td>
+        <td style="color:var(--red);font-weight:700">1.18</td>
+        <td style="text-align:left">超過でクリエイティブ切替 or Meta減額</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">目標CV数</td>
+        <td style="color:var(--green);font-weight:700">36件/月（日1.16件）</td>
+        <td style="text-align:left">週8件ペースで中間チェック</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">目標CPA</td>
+        <td style="color:var(--green);font-weight:700">¥3,333</td>
+        <td style="text-align:left">¥120,000 ÷ 36件</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="insight success" style="margin-top:16px;">
+    <b>最終メッセージ:</b><br>
+    予算2倍は「量の2倍」ではなく「質を保った量の最大化」が鍵です。<br>
+    Meta予算は<b>CPMが¥1,500を維持できる水準</b>に留め、余剰はYahoo検索に振り分ける。<br>
+    曜日と月相で傾斜をかけ、購入確率の高い日に厚く、低い日に薄く。<br>
+    この戦略で<b>月36件（CPA ¥3,333）</b>の達成を目指します。<br>
+    <br>
+    次回ミーティング（3/18 9:30）でPhase 1-2の結果をレビューし、後半戦略を確定させましょう。
+  </div>
+</div>
+
+<div class="footer">
+  ミチルシリカ 予算配分戦略 | 作成: 2026-03-03 | データソース: Meta広告/Yahoo広告/GA4/Clarity (2026/1/1-2/28)
+</div>
+
+</div>
+</body>
+</html>
