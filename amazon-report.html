@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon広告 改善提案 | ミチルシリカ</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #0d47a1; --primary-light: #1976d2;
+            --success: #2e7d32; --success-light: #4caf50;
+            --warning: #ef6c00; --danger: #c62828;
+            --amazon: #ff9900; --amazon-dark: #c77600;
+            --text: #263238; --text-light: #546e7a;
+            --bg: #f5f7fa; --card-bg: #ffffff; --border: #e0e4e8;
+            --radius: 12px;
+            --shadow: 0 2px 12px rgba(0,0,0,0.06);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+        }
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.7; color: var(--text); background: var(--bg); padding: 30px 20px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .report-header {
+            background: linear-gradient(135deg, #e65100 0%, #ff9900 100%);
+            color: white; padding: 36px 36px 28px; border-radius: var(--radius);
+            margin-bottom: 24px; box-shadow: var(--shadow-lg);
+        }
+        .report-header h1 { font-size: 1.6em; font-weight: 800; margin-bottom: 4px; }
+        .report-header .subtitle { font-size: 0.95em; opacity: 0.9; }
+        .report-header .meta { margin-top: 10px; font-size: 0.82em; opacity: 0.7; }
+        .section {
+            background: var(--card-bg); border-radius: var(--radius);
+            margin-bottom: 20px; box-shadow: var(--shadow); overflow: hidden;
+        }
+        .section-header {
+            padding: 14px 22px; font-size: 1em; font-weight: 700; color: white;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .section-header.amazon { background: linear-gradient(135deg, #e65100, #ff9900); }
+        .section-header.blue { background: linear-gradient(135deg, var(--primary), var(--primary-light)); }
+        .section-header.green { background: linear-gradient(135deg, var(--success), var(--success-light)); }
+        .section-header.red { background: linear-gradient(135deg, #b71c1c, var(--danger)); }
+        .section-header.teal { background: linear-gradient(135deg, #00695c, #00897b); }
+        .section-header.purple { background: linear-gradient(135deg, #4a148c, #7b1fa2); }
+        .section-body { padding: 22px; }
+        .note-box {
+            padding: 14px 18px; border-radius: 8px; font-size: 0.88em; line-height: 1.7; margin: 10px 0;
+        }
+        .note-box.success { background: #e8f5e9; border-left: 4px solid var(--success); }
+        .note-box.info { background: #e3f2fd; border-left: 4px solid var(--primary); }
+        .note-box.warning { background: #fff3e0; border-left: 4px solid var(--warning); }
+        .note-box.danger { background: #ffebee; border-left: 4px solid var(--danger); }
+        .data-table {
+            width: 100%; border-collapse: collapse; font-size: 0.88em;
+        }
+        .data-table thead { background: #263238; color: white; }
+        .data-table th { padding: 10px 14px; text-align: center; font-weight: 600; font-size: 0.82em; }
+        .data-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); text-align: right; }
+        .data-table td:first-child { text-align: left; font-weight: 600; }
+        .data-table tbody tr:hover { background: #f8f9fa; }
+        .action-card {
+            border: 2px solid var(--border); border-radius: var(--radius);
+            padding: 20px; margin-bottom: 14px; display: grid;
+            grid-template-columns: 44px 1fr; gap: 14px; align-items: start;
+        }
+        .action-num {
+            width: 44px; height: 44px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 900; font-size: 1.1em; flex-shrink: 0;
+        }
+        .action-title { font-weight: 700; font-size: 1em; margin-bottom: 4px; }
+        .action-desc { font-size: 0.88em; color: var(--text-light); line-height: 1.7; }
+        .action-tag {
+            display: inline-block; padding: 2px 10px; border-radius: 12px;
+            font-size: 0.75em; font-weight: 700; margin-top: 6px;
+        }
+        .summary-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px; margin-bottom: 16px;
+        }
+        .summary-card {
+            background: var(--card-bg); border-radius: var(--radius); padding: 18px;
+            text-align: center; box-shadow: var(--shadow); border-top: 4px solid var(--amazon);
+        }
+        .summary-card .sc-label { font-size: 0.78em; color: var(--text-light); margin-bottom: 4px; }
+        .summary-card .sc-value { font-size: 1.8em; font-weight: 900; }
+        .summary-card .sc-sub { font-size: 0.75em; color: var(--text-light); margin-top: 4px; }
+        .progress-bar {
+            height: 26px; background: #f0f0f0; border-radius: 6px; overflow: hidden; margin: 4px 0;
+        }
+        .progress-fill {
+            height: 100%; border-radius: 6px; display: flex; align-items: center;
+            padding: 0 10px; font-size: 0.75em; font-weight: 700; color: white;
+        }
+        /* ルールカード */
+        .rule-card {
+            border: 2px solid var(--border); border-radius: var(--radius);
+            overflow: hidden; margin-bottom: 14px;
+        }
+        .rule-header {
+            padding: 12px 18px; font-weight: 700; font-size: 0.9em;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .rule-body { padding: 16px 18px; font-size: 0.88em; }
+        .rule-condition {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 14px; border-radius: 8px; font-weight: 700;
+            font-size: 0.85em; margin: 4px 2px;
+        }
+        .rule-arrow { font-size: 1.1em; color: #999; font-weight: 900; margin: 0 8px; }
+        .rule-action {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 14px; border-radius: 8px; font-weight: 700;
+            font-size: 0.85em;
+        }
+        .cycle-flow {
+            display: flex; align-items: center; justify-content: center;
+            gap: 0; margin: 16px 0; flex-wrap: wrap;
+        }
+        .cycle-node {
+            padding: 14px 18px; border-radius: 10px; text-align: center;
+            min-width: 130px; border: 2px solid var(--border);
+        }
+        .cycle-arrow { font-size: 1.3em; color: #ccc; font-weight: 900; padding: 0 6px; }
+        @media (max-width: 768px) {
+            .report-header { padding: 24px 18px; }
+            .report-header h1 { font-size: 1.3em; }
+            .section-body { padding: 16px; }
+            .action-card { grid-template-columns: 36px 1fr; gap: 10px; }
+            .action-num { width: 36px; height: 36px; font-size: 0.95em; }
+            .cycle-flow { flex-direction: column; }
+            .cycle-arrow { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ヘッダー -->
+    <div class="report-header">
+        <h1>Amazon広告 改善のご提案</h1>
+        <div class="subtitle">今回の対策 + 今後同じ問題を繰り返さないための運用ルール</div>
+        <div class="meta">2026年3月3日 ｜ 株式会社ヒシャク</div>
+    </div>
+
+    <!-- ===== 1. これからやること ===== -->
+    <div class="section">
+        <div class="section-header amazon">今回の改善アクション</div>
+        <div class="section-body">
+
+            <div class="note-box success" style="margin-bottom: 18px; font-size: 0.92em;">
+                <strong>結論:</strong> 予算¥4,000/日は変えていないのに、2月は39%しか消化できませんでした。<br>
+                ROAS 2.40（1月より改善）なので<strong>広告の効率は問題ない</strong>。使えた分の71.7%が売れないキーワードに流れていたことが主因です。<br>
+                <strong>以下の2つで改善し、さらに「毎月同じ問題が起きない仕組み」を作ります。</strong>
+            </div>
+
+            <!-- アクション1 -->
+            <div class="action-card" style="border-color: var(--danger); background: linear-gradient(135deg, #fffafa, #fff);">
+                <div class="action-num" style="background: var(--danger);">1</div>
+                <div>
+                    <div class="action-title" style="color: var(--danger);">売れていないキーワードを除外する</div>
+                    <div class="action-desc">
+                        2月の広告費¥44,127のうち、<strong>71.7%（¥31,662）</strong>が購入ゼロのキーワードに使われていました。<br>
+                        これを除外設定し、売れているキーワードだけに予算が集中するようにします。<br>
+                        Amazonの管理画面でも同じ問題が指摘されています。
+                    </div>
+                    <span class="action-tag" style="background: #ffebee; color: var(--danger);">月¥12,000〜15,000の無駄削減</span>
+                </div>
+            </div>
+
+            <!-- アクション2 -->
+            <div class="action-card" style="border-color: var(--success); background: linear-gradient(135deg, #f8fff8, #fff);">
+                <div class="action-num" style="background: var(--success);">2</div>
+                <div>
+                    <div class="action-title" style="color: var(--success);">自動CPで売れたキーワードを手動CPに移して確実に出す</div>
+                    <div class="action-desc">
+                        現在の自動キャンペーンはAmazonがキーワードを選ぶため、先月売れたキーワードが翌月に外れることがあります。<br>
+                        過去に実績のあるキーワード（「ミチル」「シリカ水」等）を<strong>手動キャンペーンで指定し、毎月確実に広告が出る</strong>ようにします。
+                    </div>
+                    <span class="action-tag" style="background: #e8f5e9; color: var(--success);">売れるKWを確実に押さえる</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 2. 改善後の見込み ===== -->
+    <div class="section">
+        <div class="section-header green">改善後の見込み</div>
+        <div class="section-body">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th style="text-align: left;">項目</th>
+                        <th>2月の実績</th>
+                        <th>改善後（見込み）</th>
+                        <th>変化</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>日予算（設定）</td>
+                        <td>¥4,000</td>
+                        <td>¥4,000（変更なし）</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>無駄遣い率</td>
+                        <td style="color: var(--danger); font-weight: 700;">71.7%</td>
+                        <td style="color: var(--success); font-weight: 700;">25〜40%</td>
+                        <td style="color: var(--success); font-weight: 700;">大幅改善</td>
+                    </tr>
+                    <tr>
+                        <td>ROAS</td>
+                        <td>2.40</td>
+                        <td>2.40（維持）</td>
+                        <td>—</td>
+                    </tr>
+                    <tr style="background: #e8f5e9;">
+                        <td><strong>購入数</strong></td>
+                        <td style="font-weight: 900; color: var(--danger); font-size: 1.1em;">33件</td>
+                        <td style="font-weight: 900; color: var(--success); font-size: 1.2em;">55〜67件</td>
+                        <td style="font-weight: 900; color: var(--success);">+22〜34件</td>
+                    </tr>
+                    <tr style="background: #f0fff0;">
+                        <td><strong>売上</strong></td>
+                        <td style="font-weight: 700;">¥105,849</td>
+                        <td style="font-weight: 900; color: var(--success); font-size: 1.1em;">¥175,000〜215,000</td>
+                        <td style="font-weight: 700; color: var(--success);">+¥69,000〜109,000</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="note-box info" style="margin-top: 12px;">
+                予算の金額を増やすわけではありません。今の¥4,000/日のまま、<strong>「無駄を減らす」+「売れるKWを確実に出す」</strong>で改善します。
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 3. 今後繰り返さないための運用ルール ===== -->
+    <div class="section">
+        <div class="section-header purple">今後同じ問題を繰り返さないための運用ルール</div>
+        <div class="section-body">
+
+            <div class="note-box warning" style="margin-bottom: 18px;">
+                <strong>課題:</strong> 毎月「売れないKWが増えている」「予算が消化できていない」が起きてから対処するのでは遅い。<br>
+                <strong>解決策:</strong> 明確な数値基準を決め、<strong>毎週自動的にチェック・対応する仕組み</strong>を作ります。
+            </div>
+
+            <!-- 運用サイクル図 -->
+            <div class="cycle-flow">
+                <div class="cycle-node" style="background: #e3f2fd; border-color: var(--primary);">
+                    <div style="font-size: 0.78em; color: var(--text-light);">毎週月曜</div>
+                    <div style="font-weight: 700; font-size: 0.92em;">検索語句レポート<br>を確認</div>
+                </div>
+                <div class="cycle-arrow">→</div>
+                <div class="cycle-node" style="background: #ffebee; border-color: var(--danger);">
+                    <div style="font-size: 0.78em; color: var(--text-light);">基準に該当</div>
+                    <div style="font-weight: 700; font-size: 0.92em;">売れないKWを<br>除外</div>
+                </div>
+                <div class="cycle-arrow">→</div>
+                <div class="cycle-node" style="background: #e8f5e9; border-color: var(--success);">
+                    <div style="font-size: 0.78em; color: var(--text-light);">基準に該当</div>
+                    <div style="font-weight: 700; font-size: 0.92em;">売れるKWを<br>手動CPに追加</div>
+                </div>
+                <div class="cycle-arrow">→</div>
+                <div class="cycle-node" style="background: #fff3e0; border-color: var(--warning);">
+                    <div style="font-size: 0.78em; color: var(--text-light);">月1回</div>
+                    <div style="font-weight: 700; font-size: 0.92em;">全体の数値を<br>レポート</div>
+                </div>
+            </div>
+
+            <!-- ルール1: 除外 -->
+            <div class="rule-card" style="border-color: var(--danger);">
+                <div class="rule-header" style="background: #ffebee; color: var(--danger);">
+                    ルール1: このキーワードは除外する（自動チェック）
+                </div>
+                <div class="rule-body">
+                    <div style="margin-bottom: 10px;">以下の<strong>いずれか</strong>に該当した検索語句は、除外キーワードに追加します。</div>
+                    <table class="data-table" style="font-size: 0.85em;">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;">条件</th>
+                                <th>基準値</th>
+                                <th style="text-align: left;">理由</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>クリック数が多いのに購入ゼロ</td>
+                                <td style="font-weight: 900; color: var(--danger);">15クリック以上 & 購入0</td>
+                                <td style="text-align: left;">15回もクリックされて1件も売れないKWは今後も売れない可能性が高い</td>
+                            </tr>
+                            <tr>
+                                <td>費用が高いのに購入ゼロ</td>
+                                <td style="font-weight: 900; color: var(--danger);">¥1,500以上使用 & 購入0</td>
+                                <td style="text-align: left;">CPA上限の目安。これ以上使っても見込みが薄い</td>
+                            </tr>
+                            <tr>
+                                <td>ACoS（広告費率）が高すぎる</td>
+                                <td style="font-weight: 900; color: var(--danger);">ACoS 60%以上</td>
+                                <td style="text-align: left;">売上の6割以上が広告費 = 赤字に近い。縮小 or 除外</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="note-box danger" style="margin-top: 10px; margin-bottom: 0;">
+                        <strong>2月に除外すべきだったKWの例:</strong> 「シリカ水」26クリック・¥3,739・購入0 / 「しりかすい500」13クリック・¥1,736・購入0
+                    </div>
+                </div>
+            </div>
+
+            <!-- ルール2: 手動CPへ昇格 -->
+            <div class="rule-card" style="border-color: var(--success);">
+                <div class="rule-header" style="background: #e8f5e9; color: var(--success);">
+                    ルール2: このキーワードは手動CPに移す（売れるKWを確保）
+                </div>
+                <div class="rule-body">
+                    <div style="margin-bottom: 10px;">自動CPで以下に該当したキーワードは、<strong>手動CPに完全一致で追加</strong>します。<br>これにより「来月Amazonのアルゴリズムが外してしまう」問題を防ぎます。</div>
+                    <table class="data-table" style="font-size: 0.85em;">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;">条件</th>
+                                <th>基準値</th>
+                                <th style="text-align: left;">理由</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>購入実績がある</td>
+                                <td style="font-weight: 900; color: var(--success);">過去30日で2件以上購入</td>
+                                <td style="text-align: left;">再現性のあるKW。手動CPで確実に維持する</td>
+                            </tr>
+                            <tr>
+                                <td>ROAS（効率）が良い</td>
+                                <td style="font-weight: 900; color: var(--success);">ROAS 2.0以上</td>
+                                <td style="text-align: left;">黒字キーワード。積極的に予算を配分すべき</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="note-box success" style="margin-top: 10px; margin-bottom: 0;">
+                        <strong>現在の対象KW:</strong> 「ミチル」ROAS 254・最高効率 / 「水」5件購入 / 「B0FQZNC4XY」4件購入
+                    </div>
+                </div>
+            </div>
+
+            <!-- ルール3: 予算消化の監視 -->
+            <div class="rule-card" style="border-color: var(--warning);">
+                <div class="rule-header" style="background: #fff3e0; color: var(--warning);">
+                    ルール3: 予算の消化状況を週次でチェック
+                </div>
+                <div class="rule-body">
+                    <table class="data-table" style="font-size: 0.85em;">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;">チェック項目</th>
+                                <th>警告ライン</th>
+                                <th style="text-align: left;">その場合の対応</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>週の平均日次消化</td>
+                                <td style="font-weight: 900; color: var(--warning);">¥2,500以下</td>
+                                <td style="text-align: left;">予算の63%以下 → 入札額の引き上げ or ターゲット拡大を検討</td>
+                            </tr>
+                            <tr>
+                                <td>手動CPの消化ゼロ日数</td>
+                                <td style="font-weight: 900; color: var(--warning);">週3日以上</td>
+                                <td style="text-align: left;">手動CPのKWが検索されていない → KWの追加 or 入札額の見直し</td>
+                            </tr>
+                            <tr>
+                                <td>無駄遣い率（購入ゼロKWの費用割合）</td>
+                                <td style="font-weight: 900; color: var(--danger);">50%以上</td>
+                                <td style="text-align: left;">ルール1の除外基準を再適用。新たな無駄KWが出ている可能性</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ルール4: 入札額の調整基準 -->
+            <div class="rule-card" style="border-color: var(--primary);">
+                <div class="rule-header" style="background: #e3f2fd; color: var(--primary);">
+                    ルール4: 入札額を上げる/下げる基準
+                </div>
+                <div class="rule-body">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div style="padding: 14px; background: #e8f5e9; border-radius: 8px; border-left: 3px solid var(--success);">
+                            <strong style="color: var(--success);">入札を上げる条件</strong><br>
+                            <span style="font-size: 0.85em; color: var(--text-light);">
+                                ・ROAS 2.0以上のKWで予算が消化しきれていない<br>
+                                ・検索結果上部の表示シェアが低い<br>
+                                → <strong>入札を10〜20%引き上げ</strong>
+                            </span>
+                        </div>
+                        <div style="padding: 14px; background: #ffebee; border-radius: 8px; border-left: 3px solid var(--danger);">
+                            <strong style="color: var(--danger);">入札を下げる条件</strong><br>
+                            <span style="font-size: 0.85em; color: var(--text-light);">
+                                ・ACoS 50%以上が2週間続くKW<br>
+                                ・CPCが上昇してROAS 1.5以下になった<br>
+                                → <strong>入札を15〜25%引き下げ</strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-box success" style="margin-top: 14px;">
+                <strong>この仕組みのポイント:</strong><br>
+                <div style="margin-top: 6px; line-height: 2;">
+                    ・<strong>毎週のルーティン</strong>で問題を早期発見 → 「気づいたら悪化していた」を防止<br>
+                    ・<strong>数値基準が明確</strong> → 「何をすべきか」で迷わない<br>
+                    ・<strong>自動CPの弱点を手動CPでカバー</strong> → 売れるKWが外れる問題を根本解決<br>
+                    ・<strong>無駄遣いが自然に拡大するのを防止</strong> → 毎週の除外で常にクリーンな状態を維持
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 4. なぜこうなっていたか ===== -->
+    <div class="section">
+        <div class="section-header blue">背景: なぜ2月は購入数が減ったのか</div>
+        <div class="section-body">
+
+            <div class="summary-grid">
+                <div class="summary-card" style="border-top-color: var(--warning);">
+                    <div class="sc-label">1日の設定予算</div>
+                    <div class="sc-value" style="color: var(--amazon-dark);">¥4,000</div>
+                    <div class="sc-sub">1月も2月も同じ</div>
+                </div>
+                <div class="summary-card" style="border-top-color: var(--danger);">
+                    <div class="sc-label">2月の実際の日平均</div>
+                    <div class="sc-value" style="color: var(--danger);">¥1,576</div>
+                    <div class="sc-sub">予算の39%しか消化できず</div>
+                </div>
+                <div class="summary-card" style="border-top-color: var(--success);">
+                    <div class="sc-label">ROAS（広告効率）</div>
+                    <div class="sc-value" style="color: var(--success);">2.40</div>
+                    <div class="sc-sub">1月(1.99)より改善</div>
+                </div>
+                <div class="summary-card" style="border-top-color: var(--danger);">
+                    <div class="sc-label">使われなかった予算</div>
+                    <div class="sc-value" style="color: var(--danger);">¥67,873</div>
+                    <div class="sc-sub">¥112,000中 約6.8万が未消化</div>
+                </div>
+            </div>
+
+            <div style="margin: 14px 0 8px;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.82em; font-weight: 600; margin-bottom: 3px;">
+                    <span>1月の予算消化率</span>
+                    <span style="color: var(--success);">¥93,151 / ¥124,000 = <strong>75%</strong></span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 75%; background: linear-gradient(90deg, var(--success), var(--success-light));">75%</div>
+                </div>
+            </div>
+            <div style="margin-bottom: 14px;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.82em; font-weight: 600; margin-bottom: 3px;">
+                    <span>2月の予算消化率</span>
+                    <span style="color: var(--danger);">¥44,127 / ¥112,000 = <strong>39%</strong></span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 39%; background: linear-gradient(90deg, var(--danger), #ef5350);">39%</div>
+                </div>
+            </div>
+
+            <div class="note-box danger">
+                <strong>問題は「広告の効率」ではなく「予算が消化されていないこと」。</strong><br>
+                ROAS 2.40 = 広告費¥1に対して¥2.4の売上。これは1月より良い数値です。<br>
+                もし予算通り使えていれば、<strong>1月の57件を超える70〜84件の購入が見込めた</strong>計算です。
+            </div>
+
+            <h4 style="font-size: 0.92em; margin: 20px 0 10px; padding-bottom: 6px; border-bottom: 2px solid var(--border);">予算が使い切れない理由</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.85em;">
+                <div style="padding: 14px; background: #fff3e0; border-radius: 8px; border-left: 3px solid var(--warning);">
+                    <strong style="color: var(--warning);">検索数の限界</strong><br>
+                    <span style="color: var(--text-light);">「シリカ水」はニッチ商品のため、1日の検索回数に限りがあり、検索がない時間帯は広告を出せない</span>
+                </div>
+                <div style="padding: 14px; background: #fff3e0; border-radius: 8px; border-left: 3px solid var(--warning);">
+                    <strong style="color: var(--warning);">自動CPではKWをコントロールできない</strong><br>
+                    <span style="color: var(--text-light);">Amazonがキーワードを選ぶため、1月に売れた「ミチルシリカ」が2月に外れるなどの変動がある</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 5. Amazon広告の仕組み ===== -->
+    <div class="section">
+        <div class="section-header teal">参考: Amazon広告の仕組み</div>
+        <div class="section-body" style="font-size: 0.88em; line-height: 1.8;">
+
+            <h4 style="font-size: 0.92em; margin-bottom: 10px;">広告が表示されるまでの流れ</h4>
+            <div style="display: flex; align-items: center; gap: 0; margin-bottom: 16px; flex-wrap: wrap; justify-content: center;">
+                <div style="padding: 12px 16px; background: #e3f2fd; border-radius: 8px; text-align: center; border: 1px solid #90caf9; min-width: 120px;">
+                    <div style="font-weight: 700; font-size: 0.88em;">お客様が検索</div>
+                    <div style="font-size: 0.75em; color: var(--text-light);">「シリカ水」等</div>
+                </div>
+                <div style="font-size: 1.3em; color: #ccc; font-weight: 900; padding: 0 6px;">→</div>
+                <div style="padding: 12px 16px; background: #fff8e1; border-radius: 8px; text-align: center; border: 1px solid #ffcc80; min-width: 120px;">
+                    <div style="font-weight: 700; font-size: 0.88em;">自動オークション</div>
+                    <div style="font-size: 0.75em; color: var(--text-light);">入札額×品質で<br>順位が決まる</div>
+                </div>
+                <div style="font-size: 1.3em; color: #ccc; font-weight: 900; padding: 0 6px;">→</div>
+                <div style="padding: 12px 16px; background: #e8f5e9; border-radius: 8px; text-align: center; border: 1px solid #a5d6a7; min-width: 120px;">
+                    <div style="font-weight: 700; font-size: 0.88em;">広告が表示</div>
+                    <div style="font-size: 0.75em; color: var(--text-light);">検索結果の上部<br>や関連商品欄</div>
+                </div>
+                <div style="font-size: 1.3em; color: #ccc; font-weight: 900; padding: 0 6px;">→</div>
+                <div style="padding: 12px 16px; background: #faf0ff; border-radius: 8px; text-align: center; border: 1px solid #ce93d8; min-width: 120px;">
+                    <div style="font-weight: 700; font-size: 0.88em;">クリックで課金</div>
+                    <div style="font-size: 0.75em; color: var(--text-light);">表示は無料<br>クリック時のみ課金</div>
+                </div>
+            </div>
+
+            <h4 style="font-size: 0.92em; margin: 16px 0 8px;">日予算¥4,000 = 「上限」であり「保証」ではない</h4>
+            <p style="color: var(--text-light);">
+                Amazon広告の日予算は「1日に最大これだけ使ってよい」という上限です。<br>
+                実際に使われるかどうかは、その日の<strong>検索ボリューム</strong>（何人がシリカ水を検索したか）と<strong>オークションの勝敗</strong>（他の広告主との競争）で決まります。
+            </p>
+
+            <h4 style="font-size: 0.92em; margin: 16px 0 8px;">「広告の品質」とは</h4>
+            <p style="color: var(--text-light);">
+                Amazonは「入札額が高い順」ではなく、<strong>「入札額 × 品質」の掛け算</strong>で広告の表示順位を決めます。<br>
+                品質とは、<strong>レビュー数・評価</strong>、<strong>商品ページの充実度</strong>、<strong>過去の購入実績</strong>、<strong>キーワードとの関連性</strong>などを総合的にAmazonが判断したスコアです。<br>
+                品質が高ければ、低い入札額でも上位に表示されやすくなります。
+            </p>
+        </div>
+    </div>
+
+    <!-- ===== 6. 広告指標の計算式リファレンス ===== -->
+    <div class="section">
+        <div class="section-header" style="background: linear-gradient(135deg, #37474f, #546e7a);">参考: 広告指標の見方と計算式</div>
+        <div class="section-body">
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+
+                <!-- ROAS -->
+                <div style="border: 2px solid var(--success); border-radius: 10px; padding: 18px; background: linear-gradient(135deg, #f8fff8, #fff);">
+                    <div style="font-weight: 700; font-size: 0.95em; color: var(--success); margin-bottom: 6px;">ROAS（ロアス）</div>
+                    <div style="font-size: 0.78em; color: var(--text-light); margin-bottom: 10px;">Return on Ad Spend = 広告の費用対効果</div>
+                    <div style="padding: 12px; background: #f0f8f0; border-radius: 8px; text-align: center; margin-bottom: 10px;">
+                        <div style="font-size: 1.05em; font-weight: 700; color: var(--text);">
+                            ROAS = <span style="color: var(--success);">売上</span> &divide; <span style="color: var(--danger);">広告費</span>
+                        </div>
+                    </div>
+                    <div style="padding: 10px; background: #fafafa; border-radius: 8px; font-size: 0.8em; color: var(--text-light); line-height: 1.8;">
+                        <strong>2月:</strong> ¥105,849 &divide; ¥44,127 = <strong style="color: var(--success);">2.40</strong><br>
+                        → 広告費1円あたり2.4円の売上<br>
+                        <strong>1.0以上 = 広告費を回収できている</strong>
+                    </div>
+                </div>
+
+                <!-- CPA -->
+                <div style="border: 2px solid var(--primary); border-radius: 10px; padding: 18px; background: linear-gradient(135deg, #f5f8ff, #fff);">
+                    <div style="font-weight: 700; font-size: 0.95em; color: var(--primary); margin-bottom: 6px;">CPA（シーピーエー）</div>
+                    <div style="font-size: 0.78em; color: var(--text-light); margin-bottom: 10px;">Cost Per Acquisition = 1件の購入にかかった費用</div>
+                    <div style="padding: 12px; background: #f0f5ff; border-radius: 8px; text-align: center; margin-bottom: 10px;">
+                        <div style="font-size: 1.05em; font-weight: 700; color: var(--text);">
+                            CPA = <span style="color: var(--danger);">広告費</span> &divide; <span style="color: var(--primary);">購入件数</span>
+                        </div>
+                    </div>
+                    <div style="padding: 10px; background: #fafafa; border-radius: 8px; font-size: 0.8em; color: var(--text-light); line-height: 1.8;">
+                        <strong>2月:</strong> ¥44,127 &divide; 33件 = <strong style="color: var(--primary);">¥1,337/件</strong><br>
+                        → 1件の購入獲得に¥1,337<br>
+                        <strong>低いほど効率が良い</strong>
+                    </div>
+                </div>
+
+                <!-- ACoS -->
+                <div style="border: 2px solid var(--warning); border-radius: 10px; padding: 18px; background: linear-gradient(135deg, #fffcf5, #fff);">
+                    <div style="font-weight: 700; font-size: 0.95em; color: var(--warning); margin-bottom: 6px;">ACoS（エーコス）/ 広告費比率</div>
+                    <div style="font-size: 0.78em; color: var(--text-light); margin-bottom: 10px;">Advertising Cost of Sales = 売上に占める広告費の割合</div>
+                    <div style="padding: 12px; background: #fff8f0; border-radius: 8px; text-align: center; margin-bottom: 10px;">
+                        <div style="font-size: 1.05em; font-weight: 700; color: var(--text);">
+                            ACoS = <span style="color: var(--danger);">広告費</span> &divide; <span style="color: var(--success);">売上</span> &times; 100
+                        </div>
+                    </div>
+                    <div style="padding: 10px; background: #fafafa; border-radius: 8px; font-size: 0.8em; color: var(--text-light); line-height: 1.8;">
+                        <strong>2月:</strong> ¥44,127 &divide; ¥105,849 &times; 100 = <strong style="color: var(--warning);">41.7%</strong><br>
+                        → 売上の41.7%が広告費<br>
+                        <strong>低いほど利益率が高い</strong>
+                    </div>
+                </div>
+
+                <!-- CVR -->
+                <div style="border: 2px solid #7b1fa2; border-radius: 10px; padding: 18px; background: linear-gradient(135deg, #faf5ff, #fff);">
+                    <div style="font-weight: 700; font-size: 0.95em; color: #7b1fa2; margin-bottom: 6px;">CVR（シーブイアール）</div>
+                    <div style="font-size: 0.78em; color: var(--text-light); margin-bottom: 10px;">Conversion Rate = クリック→購入の割合</div>
+                    <div style="padding: 12px; background: #f8f0ff; border-radius: 8px; text-align: center; margin-bottom: 10px;">
+                        <div style="font-size: 1.05em; font-weight: 700; color: var(--text);">
+                            CVR = <span style="color: var(--primary);">購入件数</span> &divide; <span style="color: #7b1fa2;">クリック数</span> &times; 100
+                        </div>
+                    </div>
+                    <div style="padding: 10px; background: #fafafa; border-radius: 8px; font-size: 0.8em; color: var(--text-light); line-height: 1.8;">
+                        <strong>2月:</strong> 33件 &divide; 386クリック &times; 100 = <strong style="color: #7b1fa2;">8.55%</strong><br>
+                        → 100人中約9人が購入<br>
+                        <strong>高いほど購買意欲の高い人に届いている</strong>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 指標の関係性 -->
+            <div style="margin-top: 16px; padding: 16px; background: #f8f9fa; border-radius: 8px; border: 1px solid var(--border); font-size: 0.82em; color: var(--text-light); line-height: 2;">
+                <strong style="color: var(--text);">指標の関係:</strong>
+                ROAS と ACoS は逆数の関係（ROAS 2.40 = ACoS 41.7%）。
+                CVRが高いほどCPAが下がり、ROASが上がります。
+                <strong>ミチルシリカのROAS 2.40は良好な水準です。</strong>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <div style="text-align: center; padding: 16px; color: var(--text-light); font-size: 0.8em;">
+        ミチルシリカ Amazon広告 改善提案 | 2026年3月3日 | 株式会社ヒシャク
+    </div>
+
+</div>
+</body>
+</html>
