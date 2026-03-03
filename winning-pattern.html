@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ミチルシリカ 勝ちパターン分析 & 予算倍増シミュレーション</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg: #f5f6fa;
+  --card: #ffffff;
+  --text: #1a1a2e;
+  --sub: #6c7a89;
+  --accent: #2563eb;
+  --accent-light: #dbeafe;
+  --green: #059669;
+  --green-bg: #d1fae5;
+  --red: #dc2626;
+  --red-bg: #fee2e2;
+  --orange: #d97706;
+  --orange-bg: #fef3c7;
+  --purple: #7c3aed;
+  --purple-bg: #ede9fe;
+  --gold: #b45309;
+  --border: #e5e7eb;
+  --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,.08), 0 4px 10px rgba(0,0,0,.04);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
+
+/* ── HEADER ── */
+.hero {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1a365d 100%);
+  color: #fff;
+  padding: 40px 36px 36px;
+  border-radius: 16px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(59,130,246,.3) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: 30%;
+  width: 300px; height: 120px;
+  background: radial-gradient(ellipse, rgba(16,185,129,.15) 0%, transparent 70%);
+}
+.hero h1 { font-size: 26px; font-weight: 800; letter-spacing: -.5px; position: relative; z-index:1; }
+.hero .sub { color: #94a3b8; font-size: 12px; margin-top: 6px; position: relative; z-index:1; }
+.hero .badge-row { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; position: relative; z-index:1; }
+.hero .badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 12px; border-radius: 20px;
+  font-size: 11px; font-weight: 600;
+  background: rgba(255,255,255,.1); backdrop-filter: blur(4px);
+}
+.hero .badge.green { background: rgba(16,185,129,.2); color: #6ee7b7; }
+.hero .badge.blue { background: rgba(59,130,246,.2); color: #93c5fd; }
+.hero .badge.orange { background: rgba(217,119,6,.2); color: #fcd34d; }
+
+/* ── SECTION ── */
+.section {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 28px 28px 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+.section-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 6px;
+}
+.section-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; color: #fff; flex-shrink: 0;
+}
+.section h2 { font-size: 18px; font-weight: 700; }
+.section .desc { font-size: 12px; color: var(--sub); margin-bottom: 20px; }
+
+/* ── KPI STRIP ── */
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.kpi-card {
+  padding: 16px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fafbfc;
+}
+.kpi-card .label { font-size: 10px; color: var(--sub); font-weight: 600; text-transform: uppercase; letter-spacing: .8px; }
+.kpi-card .value { font-size: 30px; font-weight: 800; margin: 2px 0; }
+.kpi-card .note { font-size: 10px; color: #aaa; }
+.kpi-card.green .value { color: var(--green); }
+.kpi-card.blue .value { color: var(--accent); }
+.kpi-card.red .value { color: var(--red); }
+.kpi-card.orange .value { color: var(--orange); }
+.kpi-card.purple .value { color: var(--purple); }
+
+/* ── SCENARIO TABLE ── */
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 20px 0;
+}
+@media (max-width: 768px) {
+  .scenario-grid { grid-template-columns: 1fr; }
+}
+.scenario-card {
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  transition: transform .15s;
+}
+.scenario-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.scenario-card.recommended {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
+}
+.scenario-card .tag {
+  position: absolute; top: -10px; right: 16px;
+  background: var(--accent); color: #fff;
+  padding: 2px 12px; border-radius: 10px;
+  font-size: 10px; font-weight: 700;
+}
+.scenario-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+.scenario-card .big-num { font-size: 42px; font-weight: 900; margin: 8px 0; }
+.scenario-card .unit { font-size: 14px; font-weight: 500; color: var(--sub); }
+.scenario-card .detail-row {
+  display: flex; justify-content: space-between;
+  padding: 5px 0; border-bottom: 1px solid #f0f0f0;
+  font-size: 12px;
+}
+.scenario-card .detail-row .dlabel { color: var(--sub); }
+.scenario-card .detail-row .dvalue { font-weight: 600; }
+
+/* ── WINNING PATTERN ── */
+.factor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 16px 0;
+}
+@media (max-width: 768px) {
+  .factor-grid { grid-template-columns: 1fr; }
+}
+.factor-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  position: relative;
+}
+.factor-card .rank {
+  position: absolute; top: 12px; right: 14px;
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800; color: #fff;
+}
+.factor-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.factor-card .factor-desc { font-size: 11px; color: var(--sub); margin-bottom: 12px; }
+
+/* ── BAR CHART ── */
+.bar-chart { margin: 8px 0; }
+.bar-item { display: flex; align-items: center; margin: 5px 0; font-size: 12px; }
+.bar-item .bar-label { width: 100px; flex-shrink: 0; color: #555; font-weight: 500; }
+.bar-item .bar-track { flex: 1; height: 22px; background: #f3f4f6; border-radius: 4px; position: relative; overflow: hidden; }
+.bar-item .bar-fill {
+  height: 100%; border-radius: 4px;
+  display: flex; align-items: center; padding-left: 8px;
+  font-size: 11px; font-weight: 700; color: #fff;
+  min-width: 40px; transition: width .4s ease;
+}
+.bar-item .bar-extra { width: 60px; text-align: right; font-weight: 700; flex-shrink: 0; margin-left: 8px; }
+
+/* ── INSIGHT BOX ── */
+.insight {
+  padding: 14px 18px;
+  border-radius: 8px;
+  margin: 14px 0;
+  font-size: 13px;
+  line-height: 1.7;
+  border-left: 4px solid;
+}
+.insight.warn { background: #fffbeb; border-color: #f59e0b; }
+.insight.danger { background: #fef2f2; border-color: #ef4444; }
+.insight.info { background: #eff6ff; border-color: #3b82f6; }
+.insight.success { background: #ecfdf5; border-color: #10b981; }
+.insight b { font-weight: 700; }
+
+/* ── MINI TABLE ── */
+.mini-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12px; }
+.mini-table th {
+  background: #1e293b; color: #fff;
+  padding: 8px 10px; font-weight: 600; font-size: 11px;
+  text-align: center; white-space: nowrap;
+}
+.mini-table th:first-child { text-align: left; border-radius: 6px 0 0 0; }
+.mini-table th:last-child { border-radius: 0 6px 0 0; }
+.mini-table td {
+  padding: 7px 10px; border-bottom: 1px solid #f0f0f0;
+  text-align: center;
+}
+.mini-table td:first-child { text-align: left; font-weight: 500; }
+.mini-table tr:hover { background: #f8fafc; }
+.mini-table .highlight { background: #ecfdf5; }
+.mini-table .warning { background: #fff7ed; }
+.mini-table .danger-row { background: #fef2f2; }
+
+/* ── FORMULA BOX ── */
+.formula-box {
+  background: linear-gradient(135deg, #0f172a, #1e3a5f);
+  color: #fff;
+  padding: 24px 28px;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+.formula-box h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+.formula-box .formula {
+  font-size: 18px; font-weight: 300;
+  padding: 16px 0;
+  border-top: 1px solid rgba(255,255,255,.15);
+  border-bottom: 1px solid rgba(255,255,255,.15);
+  margin: 12px 0;
+  text-align: center;
+}
+.formula-box .formula b { font-weight: 800; color: #6ee7b7; }
+.formula-box .formula .op { color: #94a3b8; margin: 0 8px; }
+.formula-box .note { font-size: 11px; color: #94a3b8; }
+
+/* ── ACTION CARD ── */
+.action-list { counter-reset: act; }
+.action-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 18px 18px 56px;
+  margin: 10px 0;
+  position: relative;
+  transition: box-shadow .15s;
+}
+.action-card:hover { box-shadow: var(--shadow-lg); }
+.action-card::before {
+  counter-increment: act;
+  content: counter(act);
+  position: absolute; left: 16px; top: 18px;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800;
+}
+.action-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.action-card p { font-size: 12px; color: #555; }
+.action-card .impact {
+  display: inline-block; margin-top: 8px;
+  padding: 2px 10px; border-radius: 12px;
+  font-size: 10px; font-weight: 700;
+}
+.action-card .impact.high { background: var(--green-bg); color: var(--green); }
+.action-card .impact.medium { background: var(--orange-bg); color: var(--orange); }
+
+/* ── TIMELINE / RESEARCH ── */
+.research-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+  margin: 16px 0;
+}
+.research-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+}
+.research-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.research-card .stat { font-size: 28px; font-weight: 800; margin: 4px 0; }
+.research-card .detail { font-size: 11px; color: var(--sub); }
+
+/* ── MONTH CALENDAR ── */
+.month-heatmap {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+  margin: 12px 0;
+}
+.month-heatmap .day-header {
+  text-align: center; font-size: 10px; font-weight: 600; color: var(--sub);
+  padding: 4px;
+}
+.month-heatmap .day-cell {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600;
+  border: 1px solid transparent;
+  position: relative;
+}
+.month-heatmap .day-cell.empty { background: transparent; }
+.month-heatmap .day-cell.sale-0 { background: #fef2f2; color: #9ca3af; }
+.month-heatmap .day-cell.sale-1 { background: #d1fae5; color: var(--green); border-color: #a7f3d0; }
+.month-heatmap .day-cell.sale-2 { background: #6ee7b7; color: #064e3b; border-color: #34d399; }
+.month-heatmap .day-cell .day-num { font-size: 13px; font-weight: 700; }
+.month-heatmap .day-cell .sale-count { font-size: 9px; }
+
+/* ── COMPARISON PILLS ── */
+.pill-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+.pill {
+  padding: 4px 12px; border-radius: 16px;
+  font-size: 11px; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.pill.good { background: var(--green-bg); color: var(--green); }
+.pill.bad { background: var(--red-bg); color: var(--red); }
+.pill.neutral { background: #f3f4f6; color: #6b7280; }
+
+/* ── SCORECARD ── */
+.score-strip {
+  display: flex; gap: 4px; margin: 6px 0;
+}
+.score-block {
+  flex: 1; height: 8px; border-radius: 2px;
+}
+.score-block.g { background: var(--green); }
+.score-block.y { background: #fbbf24; }
+.score-block.r { background: var(--red); }
+.score-block.gray { background: #e5e7eb; }
+
+/* ── CHANNEL COMPARISON ── */
+.channel-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 16px 0;
+}
+@media (max-width: 600px) { .channel-compare { grid-template-columns: 1fr; } }
+.ch-card {
+  border-radius: 10px; padding: 18px;
+  border: 2px solid var(--border);
+}
+.ch-card.ig { border-color: #E1306C; background: linear-gradient(135deg, #fce4ec 0%, #fff 50%); }
+.ch-card.yh { border-color: #ff0033; background: linear-gradient(135deg, #ffebee 0%, #fff 50%); }
+.ch-card h4 { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+.ch-card .ch-metric { display: flex; justify-content: space-between; padding: 4px 0; font-size: 12px; border-bottom: 1px solid #f3f4f6; }
+.ch-card .ch-metric .ch-val { font-weight: 700; }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 20px 0; }
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center; color: #aaa; font-size: 10px;
+  padding: 24px 0; border-top: 1px solid var(--border);
+  margin-top: 32px;
+}
+
+/* ── DONUT PLACEHOLDER (CSS-only) ── */
+.donut-container { display: flex; justify-content: center; margin: 16px 0; }
+.donut {
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.donut .center-text { text-align: center; }
+.donut .center-text .num { font-size: 28px; font-weight: 800; }
+.donut .center-text .label { font-size: 10px; color: var(--sub); }
+
+/* ── TOC ── */
+.toc {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 24px;
+  margin-bottom: 24px;
+}
+.toc h3 { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--sub); }
+.toc ol { padding-left: 20px; }
+.toc li { font-size: 13px; padding: 3px 0; }
+.toc a { color: var(--accent); text-decoration: none; font-weight: 500; }
+.toc a:hover { text-decoration: underline; }
+
+/* Print */
+@media print {
+  body { background: #fff; }
+  .page { padding: 0; }
+  .section { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ====== HERO ====== -->
+<div class="hero">
+  <h1>勝ちパターン分析 & 予算倍増シミュレーション</h1>
+  <div class="sub">ミチルシリカ | 分析期間: 2026/01/01 - 02/28（59日間） | データソース: Meta Ads / Yahoo Ads / GA4 / GSC / Clarity / Web調査</div>
+  <div class="badge-row">
+    <span class="badge green">32件購入実績</span>
+    <span class="badge blue">予算 ¥2,000 → ¥4,000/日</span>
+    <span class="badge orange">目標 36件/月</span>
+  </div>
+</div>
+
+<!-- ====== TOC ====== -->
+<div class="toc">
+  <h3>目次</h3>
+  <ol>
+    <li><a href="#s1">現状の実力診断 — チャネル別の真のCPA</a></li>
+    <li><a href="#s2">予算2倍シミュレーション — 3シナリオ比較</a></li>
+    <li><a href="#s3">勝ちパターン分析 — 売れる日の4条件</a></li>
+    <li><a href="#s4">月間カレンダーで見る「売れる日」の法則</a></li>
+    <li><a href="#s5">36件達成アクションプラン</a></li>
+    <li><a href="#s6">定期便・サブスク購入タイミング調査</a></li>
+    <li><a href="#s7">結論とネクストステップ</a></li>
+  </ol>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 1: 現状診断 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section" id="s1">
+  <div class="section-header">
+    <div class="section-icon" style="background:#1e293b">1</div>
+    <h2>現状の実力診断</h2>
+  </div>
+  <div class="desc">59日間（1/1-2/28）の実績データから、チャネル別の真の獲得効率を算出。「見かけのCPA」と「チャネル別CPA」の差が戦略の鍵。</div>
+
+  <div class="kpi-strip">
+    <div class="kpi-card green">
+      <div class="label">総購入数</div>
+      <div class="value">32件</div>
+      <div class="note">59日間 / 0.54件/日</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="label">総広告費</div>
+      <div class="value">&yen;118,914</div>
+      <div class="note">Meta &yen;66,592 + Yahoo &yen;52,322</div>
+    </div>
+    <div class="kpi-card purple">
+      <div class="label">見かけのCPA</div>
+      <div class="value">&yen;3,716</div>
+      <div class="note">全広告費 / 全購入数</div>
+    </div>
+    <div class="kpi-card orange">
+      <div class="label">月換算</div>
+      <div class="value">16.3件</div>
+      <div class="note">0.54件/日 &times; 30日</div>
+    </div>
+  </div>
+
+  <div class="insight info">
+    <b>重要な発見：「見かけのCPA &yen;3,716」は実態を反映していません。</b><br>
+    チャネル別に分解すると、Meta（IG+FB）とYahooのCPAには<b>3.5倍</b>の差があります。この差が予算配分戦略の核心です。
+  </div>
+
+  <!-- チャネル別比較 -->
+  <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px">チャネル別 実績内訳（1/1-2/28）</h3>
+  <div class="channel-compare">
+    <div class="ch-card ig">
+      <h4><span style="color:#E1306C">&#9632;</span> Meta広告（Instagram + Facebook）</h4>
+      <div class="ch-metric"><span>広告費</span><span class="ch-val">&yen;66,592</span></div>
+      <div class="ch-metric"><span>購入数</span><span class="ch-val" style="color:var(--green)">18件</span></div>
+      <div class="ch-metric"><span>CPA</span><span class="ch-val" style="color:var(--green)">&yen;3,699</span></div>
+      <div class="ch-metric"><span>CVR（GA4）</span><span class="ch-val" style="color:var(--green)">2.64%</span></div>
+      <div class="ch-metric"><span>内訳</span><span class="ch-val">IG 17件 / FB 1件</span></div>
+      <div class="ch-metric"><span>平均エンゲージ時間</span><span class="ch-val">12.2秒</span></div>
+      <div style="font-size:10px;color:var(--green);margin-top:8px;font-weight:600">短時間で即決する購買行動 → 効率最高</div>
+    </div>
+    <div class="ch-card yh">
+      <h4><span style="color:#ff0033">&#9632;</span> Yahoo広告（検索連動）</h4>
+      <div class="ch-metric"><span>広告費</span><span class="ch-val">&yen;52,322</span></div>
+      <div class="ch-metric"><span>購入数</span><span class="ch-val" style="color:var(--red)">4件</span></div>
+      <div class="ch-metric"><span>CPA</span><span class="ch-val" style="color:var(--red)">&yen;13,081</span></div>
+      <div class="ch-metric"><span>CVR（GA4）</span><span class="ch-val" style="color:var(--red)">0.79%</span></div>
+      <div class="ch-metric"><span>平均エンゲージ時間</span><span class="ch-val">45.2秒</span></div>
+      <div class="ch-metric"><span>エンゲージ率</span><span class="ch-val">56.0%</span></div>
+      <div style="font-size:10px;color:var(--red);margin-top:8px;font-weight:600">長時間比較検討 → 購入率低い</div>
+    </div>
+  </div>
+
+  <div class="insight warn">
+    <b>さらに注目すべきは「オーガニック経由の10件」。</b><br>
+    広告費ゼロで獲得した10件（検索6件, Google 2件, YouTube 1件, 店舗1件）を含めると、<b>真のCPA（有料チャネルのみ）= &yen;5,405</b>です。
+    広告の"認知→後日検索"効果を高めれば、この無料獲得数を増やせます。
+  </div>
+
+  <mini-table style="display:block">
+    <table class="mini-table">
+      <tr><th style="width:200px">チャネル</th><th>購入数</th><th>広告費</th><th>CPA</th><th>CVR</th><th>効率評価</th></tr>
+      <tr class="highlight"><td>Instagram</td><td style="font-weight:700;color:var(--green)">17件</td><td>&yen;66,592</td><td style="font-weight:700;color:var(--green)">&yen;3,917</td><td>2.64%</td><td style="font-weight:700;color:var(--green)">&#9733;&#9733;&#9733;</td></tr>
+      <tr><td>Facebook</td><td>1件</td><td>（Meta内）</td><td>-</td><td>-</td><td>&#9733;</td></tr>
+      <tr class="danger-row"><td>Yahoo広告</td><td style="color:var(--red)">4件</td><td>&yen;52,322</td><td style="color:var(--red)">&yen;13,081</td><td>0.79%</td><td style="color:var(--red)">&#9733;</td></tr>
+      <tr><td>自然検索（Google）</td><td>6件</td><td>&yen;0</td><td>&yen;0</td><td>1.17%</td><td style="color:var(--green)">&#9733;&#9733;&#9733;</td></tr>
+      <tr><td>その他（Google/YT/店舗）</td><td>4件</td><td>&yen;0</td><td>&yen;0</td><td>-</td><td>&#9733;&#9733;</td></tr>
+    </table>
+  </mini-table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 2: 予算2倍シミュレーション -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section" id="s2">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--accent)">2</div>
+    <h2>予算2倍シミュレーション</h2>
+  </div>
+  <div class="desc">日額 &yen;2,000 → &yen;4,000（Instagram &yen;3,000 + Yahoo &yen;1,000）への変更を3つのシナリオで予測。</div>
+
+  <!-- 予算配分図 -->
+  <div style="display:flex;gap:20px;margin:16px 0;flex-wrap:wrap">
+    <div style="flex:1;min-width:200px">
+      <div style="font-size:12px;font-weight:600;margin-bottom:6px;color:var(--sub)">現在の配分（&yen;2,000/日）</div>
+      <div style="display:flex;border-radius:6px;overflow:hidden;height:28px">
+        <div style="width:56%;background:#E1306C;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700">IG &yen;1,129</div>
+        <div style="width:44%;background:#ff0033;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700">Yahoo &yen;887</div>
+      </div>
+    </div>
+    <div style="flex:1;min-width:200px">
+      <div style="font-size:12px;font-weight:600;margin-bottom:6px;color:var(--sub)">新配分（&yen;4,000/日）</div>
+      <div style="display:flex;border-radius:6px;overflow:hidden;height:28px">
+        <div style="width:75%;background:#E1306C;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700">IG &yen;3,000（2.66&times;）</div>
+        <div style="width:25%;background:#ff0033;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700">Yahoo &yen;1,000</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight info">
+    <b>IG比率が56% → 75%に上昇。</b> CVR 2.64%のInstagramに予算を集中させる戦略は正しい。ただし予算2.66倍で同じCPAを維持できるかが鍵。
+  </div>
+
+  <div class="scenario-grid">
+    <!-- シナリオA: 保守的 -->
+    <div class="scenario-card">
+      <h3 style="color:var(--orange)">A. 保守的シナリオ</h3>
+      <div style="font-size:11px;color:var(--sub)">現状のCPA・CVRが変わらない前提</div>
+      <div class="big-num" style="color:var(--orange)">27<span class="unit">件/月</span></div>
+      <div class="detail-row"><span class="dlabel">IG（CPA &yen;3,917維持）</span><span class="dvalue">23件</span></div>
+      <div class="detail-row"><span class="dlabel">Yahoo（CPA &yen;13,081維持）</span><span class="dvalue">2件</span></div>
+      <div class="detail-row"><span class="dlabel">オーガニック（微増）</span><span class="dvalue">2件</span></div>
+      <div class="detail-row"><span class="dlabel">月額広告費</span><span class="dvalue">&yen;120,000</span></div>
+      <div class="detail-row"><span class="dlabel">CPA</span><span class="dvalue">&yen;4,444</span></div>
+      <div class="insight danger" style="margin-top:12px;font-size:11px;padding:8px 12px">
+        予算増でCPM低下（安い枠への配信拡大）が起きた場合。<b>目標未達</b>。
+      </div>
+    </div>
+
+    <!-- シナリオB: 標準 → 推奨 -->
+    <div class="scenario-card recommended">
+      <span class="tag">最も可能性の高いシナリオ</span>
+      <h3 style="color:var(--accent)">B. 標準シナリオ</h3>
+      <div style="font-size:11px;color:var(--sub)">IG比率増加 + 質の維持を前提</div>
+      <div class="big-num" style="color:var(--accent)">33<span class="unit">件/月</span></div>
+      <div class="detail-row"><span class="dlabel">IG（CVR 2.4%に微減）</span><span class="dvalue">25件</span></div>
+      <div class="detail-row"><span class="dlabel">Yahoo（現状維持）</span><span class="dvalue">2件</span></div>
+      <div class="detail-row"><span class="dlabel">オーガニック（認知増で30%増）</span><span class="dvalue">6件</span></div>
+      <div class="detail-row"><span class="dlabel">月額広告費</span><span class="dvalue">&yen;120,000</span></div>
+      <div class="detail-row"><span class="dlabel">CPA</span><span class="dvalue">&yen;3,636</span></div>
+      <div class="insight info" style="margin-top:12px;font-size:11px;padding:8px 12px">
+        予算増加分をIGに集中。CVRは微減するがオーガニック増で補完。<b>目標に近い</b>。
+      </div>
+    </div>
+
+    <!-- シナリオC: 楽観 -->
+    <div class="scenario-card">
+      <h3 style="color:var(--green)">C. 楽観シナリオ</h3>
+      <div style="font-size:11px;color:var(--sub)">質の改善 + ギャップ日削減を実現</div>
+      <div class="big-num" style="color:var(--green)">39<span class="unit">件/月</span></div>
+      <div class="detail-row"><span class="dlabel">IG（CVR 2.6%維持 + 勝ちパターン適用）</span><span class="dvalue">28件</span></div>
+      <div class="detail-row"><span class="dlabel">Yahoo（LP改善でCVR向上）</span><span class="dvalue">3件</span></div>
+      <div class="detail-row"><span class="dlabel">オーガニック（大幅増）</span><span class="dvalue">8件</span></div>
+      <div class="detail-row"><span class="dlabel">月額広告費</span><span class="dvalue">&yen;120,000</span></div>
+      <div class="detail-row"><span class="dlabel">CPA</span><span class="dvalue">&yen;3,077</span></div>
+      <div class="insight success" style="margin-top:12px;font-size:11px;padding:8px 12px">
+        勝ちパターン（後述）を全て実行した場合。<b>目標36件を超える</b>。
+      </div>
+    </div>
+  </div>
+
+  <div class="formula-box">
+    <h3>予算2倍だけでは36件に届かない理由</h3>
+    <div class="formula">
+      <b>予算2&times;</b> <span class="op">&ne;</span> <b>購入2&times;</b>
+    </div>
+    <div class="note">
+      予算を2倍にしても、Metaのアルゴリズムは「より安い枠」に配信を拡大するため、CPMが低下しCVRも下がります。<br>
+      <b>「予算2倍 &times; 質の維持」の両方が必要。</b> 予算増だけなら27〜33件。36件達成には「勝ちパターン」の適用が不可欠です。<br><br>
+      <span style="color:#6ee7b7;font-weight:600">現状16.3件/月 → 予算2倍で33件 → 勝ちパターンで+6件 = 39件</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 3: 勝ちパターン分析 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section" id="s3">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--green)">3</div>
+    <h2>勝ちパターン分析 ― 売れる日の4条件</h2>
+  </div>
+  <div class="desc">59日間のデータから「売れた日26日」vs「売れなかった日33日」を比較し、売上発生を決める4つの要因を特定。</div>
+
+  <div class="kpi-strip" style="grid-template-columns:repeat(3,1fr)">
+    <div class="kpi-card green">
+      <div class="label">売れた日</div>
+      <div class="value">26日</div>
+      <div class="note">59日中 / 44%</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="label">売れなかった日</div>
+      <div class="value">33日</div>
+      <div class="note">59日中 / 56%</div>
+    </div>
+    <div class="kpi-card purple">
+      <div class="label">2件以上の日</div>
+      <div class="value">5日</div>
+      <div class="note">1/6, 1/10, 1/17, 2/5, 2/9</div>
+    </div>
+  </div>
+
+  <div class="factor-grid">
+    <!-- Factor 1: CPM -->
+    <div class="factor-card" style="border-left:4px solid var(--red)">
+      <div class="rank" style="background:var(--red)">1</div>
+      <h4>CPM（広告配信の質）</h4>
+      <div class="factor-desc">CPMが高い = Metaが「購入しそうな人」に配信している証拠</div>
+      <div class="bar-chart">
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px;color:var(--green)">&yen;2,500以上</span>
+          <div class="bar-track"><div class="bar-fill" style="width:83%;background:var(--green)">5勝1敗</div></div>
+          <span class="bar-extra" style="color:var(--green)">83%</span>
+        </div>
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px">&yen;1,800-2,500</span>
+          <div class="bar-track"><div class="bar-fill" style="width:46%;background:#f59e0b">6勝7敗</div></div>
+          <span class="bar-extra">46%</span>
+        </div>
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px">&yen;1,200-1,800</span>
+          <div class="bar-track"><div class="bar-fill" style="width:42%;background:#f59e0b">5勝7敗</div></div>
+          <span class="bar-extra">42%</span>
+        </div>
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px">&yen;800-1,200</span>
+          <div class="bar-track"><div class="bar-fill" style="width:56%;background:#3b82f6">9勝7敗</div></div>
+          <span class="bar-extra">56%</span>
+        </div>
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px;color:var(--red)">&yen;0-800</span>
+          <div class="bar-track"><div class="bar-fill" style="width:20%;background:var(--red)">1勝4敗</div></div>
+          <span class="bar-extra" style="color:var(--red)">20%</span>
+        </div>
+      </div>
+      <div class="insight success" style="font-size:11px;padding:8px 12px;margin-top:8px">
+        <b>CPM &yen;2,500以上で83%が売れる。</b> &yen;800未満では20%。約4倍の差。
+      </div>
+    </div>
+
+    <!-- Factor 2: Frequency -->
+    <div class="factor-card" style="border-left:4px solid var(--purple)">
+      <div class="rank" style="background:var(--purple)">2</div>
+      <h4>Frequency（広告疲弊度）</h4>
+      <div class="factor-desc">同じ人に何回見せたか。高い＝同じ人への繰り返し＝効果激減</div>
+      <div class="bar-chart">
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px;color:var(--green)">1.00-1.08</span>
+          <div class="bar-track"><div class="bar-fill" style="width:58%;background:var(--green)">7勝5敗</div></div>
+          <span class="bar-extra" style="color:var(--green)">58%</span>
+        </div>
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px">1.08-1.12</span>
+          <div class="bar-track"><div class="bar-fill" style="width:47%;background:#3b82f6">7勝8敗</div></div>
+          <span class="bar-extra">47%</span>
+        </div>
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px">1.12-1.18</span>
+          <div class="bar-track"><div class="bar-fill" style="width:56%;background:#f59e0b">10勝8敗</div></div>
+          <span class="bar-extra">56%</span>
+        </div>
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px;color:var(--red)">1.18以上</span>
+          <div class="bar-track"><div class="bar-fill" style="width:29%;background:var(--red)">2勝5敗</div></div>
+          <span class="bar-extra" style="color:var(--red)">29%</span>
+        </div>
+      </div>
+      <div class="insight danger" style="font-size:11px;padding:8px 12px;margin-top:8px">
+        <b>Frequency 1.18以上で売上率が29%に急落。</b>新しい人に届ける仕組みが必要。
+      </div>
+    </div>
+
+    <!-- Factor 3: 曜日 -->
+    <div class="factor-card" style="border-left:4px solid var(--accent)">
+      <div class="rank" style="background:var(--accent)">3</div>
+      <h4>曜日パターン</h4>
+      <div class="factor-desc">50-70代女性ターゲットの購買行動は曜日で大きく変わる</div>
+      <div class="bar-chart">
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px;color:var(--green)">月曜</span>
+          <div class="bar-track"><div class="bar-fill" style="width:71%;background:var(--green)">5勝2敗</div></div>
+          <span class="bar-extra" style="color:var(--green)">71%</span>
+        </div>
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px">金曜</span>
+          <div class="bar-track"><div class="bar-fill" style="width:62%;background:#3b82f6">5勝3敗</div></div>
+          <span class="bar-extra">62%</span>
+        </div>
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px">水曜</span>
+          <div class="bar-track"><div class="bar-fill" style="width:57%;background:#3b82f6">4勝3敗</div></div>
+          <span class="bar-extra">57%</span>
+        </div>
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px">日曜</span>
+          <div class="bar-track"><div class="bar-fill" style="width:57%;background:#3b82f6">4勝3敗</div></div>
+          <span class="bar-extra">57%</span>
+        </div>
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px">火曜</span>
+          <div class="bar-track"><div class="bar-fill" style="width:43%;background:#f59e0b">3勝4敗</div></div>
+          <span class="bar-extra">43%</span>
+        </div>
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px">木曜</span>
+          <div class="bar-track"><div class="bar-fill" style="width:38%;background:#f59e0b">3勝5敗</div></div>
+          <span class="bar-extra">38%</span>
+        </div>
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px;color:var(--red)">土曜</span>
+          <div class="bar-track"><div class="bar-fill" style="width:25%;background:var(--red)">2勝6敗</div></div>
+          <span class="bar-extra" style="color:var(--red)">25%</span>
+        </div>
+      </div>
+      <div class="insight info" style="font-size:11px;padding:8px 12px;margin-top:8px">
+        <b>月曜71% vs 土曜25%。</b>月曜は週明けの「生活改善モード」、土曜は外出で購買に至らない。
+      </div>
+    </div>
+
+    <!-- Factor 4: 自然検索 -->
+    <div class="factor-card" style="border-left:4px solid var(--gold)">
+      <div class="rank" style="background:var(--gold)">4</div>
+      <h4>自然検索（ブランド認知の厚み）</h4>
+      <div class="factor-desc">GSCの自然検索クリック数。多い＝広告以外でもブランドが認知されている</div>
+      <div class="bar-chart">
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px;color:var(--green)">5+クリック</span>
+          <div class="bar-track"><div class="bar-fill" style="width:60%;background:var(--green)">12勝8敗</div></div>
+          <span class="bar-extra" style="color:var(--green)">60%</span>
+        </div>
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px">2-5クリック</span>
+          <div class="bar-track"><div class="bar-fill" style="width:47%;background:#3b82f6">7勝8敗</div></div>
+          <span class="bar-extra">47%</span>
+        </div>
+        <div class="bar-item">
+          <span class="bar-label" style="font-size:11px;color:var(--red)">0-2クリック</span>
+          <div class="bar-track"><div class="bar-fill" style="width:41%;background:var(--red)">7勝10敗</div></div>
+          <span class="bar-extra" style="color:var(--red)">41%</span>
+        </div>
+      </div>
+      <div class="insight warn" style="font-size:11px;padding:8px 12px;margin-top:8px">
+        <b>検索5+クリックの日は60%で売上発生。</b>広告→認知→後日検索→購入のルート構築が鍵。
+      </div>
+    </div>
+  </div>
+
+  <!-- 勝ちパターンまとめ -->
+  <div class="formula-box" style="margin-top:20px">
+    <h3>勝ちパターン ＝ 4条件の組み合わせ</h3>
+    <div class="formula" style="font-size:16px">
+      <b>CPM &yen;1,500+</b> <span class="op">+</span>
+      <b>Freq &lt; 1.15</b> <span class="op">+</span>
+      <b>月金水</b> <span class="op">+</span>
+      <b>GSC 3+</b>
+    </div>
+    <div class="note">
+      <b>4条件中3つ以上を満たした日の売上率: 72%</b>（18日中13日）<br>
+      4条件中1つ以下しか満たさない日の売上率: 24%（21日中5日）<br><br>
+      これらの条件は「広告の設定」で制御可能です。<br>
+      CPM → クリエイティブの質を維持 / Frequency → キャップ設定 / 曜日 → 予算の曜日配分 / 自然検索 → コンテンツ施策
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 4: カレンダービュー -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section" id="s4">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--purple)">4</div>
+    <h2>月間カレンダーで見る「売れる日」の法則</h2>
+  </div>
+  <div class="desc">1月・2月の全日を売上で色分け。緑=売れた日、赤=売れなかった日。月前半に売上が集中し、月後半にギャップが発生するパターンが明確。</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <!-- 1月 -->
+    <div>
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:8px;text-align:center">1月（18件）</h3>
+      <div class="month-heatmap">
+        <div class="day-header">月</div><div class="day-header">火</div><div class="day-header">水</div><div class="day-header">木</div><div class="day-header">金</div><div class="day-header" style="color:#2563eb">土</div><div class="day-header" style="color:#dc2626">日</div>
+        <!-- Week 1: 1/1(木)→空空空1234 -->
+        <div class="day-cell empty"></div>
+        <div class="day-cell empty"></div>
+        <div class="day-cell empty"></div>
+        <div class="day-cell sale-1"><div class="day-num">1</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-1"><div class="day-num">2</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-0"><div class="day-num">3</div><div class="sale-count">-</div></div>
+        <div class="day-cell sale-1"><div class="day-num">4</div><div class="sale-count">1件</div></div>
+        <!-- Week 2 -->
+        <div class="day-cell sale-0"><div class="day-num">5</div><div class="sale-count">-</div></div>
+        <div class="day-cell sale-2"><div class="day-num">6</div><div class="sale-count">2件</div></div>
+        <div class="day-cell sale-1"><div class="day-num">7</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-1"><div class="day-num">8</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-0"><div class="day-num">9</div><div class="sale-count">-</div></div>
+        <div class="day-cell sale-2"><div class="day-num">10</div><div class="sale-count">2件</div></div>
+        <div class="day-cell sale-1"><div class="day-num">11</div><div class="sale-count">1件</div></div>
+        <!-- Week 3 -->
+        <div class="day-cell sale-1"><div class="day-num">12</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-1"><div class="day-num">13</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-1"><div class="day-num">14</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-0"><div class="day-num">15</div><div class="sale-count">-</div></div>
+        <div class="day-cell sale-0"><div class="day-num">16</div><div class="sale-count">-</div></div>
+        <div class="day-cell sale-2"><div class="day-num">17</div><div class="sale-count">2件</div></div>
+        <div class="day-cell sale-0"><div class="day-num">18</div><div class="sale-count">-</div></div>
+        <!-- Week 4 -->
+        <div class="day-cell sale-1"><div class="day-num">19</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-1"><div class="day-num">20</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-0" style="background:#fde8e8"><div class="day-num" style="color:#dc2626">21</div><div class="sale-count" style="color:#dc2626">GAP</div></div>
+        <div class="day-cell sale-0" style="background:#fde8e8"><div class="day-num" style="color:#dc2626">22</div><div class="sale-count" style="color:#dc2626">GAP</div></div>
+        <div class="day-cell sale-0" style="background:#fde8e8"><div class="day-num" style="color:#dc2626">23</div><div class="sale-count" style="color:#dc2626">GAP</div></div>
+        <div class="day-cell sale-0" style="background:#fde8e8"><div class="day-num" style="color:#dc2626">24</div><div class="sale-count" style="color:#dc2626">GAP</div></div>
+        <div class="day-cell sale-0" style="background:#fde8e8"><div class="day-num" style="color:#dc2626">25</div><div class="sale-count" style="color:#dc2626">GAP</div></div>
+        <!-- Week 5 -->
+        <div class="day-cell sale-0" style="background:#fde8e8"><div class="day-num" style="color:#dc2626">26</div><div class="sale-count" style="color:#dc2626">GAP</div></div>
+        <div class="day-cell sale-0" style="background:#fde8e8"><div class="day-num" style="color:#dc2626">27</div><div class="sale-count" style="color:#dc2626">GAP</div></div>
+        <div class="day-cell sale-0" style="background:#fde8e8"><div class="day-num" style="color:#dc2626">28</div><div class="sale-count" style="color:#dc2626">GAP</div></div>
+        <div class="day-cell sale-0" style="background:#fde8e8"><div class="day-num" style="color:#dc2626">29</div><div class="sale-count" style="color:#dc2626">GAP</div></div>
+        <div class="day-cell sale-1"><div class="day-num">30</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-0"><div class="day-num">31</div><div class="sale-count">-</div></div>
+        <div class="day-cell empty"></div>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:8px;font-size:10px;color:var(--sub)">
+        <span>1-20日: <b style="color:var(--green)">17件</b></span>
+        <span>21-31日: <b style="color:var(--red)">1件</b></span>
+      </div>
+    </div>
+
+    <!-- 2月 -->
+    <div>
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:8px;text-align:center">2月（14件）</h3>
+      <div class="month-heatmap">
+        <div class="day-header">月</div><div class="day-header">火</div><div class="day-header">水</div><div class="day-header">木</div><div class="day-header">金</div><div class="day-header" style="color:#2563eb">土</div><div class="day-header" style="color:#dc2626">日</div>
+        <!-- Week 1: 2/1(日) -->
+        <div class="day-cell empty"></div>
+        <div class="day-cell empty"></div>
+        <div class="day-cell empty"></div>
+        <div class="day-cell empty"></div>
+        <div class="day-cell empty"></div>
+        <div class="day-cell empty"></div>
+        <div class="day-cell sale-1"><div class="day-num">1</div><div class="sale-count">1件</div></div>
+        <!-- Week 2 -->
+        <div class="day-cell sale-1"><div class="day-num">2</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-0"><div class="day-num">3</div><div class="sale-count">-</div></div>
+        <div class="day-cell sale-1"><div class="day-num">4</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-2"><div class="day-num">5</div><div class="sale-count">2件</div></div>
+        <div class="day-cell sale-1"><div class="day-num">6</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-0"><div class="day-num">7</div><div class="sale-count">-</div></div>
+        <div class="day-cell sale-0"><div class="day-num">8</div><div class="sale-count">-</div></div>
+        <!-- Week 3 -->
+        <div class="day-cell sale-2"><div class="day-num">9</div><div class="sale-count">2件</div></div>
+        <div class="day-cell sale-0"><div class="day-num">10</div><div class="sale-count">-</div></div>
+        <div class="day-cell sale-1"><div class="day-num">11</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-0"><div class="day-num">12</div><div class="sale-count">-</div></div>
+        <div class="day-cell sale-1"><div class="day-num">13</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-0"><div class="day-num">14</div><div class="sale-count">-</div></div>
+        <div class="day-cell sale-1"><div class="day-num">15</div><div class="sale-count">1件</div></div>
+        <!-- Week 4 -->
+        <div class="day-cell sale-1"><div class="day-num">16</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-0" style="background:#fde8e8"><div class="day-num" style="color:#dc2626">17</div><div class="sale-count" style="color:#dc2626">GAP</div></div>
+        <div class="day-cell sale-0" style="background:#fde8e8"><div class="day-num" style="color:#dc2626">18</div><div class="sale-count" style="color:#dc2626">GAP</div></div>
+        <div class="day-cell sale-0" style="background:#fde8e8"><div class="day-num" style="color:#dc2626">19</div><div class="sale-count" style="color:#dc2626">GAP</div></div>
+        <div class="day-cell sale-1"><div class="day-num">20</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-0"><div class="day-num">21</div><div class="sale-count">-</div></div>
+        <div class="day-cell sale-0" style="background:#fde8e8"><div class="day-num" style="color:#dc2626">22</div><div class="sale-count" style="color:#dc2626">GAP</div></div>
+        <!-- Week 5 -->
+        <div class="day-cell sale-0" style="background:#fde8e8"><div class="day-num" style="color:#dc2626">23</div><div class="sale-count" style="color:#dc2626">GAP</div></div>
+        <div class="day-cell sale-0" style="background:#fde8e8"><div class="day-num" style="color:#dc2626">24</div><div class="sale-count" style="color:#dc2626">GAP</div></div>
+        <div class="day-cell sale-0" style="background:#fde8e8"><div class="day-num" style="color:#dc2626">25</div><div class="sale-count" style="color:#dc2626">GAP</div></div>
+        <div class="day-cell sale-0" style="background:#fde8e8"><div class="day-num" style="color:#dc2626">26</div><div class="sale-count" style="color:#dc2626">GAP</div></div>
+        <div class="day-cell sale-1"><div class="day-num">27</div><div class="sale-count">1件</div></div>
+        <div class="day-cell sale-0"><div class="day-num">28</div><div class="sale-count">-</div></div>
+        <div class="day-cell empty"></div>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:8px;font-size:10px;color:var(--sub)">
+        <span>1-16日: <b style="color:var(--green)">12件</b></span>
+        <span>17-28日: <b style="color:var(--red)">2件</b></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight danger" style="margin-top:16px">
+    <b>月前半集中・月後半ギャップの法則が明確。</b><br>
+    1月: 1-20日に17件（85%） vs 21-31日に1件（6%）<br>
+    2月: 1-16日に12件（86%） vs 17-28日に2件（14%）<br>
+    <b>両月とも月後半にギャップが発生。</b> これは偶然ではなく、以下の複合要因です：
+  </div>
+
+  <table class="mini-table" style="margin-top:12px">
+    <tr><th style="width:180px">月後半ギャップの要因</th><th style="width:60px">影響度</th><th>解説</th></tr>
+    <tr><td>クリエイティブ疲弊の蓄積</td><td style="text-align:center;color:var(--red);font-weight:700">大</td>
+    <td style="text-align:left;font-size:11px">月初に新鮮だった広告が3週目に入り、同じターゲットに繰り返し表示（Frequency上昇）。Meta AIが配信先を変え始める。</td></tr>
+    <tr><td>CPMの低下トレンド</td><td style="text-align:center;color:var(--red);font-weight:700">大</td>
+    <td style="text-align:left;font-size:11px">W1-W2: CPM &yen;2,500 → W4-W5: &yen;1,400（-44%）。広告の質が週次で下がる傾向。</td></tr>
+    <tr><td>25日前の消費抑制</td><td style="text-align:center;color:var(--orange);font-weight:700">中</td>
+    <td style="text-align:left;font-size:11px">給料日（25日）前の21-24日は消費が最も冷え込む期間（SaleCycle調査: 月内最低の購買日）。</td></tr>
+    <tr><td>奇数月は年金支給なし</td><td style="text-align:center;color:var(--orange);font-weight:700">中</td>
+    <td style="text-align:left;font-size:11px">50-70代ターゲットの年金支給は偶数月15日。1月・3月は年金支給がなく、財布の紐が固い。</td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 5: 36件達成アクションプラン -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section" id="s5">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--green)">5</div>
+    <h2>36件達成アクションプラン</h2>
+  </div>
+  <div class="desc">予算2倍（33件ベース）に、以下の施策で+3〜6件を上乗せし36件以上を目指す。</div>
+
+  <!-- 積み上げイメージ -->
+  <div style="background:#f8fafc;border-radius:10px;padding:20px;margin:16px 0">
+    <div style="font-size:13px;font-weight:700;margin-bottom:12px">月間購入数の積み上げイメージ</div>
+    <div style="display:flex;align-items:flex-end;gap:4px;height:200px;padding-bottom:20px;border-bottom:2px solid #e5e7eb;position:relative">
+      <!-- 目標ライン -->
+      <div style="position:absolute;left:0;right:0;bottom:calc(20px + 180px * 36/42);border-top:2px dashed var(--red);z-index:2">
+        <span style="position:absolute;right:0;top:-16px;font-size:10px;color:var(--red);font-weight:700">目標 36件</span>
+      </div>
+      <!-- 現状 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px">
+        <div style="font-size:10px;font-weight:700;color:var(--sub)">現状</div>
+        <div style="width:100%;height:calc(180px * 16/42);background:#94a3b8;border-radius:6px 6px 0 0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:16px">16</div>
+      </div>
+      <!-- 予算2x -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px">
+        <div style="font-size:10px;font-weight:700;color:var(--sub)">予算2&times;</div>
+        <div style="width:100%;height:calc(180px * 33/42);background:var(--accent);border-radius:6px 6px 0 0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:16px">33</div>
+      </div>
+      <!-- +曜日最適化 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px">
+        <div style="font-size:10px;font-weight:700;color:var(--sub)">+曜日最適化</div>
+        <div style="width:100%;display:flex;flex-direction:column">
+          <div style="height:calc(180px * 2/42);background:var(--green);border-radius:6px 6px 0 0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:10px">+2</div>
+          <div style="height:calc(180px * 33/42);background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px">33</div>
+        </div>
+      </div>
+      <!-- +CPM管理 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px">
+        <div style="font-size:10px;font-weight:700;color:var(--sub)">+CPM管理</div>
+        <div style="width:100%;display:flex;flex-direction:column">
+          <div style="height:calc(180px * 2/42);background:#10b981;border-radius:6px 6px 0 0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:10px">+2</div>
+          <div style="height:calc(180px * 2/42);background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:10px">+2</div>
+          <div style="height:calc(180px * 33/42);background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px">33</div>
+        </div>
+      </div>
+      <!-- 全施策 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px">
+        <div style="font-size:10px;font-weight:700;color:var(--green)">全施策適用</div>
+        <div style="width:100%;display:flex;flex-direction:column">
+          <div style="height:calc(180px * 2/42);background:#065f46;border-radius:6px 6px 0 0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:10px">+2</div>
+          <div style="height:calc(180px * 2/42);background:#10b981;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:10px">+2</div>
+          <div style="height:calc(180px * 2/42);background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:10px">+2</div>
+          <div style="height:calc(180px * 33/42);background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px">33</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10px;color:#aaa">
+      <span>現状&yen;2,000/日</span>
+      <span>予算2&times;</span>
+      <span>+施策1</span>
+      <span>+施策1,2</span>
+      <span style="color:var(--green);font-weight:700">39件到達</span>
+    </div>
+  </div>
+
+  <div class="action-list">
+    <div class="action-card" style="border-left:3px solid var(--green)">
+      <h4>曜日別予算メリハリ配分</h4>
+      <p>
+        <b>月曜・金曜は予算130%、土曜は予算70%に設定。</b><br>
+        月曜(71%)と金曜(62%)に予算を厚くし、土曜(25%)を抑制。月4回の土曜で浮いた約&yen;3,600を月曜4回に上乗せ。<br>
+        <b>期待効果：月+2件</b>（土曜の無駄削減 + 月金の購入率を最大活用）
+      </p>
+      <span class="impact high">期待効果 +2件/月</span>
+    </div>
+
+    <div class="action-card" style="border-left:3px solid var(--red)">
+      <h4>CPMモニタリング &amp; クリエイティブ2週サイクル</h4>
+      <p>
+        <b>CPM &yen;1,500以下になったら即クリエイティブ差し替え。</b><br>
+        現状、月後半にCPMが44%低下し売上が激減。2週間ごとにサムネ・冒頭3秒を変えてMetaのアルゴリズムをリセット。<br>
+        価格訴求の勝ちクリエイティブをベースに、フック違い・配色違いのバリエーションを常時2〜3本待機。<br>
+        <b>期待効果：月+2件</b>（月後半のギャップ日を5日→2日に短縮）
+      </p>
+      <span class="impact high">期待効果 +2件/月</span>
+    </div>
+
+    <div class="action-card" style="border-left:3px solid var(--purple)">
+      <h4>Frequencyキャップ 1.15以下を維持</h4>
+      <p>
+        <b>Meta広告のフリークエンシーキャップを「7日間で1回」に設定。</b><br>
+        Frequency 1.18以上で売上率が29%に急落。類似オーディエンスを1%→2-3%に拡大し、新しいユーザーに到達させる。<br>
+        オーディエンスが枯渇したら、興味関心ターゲティングを追加（美容、健康食品、シリカ水関連）。<br>
+        <b>期待効果：月+1件</b>
+      </p>
+      <span class="impact medium">期待効果 +1件/月</span>
+    </div>
+
+    <div class="action-card" style="border-left:3px solid var(--accent)">
+      <h4>多変量LP検証（4パターン並行）</h4>
+      <p>
+        <b>購入特化LP、動画LP、ノムシリカライト寄せLP、現行LPの4本を並行検証。</b><br>
+        現LPのClarityデータではスクロール50%地点で急激な離脱。中間CTAの追加とフォームの簡素化で改善余地あり。<br>
+        悩み訴求 → 価格訴求の2段階導線も検証対象。<br>
+        <b>期待効果：CVR 10-20%改善 → 月+1件</b>
+      </p>
+      <span class="impact medium">期待効果 +1件/月</span>
+    </div>
+
+    <div class="action-card" style="border-left:3px solid var(--gold)">
+      <h4>月後半の特別施策（21日以降）</h4>
+      <p>
+        <b>月後半にギャップが集中するパターンへの対策。</b><br>
+        &bull; 20日前後でクリエイティブを完全リフレッシュ（月2回更新のうち1回を20日に設定）<br>
+        &bull; 21-24日（給料日前の消費冷え込み期間）はリマーケティングのみに切り替え<br>
+        &bull; 25-28日（給料日後）は新規配信予算を通常の120%に増額<br>
+        <b>期待効果：月+2件</b>
+      </p>
+      <span class="impact high">期待効果 +2件/月</span>
+    </div>
+  </div>
+
+  <div class="insight success" style="margin-top:16px">
+    <b>5施策合計: +6〜8件/月。</b> 予算2倍ベース33件 + 施策6件 = <b>39件/月</b>で目標36件を超える見込み。<br>
+    重要なのは「予算を上げるだけ」ではなく「質の管理」を同時に行うこと。特にCPMモニタリングと曜日配分は即効性が高い。
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 6: 定期便購入タイミング調査 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section" id="s6">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--gold)">6</div>
+    <h2>定期便・サブスク購入タイミング調査</h2>
+  </div>
+  <div class="desc">一般的なデータソースに基づく月内の購入タイミングパターン。50-70代女性ターゲットに特に関連する「年金支給日効果」を含む。</div>
+
+  <div class="research-grid">
+    <div class="research-card" style="border-left:4px solid var(--accent)">
+      <h4><span style="font-size:18px">&#128181;</span> 給料日効果（25日）</h4>
+      <div class="stat" style="color:var(--accent)">+33%</div>
+      <div class="detail">
+        InMarket調査（2024）: 給料日に消費が<b>33%増加</b>し、4日間は高止まり。<br>
+        SaleCycle: 月内で<b>26日が最も売れる日</b>。29日が2番目。<br>
+        21日は月内最低の購買日（給料日前の抑制期間）。<br>
+        <b>→ 25〜28日は新規配信の予算を増やすタイミング。</b>
+      </div>
+    </div>
+    <div class="research-card" style="border-left:4px solid var(--red)">
+      <h4><span style="font-size:18px">&#128116;</span> 年金支給日効果（偶数月15日）</h4>
+      <div class="stat" style="color:var(--red)">+4.1%</div>
+      <div class="detail">
+        日経新聞（全国分析）: 年金支給日（偶数月15日）は給料日を<b>超える集客・売上効果</b>。<br>
+        給料日3日間を100とすると、年金日の来客=101.7、売上=<b>104.1</b>。<br>
+        高齢化が進む地域ほど効果大（北海道: 107.4）。<br>
+        <b>→ 50-70代ターゲットでは給料日より年金日が重要。</b>
+      </div>
+    </div>
+    <div class="research-card" style="border-left:4px solid var(--green)">
+      <h4><span style="font-size:18px">&#128200;</span> 月初効果（1-5日）</h4>
+      <div class="detail" style="margin-top:8px">
+        SaleCycle: 月初は「新月効果」で消費が活性化する傾向。<br>
+        実際のミチルシリカデータでも確認:<br>
+        &bull; 1月1-5日: 4件/5日 (0.80件/日)<br>
+        &bull; 2月1-6日: 7件/6日 (1.17件/日)<br>
+        <b>→ 月初5日間は年間を通じて購買意欲が高い。</b>
+      </div>
+    </div>
+    <div class="research-card" style="border-left:4px solid var(--purple)">
+      <h4><span style="font-size:18px">&#128337;</span> 3月の注意点</h4>
+      <div class="detail" style="margin-top:8px">
+        <b>3月は奇数月（年金支給なし）。</b><br>
+        2月15日に年金が支給された後、次の支給は4月15日。<br>
+        50-70代ターゲットは3月中盤以降に財布の紐が固くなる傾向。<br>
+        <b>→ 3月の勝負は前半2週間。月後半はリマケ中心に切り替え。</b><br><br>
+        <span style="color:var(--green);font-weight:600">対策: ポストカードを3月上旬に届け、月初の購買意欲を捕まえる。</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 月内タイミングまとめ表 -->
+  <h3 style="font-size:14px;font-weight:700;margin:20px 0 10px">月内タイミング × 広告戦略マトリクス</h3>
+  <table class="mini-table">
+    <tr>
+      <th style="width:120px">期間</th>
+      <th>購買意欲</th>
+      <th>根拠</th>
+      <th style="width:200px">推奨広告戦略</th>
+    </tr>
+    <tr class="highlight">
+      <td style="font-weight:700;color:var(--green)">1〜5日（月初）</td>
+      <td style="text-align:center"><span style="color:var(--green);font-weight:800;font-size:16px">&#9650;&#9650;</span></td>
+      <td style="text-align:left;font-size:11px">新月効果 + ミチルシリカ実績で1.0件/日</td>
+      <td style="text-align:left;font-size:11px;font-weight:600">予算120%で新規配信を強化</td>
+    </tr>
+    <tr>
+      <td>6〜14日</td>
+      <td style="text-align:center"><span style="color:#3b82f6;font-weight:800;font-size:16px">&#9650;</span></td>
+      <td style="text-align:left;font-size:11px">通常期。安定した配信。</td>
+      <td style="text-align:left;font-size:11px">標準予算。CPMモニタリング継続。</td>
+    </tr>
+    <tr class="highlight">
+      <td style="font-weight:700;color:var(--green)">15日（偶数月）</td>
+      <td style="text-align:center"><span style="color:var(--green);font-weight:800;font-size:16px">&#9650;&#9650;&#9650;</span></td>
+      <td style="text-align:left;font-size:11px">年金支給日。50-70代の消費ピーク。</td>
+      <td style="text-align:left;font-size:11px;font-weight:600;color:var(--green)">偶数月15日前後3日間は最大予算。</td>
+    </tr>
+    <tr>
+      <td>16〜20日</td>
+      <td style="text-align:center"><span style="font-size:16px">&#9644;</span></td>
+      <td style="text-align:left;font-size:11px">広告疲弊の蓄積開始期。</td>
+      <td style="text-align:left;font-size:11px">20日にクリエイティブリフレッシュ。</td>
+    </tr>
+    <tr class="danger-row">
+      <td style="font-weight:700;color:var(--red)">21〜24日</td>
+      <td style="text-align:center"><span style="color:var(--red);font-weight:800;font-size:16px">&#9660;&#9660;</span></td>
+      <td style="text-align:left;font-size:11px">給料日前。月内最低の消費期間。</td>
+      <td style="text-align:left;font-size:11px;font-weight:600;color:var(--red)">新規配信を抑制。リマケのみ。</td>
+    </tr>
+    <tr class="highlight">
+      <td style="font-weight:700;color:var(--green)">25〜28日</td>
+      <td style="text-align:center"><span style="color:var(--green);font-weight:800;font-size:16px">&#9650;&#9650;</span></td>
+      <td style="text-align:left;font-size:11px">給料日後。26日が月内最高の購買日。</td>
+      <td style="text-align:left;font-size:11px;font-weight:600">新クリエイティブで予算120%復帰。</td>
+    </tr>
+    <tr>
+      <td>29〜31日</td>
+      <td style="text-align:center"><span style="color:#3b82f6;font-weight:800;font-size:16px">&#9650;</span></td>
+      <td style="text-align:left;font-size:11px">給料日余波。29日が2番目に売れる日。</td>
+      <td style="text-align:left;font-size:11px">標準予算で維持。</td>
+    </tr>
+  </table>
+
+  <div class="insight info" style="margin-top:14px">
+    <b>データソース:</b> SaleCycle 2023 Ecommerce Report / InMarket Payday InSights 2024 / 日経新聞 全国スーパー年金支給日分析 / Gallup Consumer Spending / Journal of Consumer Research 2021<br>
+    <b>注意:</b> 上記は一般的なEC購買パターン。ミチルシリカの実データと照合すると、月前半集中の傾向が一致しており、信頼性は高い。
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 7: 結論 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section" id="s7" style="border-top:4px solid var(--accent)">
+  <div class="section-header">
+    <div class="section-icon" style="background:#0f172a">7</div>
+    <h2>結論とネクストステップ</h2>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#0f172a,#1e3a5f);color:#fff;padding:24px 28px;border-radius:12px;margin:16px 0">
+    <h3 style="font-size:16px;margin-bottom:14px">36件達成のための3つの柱</h3>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+      <div style="background:rgba(255,255,255,.08);border-radius:8px;padding:16px;text-align:center">
+        <div style="font-size:32px;font-weight:900;color:#6ee7b7">33件</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:4px">柱1: 予算2倍</div>
+        <div style="font-size:10px;color:#6ee7b7;margin-top:6px">IG &yen;3,000 + Yahoo &yen;1,000</div>
+      </div>
+      <div style="background:rgba(255,255,255,.08);border-radius:8px;padding:16px;text-align:center">
+        <div style="font-size:32px;font-weight:900;color:#93c5fd">+6件</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:4px">柱2: 勝ちパターン適用</div>
+        <div style="font-size:10px;color:#93c5fd;margin-top:6px">曜日 + CPM + Freq管理</div>
+      </div>
+      <div style="background:rgba(255,255,255,.08);border-radius:8px;padding:16px;text-align:center">
+        <div style="font-size:32px;font-weight:900;color:#fcd34d">39件</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:4px">合計到達見込み</div>
+        <div style="font-size:10px;color:#fcd34d;margin-top:6px">目標36件を超過</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size:14px;margin:20px 0 10px">3月のアクション優先順位</h3>
+  <table class="mini-table">
+    <tr><th style="width:30px">#</th><th style="width:200px">アクション</th><th style="width:70px">期限</th><th>具体内容</th></tr>
+    <tr class="highlight">
+      <td style="font-weight:800;color:var(--green);text-align:center">1</td>
+      <td style="font-weight:700">予算増額の設定</td>
+      <td style="text-align:center">3月初</td>
+      <td style="text-align:left;font-size:11px">IG &yen;3,000/日 + Yahoo &yen;1,000/日に変更。曜日別自動ルールを設定（月金130%、土70%）。</td>
+    </tr>
+    <tr class="highlight">
+      <td style="font-weight:800;color:var(--green);text-align:center">2</td>
+      <td style="font-weight:700">A/Bテスト結果の反映</td>
+      <td style="text-align:center">3月初</td>
+      <td style="text-align:left;font-size:11px">価格訴求（CTR 2.83%勝利）をメインクリエイティブに。悩み訴求はサブとして残す。</td>
+    </tr>
+    <tr>
+      <td style="font-weight:800;text-align:center">3</td>
+      <td style="font-weight:700">新LP 4本のセット</td>
+      <td style="text-align:center">3月中旬</td>
+      <td style="text-align:left;font-size:11px">購入特化LP、動画LP 2本、ノムシリカライト寄せLP。悩み→価格の2段階導線も検証。</td>
+    </tr>
+    <tr>
+      <td style="font-weight:800;text-align:center">4</td>
+      <td style="font-weight:700">CPM日次モニタリング開始</td>
+      <td style="text-align:center">3月〜</td>
+      <td style="text-align:left;font-size:11px">CPM &yen;1,500以下 → クリエイティブ差し替えアラート。Frequency 1.15超 → オーディエンス拡大。</td>
+    </tr>
+    <tr>
+      <td style="font-weight:800;text-align:center">5</td>
+      <td style="font-weight:700">20日にクリエイティブリフレッシュ</td>
+      <td style="text-align:center">3/20</td>
+      <td style="text-align:left;font-size:11px">月後半ギャップ対策として、20日に新クリエイティブを投入。25日の給料日効果を狙う。</td>
+    </tr>
+    <tr>
+      <td style="font-weight:800;text-align:center">6</td>
+      <td style="font-weight:700">ポストカード発送</td>
+      <td style="text-align:center">3月上旬</td>
+      <td style="text-align:left;font-size:11px">解約者リターゲティング。3月前半の購買意欲が高い時期に届ける。</td>
+    </tr>
+  </table>
+
+  <div style="background:#f8fafc;border-radius:10px;padding:18px;margin-top:20px;border:1px solid var(--border)">
+    <h3 style="font-size:14px;margin-bottom:10px">最も重要なメッセージ</h3>
+    <p style="font-size:13px;line-height:1.8">
+      <b>「予算を2倍にする」だけでは36件に届きません。</b><br>
+      予算増で33件まで到達可能ですが、残り3件は「広告の質」で勝ち取る必要があります。<br><br>
+      <b>具体的には:</b><br>
+      &bull; <b>CPMが下がったら（= 広告の質が落ちたら）即座にクリエイティブを変える</b><br>
+      &bull; <b>同じ人に見せすぎない（Frequency管理）</b><br>
+      &bull; <b>土曜は控えめ、月曜・金曜に集中</b><br>
+      &bull; <b>月後半のギャップは「消費者心理 &times; 広告疲弊」の複合要因。20日にリフレッシュ</b><br><br>
+      この4点を守れば、現状の月16件から<b>月39件</b>への到達が見込めます。
+    </p>
+  </div>
+</div>
+
+<!-- ====== FOOTER ====== -->
+<div class="footer">
+  ミチルシリカ 勝ちパターン分析 & 予算倍増シミュレーション | 2026/03/03<br>
+  Data: Meta Ads Manager / Yahoo広告 / Google Analytics 4 / Google Search Console / Microsoft Clarity / SaleCycle / InMarket / 日経新聞
+</div>
+
+</div>
+</body>
+</html>
